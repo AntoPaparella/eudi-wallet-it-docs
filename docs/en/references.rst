@@ -39,7 +39,7 @@ Below are the description of acronyms and definitions which are useful for furth
      - Notes
    * - Accreditation Process
      - Process performed by the National Accreditation Body to accreditate CABs. As a result of the Accreditation Process, a NAB issues an accreditation certificate to a CAB.
-     - | 
+     -  
    * - Authentication
      - Pursuant to Article 3, paragraph 1, point 5 of the eIDAS Regulation, an electronic process that enables the confirmation of the Electronic Identification of a natural or legal person, or the origin and integrity of data in electronic form (in the context of the Guidelines, for example, Attributes).
      - [According to LLGG]
@@ -147,21 +147,185 @@ Below are the description of acronyms and definitions which are useful for furth
    * - Pseudonym
      - Pseudonyms are alternative identifier used to represent an entity (such as a person or organization) without revealing their true identity. It provides a layer of privacy and anonymity while still allowing for consistent authentication and authorization within a system.
      - 
+   * - Qualified Electronic Attestation of Attributes (QEAA)
+     - A digitally verifiable attestation in electronic form, issued by a QTSP, that substantiates a person's possession of attributes.
+     - *Alternative term:* Electronic Attestation of Attributes
+   * - Qualified Electronic Attestation of Attributes Provider
+     - Organizational Entity which serves as Credential issuer providing Qualified Electronic Attestations of Attributes (QEAAs).
+     - *Alternative term:* Electronic Attestation of Attributes Provider
+   * - Qualified Electronic Signature Provider
+     - The Electronic Trust Service Provider responsible for the issuing of Qualified Electronic Signature certificates to the User.
+     - 
+   * - Registration Authority
+     - A party responsible for registering all the Organizational Entities by issuing a Trust Assertion
+     - *Alternative term:* Registrar.
+   * - Registration Process
+     - Process performed by a Registration Authority verifying necessary information to ensure Organizational Entity eligibility and compliance with the relevant rules and standards. The main goal of the Registration Process is for the Organizational Entity to receive one or more Trust Assertions to be used for the Trust Evaluation processes.
+     - 
+   * - Relying Party
+     - An Organizational Entity that relies upon an electronic identification or a Trust Service originating from a Wallet Instance.
+     - | Revised from ARF v1.4.
+       | 
+       | *Differences:* renamed “natural or legal person” in “Organizational Entity”.
+   * - Relying Party Instance
+     - A Relying Party Instance in the context of a mobile application or a standalone embedded device refers to a specific deployment of the application or device. These instances depend on an User Authentication through a Wallet Instance to confirm User identities before granting access to their functionalities. Each version or environment where the application or device is running, be it a particular release of a mobile app installed on a User's smartphone or a specific embedded device in use, constitutes a separate instance. In case of proximity supervised scenarios, it belongs to and is controlled by a Verifier.
+     - | Revised from ARF v1.4.
+       | 
+       | *Differences:* added a sentence on proximity supervised scenarios.
+       | 
+       | *Alternative terms:* Verifier App.
+   * - Selective Disclosure
+     - Functionality enabling the User to submit a subset of Digital Credentials Data 
+     - Aligned with DPCM comma 3
+   * - Self Sovereignty Identity (SSI)
+     - Is an approach to digital identity that gives individuals control over the information they use to prove who they are to websites, services, and applications across the web.
+     - 
+   * - Supervision Process
+     - Process performed by a Supervisory Body to review and ensure proper functioning of the Wallet Provider and other relevant actors.
+     - 
+   * - Technical Solutions
+     - Set of hardware and software systems and services implemented by the Wallet Solution Providers, the PID Provider, Qualified Electronic Attestation of Attributes Provider, Verifiers and Aggregators.
+     - Aligned with DPCM comma 3
+   * - Technical Specifications
+     - The specifications that provide the technical architecture, implementation framework and design requirements for the User Experience adopted by the IT-Wallet System Technical Solutions.
+     - Aligned with DPCM comma 3
+   * - Trust
+     - Trust, within the technical field, is the confidence in the security, reliability, and integrity of entities (such as systems, organizations, or individuals) and their actions, ensuring that they will operate as expected in a secure and predictable manner. It is often established through empirical proof, such as past performance, security certifications, or transparent operational practices, which demonstrate a track record of adherence to security standards and ethical conduct.
+     - 
+   * - Trust Assertion
+     - Cryptographically verifiable artifact that proves the compliance of an Organizational Entity with known rules and requirements defined within the Trust Model.
+     - *Alternative terms:* Verifiable Attestation, Access Certificate.
+   * - Trust Attestation
+     - Electronic attestation of an entity's compliance with the national regulatory framework, which is cryptographically verifiable and cannot be repudiated over time by the entity that issued it. A Trust Attestation is always related to a particular Trust Framework.
+     - 
+   * - Trust Evaluation
+     - The process of verifying the trustworthiness of registered Organizational Entities, in accordance with pre-established rules. For example, involving the retrieval and validation of entity configurations and trust chains.
+     - *Alternative terms:* Trust Discovery, Trust Establishment.
+   * - Trust Framework
+     - A legally enforceable set of operational and technical rules and agreements that govern a multi-party system designed for conducting specific types of transactions among a community of participants and bound by a common set of requirements.
+     - 
+   * - Trust Layer
+     - Architectural component that enables IT-Wallet System participants to establish trust, in terms of reliability and compliance of all participants with the regulatory framework governing the digital identity system.
+     - 
+   * - Trust Model
+     - Collection of rules that ensure the legitimacy of the components and the entities involved in the EUDI Wallet ecosystem.
+     - 
+   * - Trust Relationship
+     - Positive outcome of Trust Evaluation, which produces a reliable relationship between Organizational Entities, where one Organizational Entity trusts the other to securely handle data, execute transactions, or perform actions on its behalf.
+     - 
+   * - Trusted List
+     - Repository of information about authoritative entities in a particular legal or contractual context which provides information about their current and historical status. It serves as the bedrock of trust, acting as federative sources that publish the crucial information about root entities within the ecosystem.
+     - 
+   * - User
+     - A natural or legal person, or a natural person representing another natural person or a legal person, that uses a trust services or electronic identification means. provided in accordance with EUDI Wallet Architecture Reference Framework.
+     - Notes
+   * - Name
+     - | Aligned with ARF v1.4.
+       | 
+     - | *Alternative terms:* EUDI Wallet User.
+   * - User Attribute
+     - A characteristic, quality, right or permission of a natural or legal person or of an object.
+     - | Aligned with ARF v1.4.
+       | 
+       | *Alternative terms:* Attribute, User Claim.
+   * - Verifier
+     - Also known as Credential Verifier. It is a natural person or a legal person using an Relying Party Instance.
+     - 
+   * - Wallet Instance
+     - It is an application installed and configured on a User's device belonging to and which is controlled by a User, as part of the Wallet Unit. The Wallet Instance provides graphical interfaces for User interaction with the Wallet Unit.
+     - | Revised from Implementing Act.
+       | 
+       | *Differences:* editorial.
+       | 
+       | *Alternative terms:* EUDI Wallet Instance, Wallet
+   * - Wallet Provider
+     - An Organizational Entity, responsible for the management and provisioning of a Wallet Solution.
+     - | Revised from ARF v1.4 and Implementing Act.
+       | *Differences:* editorial (use of Organizational Entity instead of public or private organisation and natural or legal person, respectively).
+       | 
+       | *Alternative terms:* EUDI Wallet Provider, Wallet Solution Provider
+   * - Wallet Provider Backend
+     - Is the technical infrastructure and server-side components, including a set of endpoints, managed by a Wallet Provider.
+     - 
+   * - Wallet Secure Cryptographic Application (WSCA)
+     - An application that manages Critical Assets utilizing the cryptographic functions provided by the WSCD.
+     - | The type of WSCAs depends on the type of WSCD. For example, it might be an eUICC or JavaCard applet for a local UICC or an external JavaCard-based smart card solution, while in a local Android hardware-backed Keystore solution, native trusted applications may function as the WSCA.
+       | 
+       | Revised from Implementing Act.
+       | 
+       | *Differences:* editorial.
+   * - Wallet Secure Cryptographic Device (WSCD)
+     - It is a tamper-resistant device that provides an environment that is linked to and used by the WSCA to protect Critical Assets and provide cryptographic functions for the secure execution of critical operations.
+     - | Example of WSCD type are: remote solutions (e.g., HSMs), local external solutions (e.g., smart cards), local device-integrated solutions (e.g., UICC or native cryptographic hardware, such as the iOS Secure Enclave, Android Hardware Backed Keystore or StrongBox), and hybrid solutions that combine two  or more of these types.
+       | 
+       | Aligned with Implementing Act.
+   * - Wallet Solution
+     - A Wallet Solution is the entire eIDAS-compliant product (combination of software, hardware, services and settings) provided by a Wallet Provider to Users and certified as EUDI-compliant by a Conformity Assessment Body (CAB).
+     - | Revised from ARF v1.4 and Implementing Act.
+       | *Differences:* editorial.
+       | 
+       | *Alternative terms:* EUDI Wallet Solution.
+   * - Wallet Unit
+     - Unique configuration of a Wallet Solution that includes Wallet Instances, WSCAs, and WSCDs provided by a Wallet Provider to an individual Wallet User. For device-based WSCD implementations like TEEs, the Wallet Provider may not supply the WSCD itself.
+     - | A Wallet Unit should be understood as a specific setup of the Wallet Solution for an individual User. It should include the application installed on a Wallet User's device or environment that the Wallet User interacts with directly (the Wallet Instance) and the necessary security features to protect the user's data and transactions. These security features should involve special software or hardware to encrypt and safeguard sensitive information.
+       | 
+       | Revised from Implementing Act.
+       | *Differences:* added sentence that specify that a Wallet Provider may not supply the WSCD.
+   * - Wallet Unit Attestation
+     - It is a data object issued by a Wallet Provider that describes the components of the Wallet Unit. It allows authentication and validation of those components and is cryptographically bound to Wallet Secure Cryptographic Devices.
+     - *Alternative terms:* Wallet Attestation or Wallet Instance Attestation.
+
+
+Design Defined terms 
+--------
+Below are the main defined terms and definitions related to User Experience aspects:
+
+.. list-table::
+   :header-rows: 1
+
    * - Name
      - Description
      - Notes
-   * - Name
-     - Description
-     - Notes
-   * - Name
-     - Description
-     - Notes
-   * - Name
-     - Description
-     - Notes
+   * - Authentication Button
+     - Interactive element of the Interface enabling the User to access the Authentication process and use the services provided by Verifiers.
+     - 
+   * - Catalog
+     - Section of the Wallet Instance that displays the list of all the available Digital Credentials that can be obtained through the IT-Wallet Instance, and from which it is possible to start the issuing process.
+     - 
+   * - Detailed View
+     - Extended display mode of the Digital Credentials, showing all the Attributes included.
+     - 
+   * - Engagement Button
+     - Interactive element of the Interface that allows the User to activate the process of issuing a Digital Credential from the Touchpoint of the authorised Authentic Source.
+     - 
+   * - Interaction Model
+     - A set of characteristics that define how the User interacts with the Interface of one or multiple Touchpoints in order to complete a task or operation and achieve a specific goal.
+     - 
+   * - Interface
+     - The set of graphic, typographical and interactive elements through which the User interacts with the Touchpoint(s) responsible for the delivery of a product or service, in compliance with [GL_DESIGN].
+     - 
+   * - Preview View
+     - Compact visualization mode of the Digital Credential that allows it to be recognized and distinguished in a list of Electronic Attestations thanks to the presence of minimum data or elements.
+     - 
+   * - Service Model
+     - Set of interactions between actors and touchpoints necessary for service delivery and fruition.
+     - 
+   * - Touchpoint
+     - Point of contact (digital and not) between the User and the product or service.
+     - 
+   * - Trust Mark
+     - A graphic element that gives evidence of the participation of the Primary Actors in the IT-Wallet System and thus guarantees adherence to its standards.
+     - 
+   * - User Experience
+     - The set of people's perceptions and reactions resulting from the use and/or expectation of use of a product, system or service.
+     - Aligned with ISO 9241-210:2010  
+   * - Visual Identity
+     - Coherent set of graphic and typographic elements that visually represent a product or service and make it distinguishable and recognizable.
+     - 
 
 Acronyms
 --------
+Below are the main acronyms used in the document:
 
 .. list-table::
   :widths: 20 80
@@ -169,32 +333,37 @@ Acronyms
 
   * - **Acronym**
     - **Description**
+  * - **AAL**
+    - Authenticator Assurance Level as defined in `<https://csrc.nist.gov/glossary/term/authenticator_assurance_level>`_
+  * - **ANPR**
+    - Italian National Registry of the Resident Population
+  * - **API**
+    - Application Programming Interface
+  * - **CIE**
+    - National Electronic Identity Card
+  * - **IAM**
+    - Identity and Access Management
+  * - **LoA**
+    - Level of Assurance
   * - **OID4VP**
     - OpenID for Verifiable Presentation
   * - **PID**
     - Person Identification Data
+  * - **PII**
+    - Personally Identifiable Information
+  * - **SPID**
+    - Italian Public Digital Identity System
+  * - **SSI**
+    - Self Sovereign Identity
   * - **VC**
     - Verifiable Credential
   * - **VP**
     - Verifiable Presentation
-  * - **API**
-    - Application Programming Interface
-  * - **LoA**
-    - Level of Assurance
-  * - **AAL**
-    - Authenticator Assurance Level as defined in `<https://csrc.nist.gov/glossary/term/authenticator_assurance_level>`_
-  * - **PII**
-    - Personally Identifiable Information
-  * - **WSCD**
-    - Wallet Secure Cryptographic Device
   * - **WSCA**
     - Wallet Secure Cryptographic Application
-  * - **CIE**
-    - National Electronic Identity Card
-  * - **SPID**
-    - Italian Public Digital Identity System
-  * - **ANPR**
-    - Italian National Registry of the Resident Population
+  * - **WSCD**
+    - Wallet Secure Cryptographic Device
+
 
 Normative Language and Conventions
 --------
