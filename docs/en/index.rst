@@ -12,6 +12,7 @@ Index of content
    :maxdepth: 3
    
    defined-terms.rst
+   scope.rst
    ssi-introduction.rst
    trust.rst
    wallet-solution.rst
