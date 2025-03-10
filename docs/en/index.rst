@@ -1,8 +1,30 @@
 .. include:: ../common/common_definitions.rst
 
-==============================================
-The Italian EUDI Wallet Implementation Profile
-==============================================
+IT-Wallet System Technical Specifications 
+=========================================
+
+This document provides the technical architecture, implementation framework and design requirements related to the User Experience to be adopted by the IT-Wallet System Technical Solutions.
+
+Index of content
+----------------
+
+.. toctree:: 
+   :maxdepth: 3
+   
+   defined-terms.rst
+   ssi-introduction.rst
+   trust.rst
+   wallet-solution.rst
+   pid-eaa-data-model.rst
+   pid-eaa-issuance.rst
+   credential-revocation.rst
+   authentic-sources.rst
+   relying-party-solution.rst
+   backup-restore.rst
+   algorithms.rst
+   security-privacy-considerations.rst
+   standards.rst
+   contribute.rst
 
 Introduction
 ------------
@@ -46,26 +68,4 @@ The document, by distinguishing between mandatory regulatory aspects and good de
  - maintain an adequate level of quality, promoting the principles of usability, accessibility and inclusivity. 
 
 Additional guidelines, tools and resources  for the development of the IT-Wallet System Technical Solutions are made available at www.wallet.gov.it.
-
-
-Index of content
-----------------
-
-.. toctree:: 
-   :maxdepth: 3
-   
-   ssi-introduction.rst
-   defined-terms.rst
-   trust.rst
-   wallet-solution.rst
-   pid-eaa-data-model.rst
-   pid-eaa-issuance.rst
-   credential-revocation.rst
-   authentic-sources.rst
-   relying-party-solution.rst
-   backup-restore.rst
-   algorithms.rst
-   security-privacy-considerations.rst
-   standards.rst
-   contribute.rst
 
