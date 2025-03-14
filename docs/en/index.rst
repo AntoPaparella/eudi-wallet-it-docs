@@ -12,6 +12,7 @@ Index of content
    :maxdepth: 3
    
    introduction.rst
+   defined-terms.rst
    ssi-introduction.rst
    design.rst
    trust.rst
