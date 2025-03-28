@@ -4,7 +4,7 @@ Design Principles
  
 Thanks to the Digital Identity Wallet Paradigm, the IT-Wallet System provides Users with a simpler, faster, and more secure experience when accessing services. 
 
-The IT-Wallet Solution serves as the primary Touchpoint, enabling Users to manage and use their Identification Data and Attributes when interacting with Public or Private Entities, in both physical and digital contexts. However, the overall service depends on the interactions of a network of Touchpoints and Technical Solutions, that support its delivery and directly impact the User Experience. 
+The IT-Wallet Solution serves as the primary Touchpoint, enabling Users to manage and use their PID and Attributes when interacting with Public or Private Entities, in both physical and digital contexts. However, the overall service depends on the interactions of a network of Touchpoints and Technical Solutions, that support its delivery and directly impact the User Experience. 
 
 To ensure service quality from a User Experience perspective, Primary Actors, both Public and Private Entities, MUST ensure the usability and accessibility of their Technical Solutions while aligning with the distinctive elements of the IT-Wallet System. Specifically:
 
