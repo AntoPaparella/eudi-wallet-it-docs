@@ -82,9 +82,6 @@ Below is the description of acronyms and definitions which are useful for furthe
        | 
        | *Differences:*  The definition from ARF restricts the data format to mdoc and SD-JWT VC. A Digital Credential definition should be neutral on the format.
        | *Alternative terms:* Electronic Attestation, Attestation, Verifiable Credential, Digital Attestation.
-   * - Digital Identity Provider
-     - Entity responsible for identifying citizens for the issuance of a digital identity.
-     - 
    * - Federation Authority
      - A public governance entity that issues guidelines and technical rules and administers - directly or through its intermediary - Trusted Lists, services, and accreditation processes, the status of participants, and their eligibility evaluation. It also performs oversight functions.
      - 
