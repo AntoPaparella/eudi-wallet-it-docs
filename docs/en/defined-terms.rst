@@ -42,7 +42,7 @@ Below is the description of acronyms and definitions which are useful for furthe
      - A set of characteristics, qualities, rights, or permissions of a natural or legal person, or of an object, or even a single piece of such information.
      - 
    * - Authentication
-     - Pursuant to Article 3, paragraph 1, point 5 of the eIDAS Regulation, an electronic process that enables the confirmation of the Electronic Identification of a natural or legal person, or the origin and integrity of data in electronic form (in the context of the Guidelines, for example, Attributes).
+     -  An electronic process that enables the confirmation of the Electronic Identification of a natural or legal person, or the origin and integrity of data in electronic form (in the context of the Guidelines, for example, Attributes).
      - 
    * - Authentic Source	
      - Public Entity or Private Entity responsible for the repository or system, considered a primary source for Attributes or for Personal Identification Data, and whose authenticity is recognized in accordance with Union or national law, including administrative practice.
