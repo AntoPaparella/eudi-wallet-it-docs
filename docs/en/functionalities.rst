@@ -29,11 +29,11 @@ Below are the functional requirements to support the User Experience related to 
 - The User MUST authorize the operation using the unlocking method previously set; 
 - The User MUST receive confirmation of the successful activation of the Wallet Instance.
 
-The User MUST always have the option to request the deactivation of their Wallet Instance, even in the absence of the device on which it was installed. For further details refer to the `Deactivation of the Wallet Instance <wallet-attestation.html>` section.
+The User MUST always have the option to request the deactivation of their Wallet Instance, even in the absence of the device on which it was installed. For further details, please refer to the `Deactivation of the Wallet Instance <wallet-attestation.html>` section.
 
-In case of errors, the User MUST receive consistent messages that inform them and guide them toward resolving the issue. For further details refer to the `Error Management <wallet-attestation.html>` section. 
+In case of errors, the User MUST receive consistent messages that inform them and guide them toward resolving the issue. For further details, please refer to the `Error Management <wallet-attestation.html>` section. 
 
-For further details and resources refer to: www.wallet.gov.it. 
+For further details and resources, please refer to www.wallet.gov.it. 
 
 Issuance of Electronic Attestations of Attributes 
 **************************************************
@@ -57,15 +57,15 @@ Although the initiation methods for requesting the issuance may differ, the requ
 - The User MUST view the details of the requested Electronic Attestation of Attributes, including: the data contained in it, the name of the Electronic Attestation of Attributes Provider who issued the Attestation, and the name of the Authentic Source; 
 - The User MUST have access to all issued Electronic Attestations by navigating the Catalog of the Wallet Instance. 
 
-The User MUST always be able to request the revocation of the Electronic Attestation of Attributes, even without the device where the Instance was activated. For more details, refer to the `Management of Electronic Attestations <wallet-attestation.html>` section. 
+The User MUST always be able to request the revocation of the Electronic Attestation of Attributes, even without the device where the Instance was activated. For more details, please refer to the `Management of Electronic Attestations <wallet-attestation.html>` section. 
 
 In the event of communication issues between the systems of the Electronic Attestation of Attributes Provider and the Authentic Source, or if administrative or technical processes prevent the immediate issuance of the Electronic Attestation of Attributes, the request process MUST support deferred process. In this case:  
 - Upon reaching the final step of the process, the User MUST be presented with a message prompting them to wait until the Electronic Attestation of Attributes can be issued. 
 - The User MUST be notified by the Electronic Attestation of Attributes Provider once the Electronic Attestation of Attributes becomes available. 
 
-If the User encounters incorrect data in an already obtained or in-progress Electronic Attestation of Attributes, they SHOULD receive appropriate assistance. For more information, refer to the `Assistance <wallet-attestation.html>` section. 
+If the User encounters incorrect data in an already obtained or in-progress Electronic Attestation of Attributes, they SHOULD receive appropriate assistance. For more information, please refer to the `Assistance <wallet-attestation.html>` section. 
 
-In case of errors, the User MUST receive clear, consistent messages that inform them and guide them toward resolution. For further details, refer to the `Error Management <wallet-attestation.html>` section. 
+In case of errors, the User MUST receive clear, consistent messages that inform them and guide them toward resolution. For further details, please refer to the `Error Management <wallet-attestation.html>` section. 
 
 If an Authentic Source (or an Electronic Attestation of Attributes Provider, should it coincide with the Authentic Source) intends to implement an Engagement Button to initiate the request process from their Touchpoint, they MUST ensure compliance with the graphical appearance and implementation requirements for the Engagement Button, as outlined in the `IT-Wallet System Brand Identity <wallet-attestation.html>` section. 
 
@@ -82,7 +82,7 @@ The Electronic Attestations obtained within the Wallet Instance SHOULD be displa
 - The Electronic Attestation MUST display the same information in the Detail View as shown in the Preview View and MAY include additional details; 
 - The Electronic Attestation MUST include Action Buttons in the Detail View to allow for management, as outlined in the `Management of Electronic Attestations <Layout-of-Electronic-Attestations.html>` section. 
 
-For further details and resources refer to: www.wallet.gov.it. 
+For further details and resources, please refer to www.wallet.gov.it. 
 
 Presentation of Electronic Attestations
 ****************************************
@@ -114,9 +114,9 @@ Below are the functional requirements supporting the User Experience for both me
 - The User MUST authorize the operation using the unlock method previously set; 
 - The User MUST receive confirmation of the successful presentation. 
 
-If an error occurs, the User MUST receive clear and consistent messages informing them of the issue and guiding them toward resolution. For further details refer to the `Error Management`_ section. 
+If an error occurs, the User MUST receive clear and consistent messages informing them of the issue and guiding them toward resolution. For further details, please refer to the `Error Management`_ section. 
 
-For further details and resources refer to: www.wallet.gov.it.  
+For further details and resources, please refer to www.wallet.gov.it.  
 
 **Unsupervised Mode** 
 
@@ -127,9 +127,9 @@ For further details and resources refer to: www.wallet.gov.it.
 - The User MUST authorize the operation using the unlock method previously set; 
 - The User MUST receive confirmation of the successful presentation. 
 
-If an error occurs, the User MUST receive clear and consistent messages informing them of the issue and guiding them toward resolution. For further details refer to the `Error Management`_ section. 
+If an error occurs, the User MUST receive clear and consistent messages informing them of the issue and guiding them toward resolution. For further details, please refer to the `Error Management`_ section. 
 
-For further details and resources refer to: www.wallet.gov.it. 
+For further details and resources, please refer to www.wallet.gov.it. 
 
 Remote Presentation 
 ====================
@@ -153,9 +153,9 @@ Below are the functional requirements supporting the User Experience for both mo
 - The User MUST receive confirmation of the successful presentation within the Wallet Instance; 
 - The User MUST return to the Relying Party's Touchpoint, where they MUST see confirmation of the completed presentation. 
 
-If an error occurs, the User MUST receive clear and consistent messages informing them of the issue and guiding them toward resolution. For further details refer to the `Error Management`_ section. 
+If an error occurs, the User MUST receive clear and consistent messages informing them of the issue and guiding them toward resolution. For further details, please refer to the `Error Management`_ section. 
 
-For further details and resources refer to: www.wallet.gov.it. 
+For further details and resources, please refer to www.wallet.gov.it. 
 
 **Cross-Device Mode** 
 
@@ -167,15 +167,15 @@ For further details and resources refer to: www.wallet.gov.it.
 - The User MUST receive confirmation of the successful presentation within the Wallet Instance; 
 - The User MUST return to the Relying Party's Touchpoint and MAY view confirmation of the completed presentation. 
 
-If an error occurs, the User MUST receive clear and consistent messages informing them of the issue and guiding them toward resolution. For further details refer to the `Error Management`_ section. 
+If an error occurs, the User MUST receive clear and consistent messages informing them of the issue and guiding them toward resolution. For further details, please refer to the `Error Management`_ section. 
 
-For further details and resources refer to: www.wallet.gov.it.
+For further details and resources, please refer to www.wallet.gov.it.
 
 *Authentication* 
 
 Authentication is a specific use case of remote presentation that allows the User to securely access services provided by both public and private Relying Parties. This is achieved by presenting the PID and, if necessary, a set of Attributes contained in the obtained Electronic Attestations of Attributes. This process ensures that the User retains control over their data, including the ability to share only the information strictly necessary for verification by Relying Parties. At the same time, it guarantees the reliability, authenticity, and validity of the data presented. 
 
-The Authentication process can be carried out using both the same-device and cross-device modes described above. For the required User Experience functional requirements, refer to the functional requirements for remote presentation in same-device and cross-device modes. 
+The Authentication process can be carried out using both the same-device and cross-device modes described above. For the required User Experience functional requirements, please refer to the functional requirements for remote presentation in same-device and cross-device modes. 
 
 From a User Experience perspective, the Authentication process differs only in how it is initiated, which is through a dedicated Authentication Button. 
 
@@ -218,7 +218,7 @@ Revocation is the procedure that turns an Electronic Attestation from a valid st
 	- The physical document corresponding to the Electronic Attestation has been revoked by the competent authorities; 
 	- The minimum security and/ or reliability requirements for one or more involved parties are no longer met. 
 
-For further details and resources refer to: www.wallet.gov.it. 
+For further details and resources, please refer to www.wallet.gov.it. 
 
 History of Electronic Attestations 
 ===================================
@@ -228,7 +228,7 @@ To ensure the principles of visibility and transparency, the User MUST be able t
 - The User MUST see which Relying Party they have interacted with and which Electronic Attestations have been presented and verified; 
 - The User MUST be able to easily request the Relying Party to delete their information related to previous presentations. 
 
-For further details and resources refer to: www.wallet.gov.it. 
+For further details and resources, please refer to www.wallet.gov.it. 
  
 Backup and Restore of Electronic Attestation of Attributes 
 ===========================================================
@@ -238,7 +238,7 @@ With the aim of ensuring the principle of data portability, the User MUST have a
 - Request the backup and storage of Electronic Attestations of Attributes obtained through their Wallet Instance; 
 - Request the restore of their Electronic Attestations of Attributes on another Wallet Instance. 
 
-For further details and resources refer to: www.wallet.gov.it. 
+For further details and resources, please refer to www.wallet.gov.it. 
 
 Deactivation of the Wallet Instance 
 ************************************
@@ -266,13 +266,13 @@ Below are the functional requirements to support the User Experience related to 
 - The User MUST confirm the action to proceed with deactivation, or MAY cancel the operation; 
 - The User MUST receive confirmation of successful deactivation; 
 - The User MUST be notified that the Wallet Instance is inactive when logging in again; 
-- The User MUST have the ability to reactivate the Wallet Instance by re-downloading the app from the app store (if uninstalled) and/or by following the activation process again. For further details refer to the `Activation of the Wallet Instance`_ section. 
+- The User MUST have the ability to reactivate the Wallet Instance by re-downloading the app from the app store (if uninstalled) and/or by following the activation process again. For further details, please refer to the `Activation of the Wallet Instance`_ section. 
 
-Once the Wallet Instance is reactivated, Electronic Attestations of Attributes can be re-obtained by starting the issuance or restore process again. For more details refer to the sections `Issuance of Electronic Attestations of Attributes`_ and `Backup and Restore of Electronic Attestations of Attributes`_. 
+Once the Wallet Instance is reactivated, Electronic Attestations of Attributes can be re-obtained by starting the issuance or restore process again. For more details, please refer to sections `Issuance of Electronic Attestations of Attributes`_ and `Backup and Restore of Electronic Attestations of Attributes`_. 
 
-In case of errors, the User MUST receive clear and consistent messages that provide information and guidance for resolution. For more details, refer to the `Error Management`_ section. 
+In case of errors, the User MUST receive clear and consistent messages that provide information and guidance for resolution. For more details, please refer to the `Error Management`_ section. 
 
-For further details and resources refer to: www.wallet.gov.it. 
+For further details and resources, please refer to www.wallet.gov.it. 
 
 Error Management 
 *****************
@@ -288,7 +288,7 @@ Below are the requirements and main best practices for error management, specifi
 - **The actor responsible** for the error: Wallet Provider, PID Provider, Electronic Attestations of Attributes Provider, Authentic Source; 
 - **The way the error is displayed**: message on the page, banner, toast message, and so on; 
 - **Suggested actions for the User** to resolve the error: suggestion to wait, request to try again, referral to FAQs and/or customer care, etc.; 
-- **The method for error management**: opening an assistance request through the Wallet Instance, linking to other detailed channels, and so on. For further details, refer to the `Assistance`_ section. 
+- **The method for error management**: opening an assistance request through the Wallet Instance, linking to other detailed channels, and so on. For further details, please refer to the `Assistance`_ section. 
 
 Below is a non-exhaustive list of the main error cases, with reference to the actor responsible for their management, for each phase of the User Experience. 
 

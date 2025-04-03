@@ -56,7 +56,7 @@ The following requirements apply to its use in both physical and digital context
 
 - The Logo MAY be displayed alongside other actors’ logos, trademarks, or symbols, in accordance with the coexistence specifications regarding proportions and visibility, as defined in the supporting recommendations. 
 
-For further details and resources refer to: www.wallet.gov.it. 
+For further details and resources, please refer to www.wallet.gov.it. 
 
 
 Trust Mark
@@ -81,7 +81,7 @@ The following requirements apply to its use in both physical and digital context
 
 - The Trust Mark MAY be displayed alongside other actors’ logos, trademarks, or symbols, in accordance with the coexistence specifications regarding proportions and visibility, as defined in the supporting recommendations. 
 
-For further details and resources refer to: www.wallet.gov.it. 
+For further details and resources, please refer to www.wallet.gov.it. 
 
 
 Components
@@ -114,4 +114,4 @@ The following are general requirements:
 
 - The Authentication Button MUST be responsive to all screen resolutions and MUST meet minimum usability and accessibility requirements. 
 
-For further details and resources refer to: www.wallet.gov.it. 
+For further details and resources, please refer to www.wallet.gov.it. 
