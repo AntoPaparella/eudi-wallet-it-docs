@@ -200,7 +200,7 @@ Below is the description of acronyms and definitions which are useful for furthe
      - Architectural component that enables IT-Wallet System participants to establish trust, in terms of reliability and compliance of all participants with the regulatory framework governing the digital identity system.
      - 
    * - Trust Model
-     - Collection of rules that ensure the legitimacy of the components and the entities involved in the EUDI Wallet ecosystem.
+     - Collection of rules that ensure the legitimacy of the components and the entities involved in the IT-Wallet ecosystem.
      - 
    * - Trust Relationship
      - Positive outcome of Trust Evaluation, which produces a reliable relationship between Organizational Entities, where one Organizational Entity trusts the other to securely handle data, execute transactions, or perform actions on its behalf.
@@ -209,10 +209,8 @@ Below is the description of acronyms and definitions which are useful for furthe
      - Repository of information about authoritative entities in a particular legal or contractual context which provides information about their current and historical status. It serves as the bedrock of trust, acting as federative sources that publish the crucial information about root entities within the ecosystem.
      - 
    * - User
-     - A natural or legal person, or a natural person representing another natural person or a legal person, that uses a trust services or electronic identification means. provided in accordance with EUDI Wallet Architecture Reference Framework.
+     - A natural or legal person, or a natural person representing another natural person or a legal person, that uses a trust services or electronic identification means.
      - | Aligned with ARF v1.4.
-       | 
-       | *Alternative terms:* EUDI Wallet User.
    * - User Attribute
      - A characteristic, quality, right or permission of a natural or legal person or of an object.
      - | Aligned with ARF v1.4.
@@ -227,13 +225,13 @@ Below is the description of acronyms and definitions which are useful for furthe
        | 
        | *Differences:* editorial.
        | 
-       | *Alternative terms:* EUDI Wallet Instance, Wallet
+       | *Alternative terms:* Wallet
    * - Wallet Provider
      - An Organizational Entity, responsible for the management and provisioning of a Wallet Solution.
      - | Revised from ARF v1.4 and Implementing Act.
        | *Differences:* editorial (use of Organizational Entity instead of public or private organisation and natural or legal person, respectively).
        | 
-       | *Alternative terms:* EUDI Wallet Provider, Wallet Solution Provider
+       | *Alternative terms:* Wallet Solution Provider
    * - Wallet Provider Backend
      - Is the technical infrastructure and server-side components, including a set of endpoints, managed by a Wallet Provider.
      - 
@@ -250,11 +248,9 @@ Below is the description of acronyms and definitions which are useful for furthe
        | 
        | Aligned with Implementing Act.
    * - Wallet Solution
-     - A Wallet Solution is the entire eIDAS-compliant product (combination of software, hardware, services and settings) provided by a Wallet Provider to Users and certified as EUDI-compliant by a Conformity Assessment Body (CAB).
-     - | Revised from ARF v1.4 and Implementing Act.
-       | *Differences:* editorial.
-       | 
-       | *Alternative terms:* EUDI Wallet Solution.
+     - Set of Technical Solutions necessary for the proper functioning of IT-Wallet Instances, implemented in accordance with Article 64-quater of the CAD.    
+       The IT-Wallet Solution MAY be referred to as Public IT-Wallet Solution for the IT-Wallet Solution referred to in Article 64-quater, paragraph 2, of [CAD] or Private IT-Wallet Solutions for the IT-Wallet Solutions made available by Private Entities.  
+     - | 
    * - Wallet Unit
      - Unique configuration of a Wallet Solution that includes Wallet Instances, WSCAs, and WSCDs provided by a Wallet Provider to an individual Wallet User. For device-based WSCD implementations like TEEs, the Wallet Provider may not supply the WSCD itself.
      - | A Wallet Unit should be understood as a specific setup of the Wallet Solution for an individual User. It should include the application installed on a Wallet User's device or environment that the Wallet User interacts with directly (the Wallet Instance) and the necessary security features to protect the user's data and transactions. These security features should involve special software or hardware to encrypt and safeguard sensitive information.
