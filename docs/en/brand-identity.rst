@@ -46,7 +46,7 @@ The following requirements apply to its use in both physical and digital context
 
 - The Logo MUST be used exactly as provided in the official resources and MUST comply with the usage specifications outlined in the supporting recommendations; 
 
-- The Logo MUST be in the application/svg+xml data format;
+- The Logo MUST be in the ``application/svg+xml`` data format;
 
 - The Logo MUST NOT be altered, distorted, modified, or replaced by unofficial logos; 
 

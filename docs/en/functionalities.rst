@@ -172,7 +172,8 @@ If an error occurs, the User MUST receive clear and consistent messages informin
 
 For further details and resources, please refer to www.wallet.gov.it.
 
-*Authentication* 
+Authentication
+.......................
 
 Authentication is a specific use case of remote presentation that allows the User to securely access services provided by both public and private Relying Parties. This is achieved by presenting the PID and, if necessary, a set of Attributes contained in the obtained Electronic Attestations of Attributes. This process ensures that the User retains control over their data, including the ability to share only the information strictly necessary for verification by Relying Parties. At the same time, it guarantees the reliability, authenticity, and validity of the data presented. 
 
