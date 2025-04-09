@@ -159,6 +159,12 @@ Below is the description of acronyms and definitions which are useful for furthe
      - | Revised from ARF v1.4.
        | 
        | *Differences:* renamed “natural or legal person” in “Organizational Entity”.
+   * - Relying Party Solution
+     - A comprehensive product that may include software, hardware, cloud services, and configurations. It facilitates Credential presentations in various contexts - online, offline, proximity, or remote - through the use of remote web services or specialized applications, such as Credential Verifier mobile apps and or embedded technologies.
+     - 
+   * - Relying Party Backend
+     - Remote infrastructure with server-side components, generally RESTful, including a predefined set of web endpoints, managed by a Relying Party Solution provider.
+     - 
    * - Relying Party Instance
      - A Relying Party Instance in the context of a mobile application or a standalone embedded device refers to a specific deployment of the application or device. These instances depend on an User Authentication through a Wallet Instance to confirm User identities before granting access to their functionalities. Each version or environment where the application or device is running, be it a particular release of a mobile app installed on a User's smartphone or a specific embedded device in use, constitutes a separate instance. In case of proximity supervised scenarios, it belongs to and is controlled by a Verifier.
      - | Revised from ARF v1.4.
@@ -204,6 +210,27 @@ Below is the description of acronyms and definitions which are useful for furthe
      - 
    * - Trust Relationship
      - Positive outcome of Trust Evaluation, which produces a reliable relationship between Organizational Entities, where one Organizational Entity trusts the other to securely handle data, execute transactions, or perform actions on its behalf.
+     -
+   * - Access Certificate
+     - A Certificate for electronic seals or signatures authenticating and validating the (Wallet-) Relying Party, issued by a provider of wallet-relying party Access Certificates.
+     - 
+   * - Registration Certificate
+     - A data object that indicates the attributes the Relying Party has registered to intend to request from Users.
+     -
+   * - Certificate Signing Request (CSR)
+     - Request sent to a Certificate Authority (CA) that contains the public key and identifying information of the entity requesting a digital certificate.
+     - 
+   * - Metadata
+     - Digital artifact that contains all the required information about an Organizational Entity, e.g., protocol related endpoints and the Organizational Entity’s cryptographic public keys (for the complete list check requirement "Metadata Content").
+     -
+   * - Policy Language
+     - A formal language used to define security, privacy, and identity management policies that govern interactions and transactions within a Trust Framework. This language allows for the clear and unambiguous expression of rules and conditions, facilitating the automation of processes and interoperability among different systems and organizations.
+     -
+   * - Registration Process
+     - Process performed by a Registration Authority verifying necessary information to ensure Organizational Entity eligibility and compliance with the relevant rules and standards. The main goal of the Registration Process is for the Organizational Entity to receive one or more Trust Assertions to be used for the Trust Evaluation processes.
+     -
+   * - Accreditation Process
+     - Process performed by the National Accreditation Body to accreditate CABs. As a result of the Accreditation Process, a NAB issues an accreditation Certificate to a CAB.
      - 
    * - Trusted List
      - Repository of information about authoritative entities in a particular legal or contractual context which provides information about their current and historical status. It serves as the bedrock of trust, acting as federative sources that publish the crucial information about root entities within the ecosystem.

@@ -17,13 +17,16 @@ Index of content
    design.rst
    trust.rst
    wallet-solution.rst
+   issuer-solution.rst
+   relying-party-solution.rst
    pid-eaa-data-model.rst
    pid-eaa-issuance.rst
+   pid-eaa-presentation.rst
    credential-revocation.rst
    authentic-sources.rst
-   relying-party-solution.rst
    backup-restore.rst
    algorithms.rst
    security-privacy-considerations.rst
+   log-retention-policy.rst
    standards.rst
    contribute.rst
