@@ -45,7 +45,7 @@ Below is the description of acronyms and definitions which are useful for furthe
      -  An electronic process that enables the confirmation of the Electronic Identification of a natural or legal person, or the origin and integrity of data in electronic form (in the context of the Guidelines, for example, Attributes).
      - 
    * - Authentic Source	
-     - Public Entity or Private Entity responsible for the repository or system, considered a primary source for Attributes or for Personal Identification Data, and whose authenticity is recognized in accordance with Union or national law, including administrative practice.
+     - Public entity or private entity responsible for the repository or system, considered a primary source for Attributes or for Personal Identification Data, and whose authenticity is recognized in accordance with Union or national law, including administrative practice.
      - 
    * - Certification Process
      - Process performed by Conformity Assessment Bodies to certify the Wallet Solution. The Certification Process aims to periodically assess technical Wallet Solutions (e.g. performing vulnerability assessment and risk analysis). As a result of the Certification Process a certification is provided to the Wallet Solution.
@@ -98,7 +98,7 @@ Below is the description of acronyms and definitions which are useful for furthe
      - Set of Technical Solutions that implement the "Italian Digital Wallet System" pursuant to Article 64-quater of [CAD].
      - 
    * - IT-Wallet System Register
-     - Register containing the list of Public Entities and Private Entities that are registered in the IT-Wallet System.
+     - Register containing the list of public entities and private entities that are registered in the IT-Wallet System.
      - 
    * - Key Attestation
      - An attestation from the device's OEM that enhances your confidence in the keys used in your Wallet Instance being securely stored within the device's hardware-backed keystore. Its content is therefore defined by the operating system manufacturer. For Google Android, the term Key Attestation refers to the Strongbox Key Attestation feature. For Apple iOS, the reference is to the `Device Check`_ service, specifically the `attestKey`_ feature.
@@ -134,7 +134,7 @@ Below is the description of acronyms and definitions which are useful for furthe
      - A formal language used to define security, privacy, and identity management policies that govern interactions and transactions within a Trust Framework. This language allows for the clear and unambiguous expression of rules and conditions, facilitating the automation of processes and interoperability among different systems and organizations.
      - 
    * - Primary Actors
-     - The set of Public Entities and Private Entities that implement the Technical Solutions for the functioning of the IT-Wallet System.
+     - The set of public entities and private entities that implement the Technical Solutions for the functioning of the IT-Wallet System.
      - 
    * - Pseudonym
      - Pseudonyms are alternative identifier used to represent an entity (such as a person or organization) without revealing their true identity. It provides a layer of privacy and anonymity while still allowing for consistent authentication and authorization within a system.
@@ -175,7 +175,7 @@ Below is the description of acronyms and definitions which are useful for furthe
    * - Selective Disclosure
      - Functionality enabling the User to submit a subset of Digital Credentials Data 
      - 
-   * - Self Sovereignty Identity (SSI)
+   * - Self-Sovereign Identity (SSI)
      - Is an approach to digital identity that gives individuals control over the information they use to prove who they are to websites, services, and applications across the web.
      - 
    * - Supervision Process
@@ -276,7 +276,7 @@ Below is the description of acronyms and definitions which are useful for furthe
        | Aligned with Implementing Act.
    * - Wallet Solution
      - Set of Technical Solutions necessary for the proper functioning of IT-Wallet Instances, implemented in accordance with Article 64-quater of the CAD.    
-       The IT-Wallet Solution MAY be referred to as Public IT-Wallet Solution for the IT-Wallet Solution referred to in Article 64-quater, paragraph 2, of [CAD] or Private IT-Wallet Solutions for the IT-Wallet Solutions made available by Private Entities.  
+       The IT-Wallet Solution MAY be referred to as Public IT-Wallet Solution for the IT-Wallet Solution referred to in Article 64-quater, paragraph 2, of [CAD] or Private IT-Wallet Solutions for the IT-Wallet Solutions made available by private entities.  
      - | 
    * - Wallet Unit
      - Unique configuration of a Wallet Solution that includes Wallet Instances, WSCAs, and WSCDs provided by a Wallet Provider to an individual Wallet User. For device-based WSCD implementations like TEEs, the Wallet Provider may not supply the WSCD itself.

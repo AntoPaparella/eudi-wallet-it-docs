@@ -21,7 +21,7 @@ Scope
 These Technical Specifications are intended to complement the Guidelines provided for in Article 64-quater of Legislative Decree No. 82/2005 (CAD). Both the Guidelines and these Technical Specifications, once formally adopted, will become part of the regulatory framework for the IT-Wallet System. They will be periodically updated, where necessary, in light of the results of the experimentation phase, the adoption of new national or European legislative acts, and evolving requirements in terms of security and interoperability. These Technical Specifications pursue two main objectives and represent a core component of the implementation framework for the IT-Wallet System.
 
 The first one is to provide a clear and structured set of recommendations, resources and design requirements related to the IT-Wallet System elements that impact on the User Experience. 
-The document, by distinguishing between mandatory regulatory aspects and good design practices, aims to provide to Public Entities and Private Entities interested in taking part in the IT-Wallet System what is necessary to: 
+The document, by distinguishing between mandatory regulatory aspects and good design practices, aims to provide to public entities and private entities interested in taking part in the IT-Wallet System what is necessary to: 
 
  - facilitate the understanding and adoption of the Service Model, increasing the number of potential services and usage opportunities for the User; 
  - adopt the IT-Wallet System’s Visual Identity in order to enhance its reliability and recognizability for the User; 
