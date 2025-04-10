@@ -7,6 +7,8 @@ It is important to strengthen the User awareness and trust in the ecosystem by i
 
 This section outlines the minimum requirements that Primary Actors must meet to ensure a proper application of the IT-Wallet System Brand Identity, to achieve a uniform, consistent, and recognizable visual presence, and deliver a high-quality User Experience.
 
+For further details, please refer to the Official Resources.
+
 
 Naming
 ******
@@ -32,8 +34,6 @@ The IT-Wallet System has its own Visual Identity. All actors within the ecosyste
 
 - The IT-Wallet System Visual Identity MUST NOT be used to represent any Technical Solution within the System or any other solution. 
 
-Official graphic resources defining the IT-Wallet System Visual Identity, along with the associated recommendations for its application across various components, are available on the website `www.wallet.gov.it <https://www.wallet.gov.it>`_. The following sections detail the key requirements.
-
 
 Logo
 ====
@@ -58,8 +58,6 @@ The following requirements apply to its use in both physical and digital context
 
 - The Logo MAY be displayed alongside other actors’ logos, trademarks, or symbols, in accordance with the coexistence specifications regarding proportions and visibility, as defined in the supporting recommendations. 
 
-For further details and resources, please refer to `www.wallet.gov.it <https://www.wallet.gov.it>`_. 
-
 
 Trust Mark
 ==========
@@ -83,15 +81,13 @@ The following requirements apply to its use in both physical and digital context
 
 - The Trust Mark MAY be displayed alongside other actors’ logos, trademarks, or symbols, in accordance with the coexistence specifications regarding proportions and visibility, as defined in the supporting recommendations. 
 
-For further details and resources, please refer to `www.wallet.gov.it <https://www.wallet.gov.it>`_. 
-
 
 Components
 ==========
 
-Components are the elements of the IT-Wallet System that enable the User to interact with several Technical Solutions via their Wallet Instance. Official graphic resources defining the visual design of these components along with the associated recommendations for their application are available on the website `www.wallet.gov.it`<https://www.wallet.gov.it>`_. 
+Components are the elements of the IT-Wallet System that enable the User to interact with several Technical Solutions via their Wallet Instance. 
 
-These resources provide both complex components, such as templates to support entire workflows, and atomic components, like individual elements (e.g. Engagement Buttons) to be integrated into existing interfaces. The key requirements are as follows: 
+The Official Resources provide both complex components, such as templates to support entire workflows, and atomic components, like individual elements (e.g. Engagement Buttons) to be integrated into existing interfaces. The key requirements are as follows: 
 
 - Primary Actors MUST use official resources and MUST comply with the usage specifications outlined in the supporting recommendations; 
 
@@ -104,16 +100,14 @@ Authentication Button
 =====================
 
 The Authentication Button is a type of Engagement Button. 
-Verifiers MUST make the Authentication Button available within the digital Interface of their Technical Solutions to allow the User to log into their services through its Wallet Instance. Official graphic resources defining the visual appearance of the Authentication Button along with the associated recommendations for its proper implementation are available on the website `www.wallet.gov.it <https://www.wallet.gov.it>`_. 
+Verifiers MUST make the Authentication Button available within the digital Interface of their Technical Solutions to allow the User to log into their services through its Wallet Instance. 
 
 The Authentication Button has the following requirements:
 
-- The Authentication Button MUST be used exactly as outlined in the official resources; 
+- The Authentication Button MUST be used exactly as outlined in the Official Resources; 
 
 - The Authentication Button MUST be visually distinguishable from other Authentication Buttons or action buttons; 
 
-- The Authentication Button MUST be used only in the shapes, sizes, and proportions defined by the official resources and MUST NOT be altered, distorted, or hidden; 
+- The Authentication Button MUST be used only in the shapes, sizes, and proportions defined by the Official Resources and MUST NOT be altered, distorted, or hidden; 
 
 - The Authentication Button MUST be responsive to all screen resolutions and MUST meet minimum usability and accessibility requirements. 
-
-For further details and official resources, please refer to `www.wallet.gov.it <https://www.wallet.gov.it>`_. 
