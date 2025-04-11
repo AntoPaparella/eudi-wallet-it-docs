@@ -243,13 +243,13 @@ Relying Parties SHOULD implement the waiting page (cross-device) provided in the
 
 **Thank you page** 
 
-The thank you page is displayed after the User completes the Authentication process via their Wallet Instance. Its purpose is to prompt the User to proceed to the reserved area of the Relying Party’s Touchpoint. 
+The thank you page is displayed after the User completes the Authentication process via their Wallet Instance. Its purpose is to prompt the User to proceed to the authenticated area of the Relying Party’s Touchpoint. 
 
 Relying Parties SHOULD implement the thank you page provided in the Official  Resources. In any case: 
 
 - the page MUST include the visual identity elements of the IT-Wallet System, including the logo and an icon or graphical element that reinforces the page message; 
 - the page MUST provide a clear and concise message confirming that the authentication process was successfully completed; 
-- the page MUST include a Call To Action prompting the User to proceed to the Relying Party’s reserved area. 
+- the page MUST include a Call To Action prompting the User to proceed to the Relying Party’s authenticated area. 
 
 **Error page** 
 
