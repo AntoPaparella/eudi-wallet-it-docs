@@ -35,14 +35,10 @@ The Wallet Provider MUST allow the User to remove the PID issued during the acti
 
 In case of errors using the Wallet Instance, the Wallet Provider MUST guarantee that the User receives consistent messages that inform them and guide them toward resolving the issue. For further details, please refer to the `Error Management`_ section.
 
-PID – Personal Identification Data
+Focus on PID – Person Identification Data
 ===================================
-The PID (Personal Identity Data) refers to verified minimum set of informations about an individual that can be stored and shared securely via the wallet app. From the user’s perspective, this data includes basic Identity Information: 
-- Name
-- Surname
-- Date of birth
-- Fiscal code
-(Place of birth, Nationality)
+The PID (Person Identification Data) refers to verified minimum set of informations about the User identity (see :ref:`PID/(Q)EAA Data Model`) issued as a result of the activation process and made available in the Wallet Instance.
+Below are the requirements for displaying and using the PID that each Wallet Provider MUST adhere to, in order to provide a consistent and accessible consultation and usage experience: 
 
 The Wallet Provider MUST allow the user to:
 - Receive, store, visualize and interact with the user’s personal identity data (PID) in a secure and private manner in the wallet app.
