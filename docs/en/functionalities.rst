@@ -33,25 +33,25 @@ Below are the functional and the User Experience requirements that the Wallet Pr
 
 The Wallet Provider MUST allow the User to remove the PID issued during the activation phase. In addition, the PID Provider SHOULD allow the User to revoke the issued PID through a specific Touchpoint. The Wallet Provider MUST allow the User to always have the option to request the deactivation of their Wallet Instance, even in the absence of the device on which it was installed. For further details, please refer to the `Deactivation of the Wallet Instance`_ and `Management of Electronic Attestations`_ sections.
 
-In case of errors using the Wallet Instance, the Wallet Provider MUST guarantee that the User receives consistent messages that inform them and guide them toward resolving the issue. For further details, please refer to the `Error Management`_ section.
+In case of errors using the Wallet Instance, the Wallet Provider MUST guarantee that the User receives consistent messages that inform them and guide them toward resolving the issue. For further details, please refer to the :ref:`functionalities:Error Management` section.
 
 Focus on PID – Person Identification Data
-=========================================
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The PID (Person Identification Data) refers to verified minimum set of informations about the User identity (see :ref:`PID/(Q)EAA Data Model`) issued as a result of the activation process and made available in the Wallet Instance.
+The PID (Person Identification Data) refers to verified minimum set of informations about the User identity (see :ref:`credential-data-model:Digital Credential Data Model`) issued as a result of the activation process and made available in the Wallet Instance.
 Below are the requirements for displaying and using the PID that each Wallet Provider MUST adhere to, in order to provide a consistent and accessible consultation and usage experience: 
 
 - The PID MUST be displayed correctly across all devices, ensuring a consistent experience on screens of varying sizes; 
 - The PID MUST be named as defined by the PID Provider;  
 - The PID MUST display its status if different from valid to provide transparency on its lifecycle and MAY display it if valid. Specific details about the PID status, if invalid, MAY be provided (e.g., the reason why the PID is revoked); 
-- The PID MUST include Action Buttons to enable lifecycle management and allow the User to revoke the PID, thus the entire Wallet Instance with all EAAs issued, or to update the PID at any time (see :ref: `Management of Electronic Attestations`); 
+- The PID MUST include Action Buttons to enable lifecycle management and allow the User to revoke the PID, thus the entire Wallet Instance with all EAAs issued, or to update the PID at any time (see :ref:`functionalities:Management of Electronic Attestations`); 
 - The PID MUST be an interactive element, for the User to be authenticated by a Relying Party in a digital context (see :ref: `Authentication`), to access services in proximity contexts, and to request the issuance of additional EAAs (see :ref: `Issuance of Electronic Attestation of Attributes`);  
 - The PID MUST display a method of assistance by the PID Provider (see :ref: `User Assistance`); 
 - The PID MUST be recognizable by the User and distinguishable from other EAAs; 
 - The PID representation MUST adhere to a defined set of specifications provided by the PID Provider to ensure recognizability, consistency and homogeneity among different Wallet Solutions. 
 
 
-The PID Provider MUST define: 
+The PID Provider MUST: 
 
 - a name/ naming convention to refer to the PID, to guarantee consistency across all Wallet Solutions. The PID name MUST be comprehensible and user-friendly avoiding technical terms such as “Person Identification Data” or its acronym “PID”;
 - a clear set of specifications for the PID to ensure consistent identification and representation of the PID across different Wallet Solutions, in terms of format, structure and appearance standards (e.g. name, color, background image, etc.). 
