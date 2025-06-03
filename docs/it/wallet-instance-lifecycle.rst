@@ -38,7 +38,7 @@ Transizione a Installato
 ........................
 
 La macchina a stati inizia con la transizione di installazione dell'Istanza del Wallet (**WI INST**), dove gli Utenti scaricano e installano un'Istanza del Wallet fornita dal Fornitore di Wallet utilizzando lo
-store ufficiale delle applicazioni del sistema operativo del loro dispositivo (questo garantisce l'autenticità tramite controlli di sistema), portando allo stato **Installato**.
+store ufficiale del sistema operativo del loro dispositivo (questo garantisce l'autenticità tramite controlli di sistema), portando allo stato **Installato**.
 
 Quando lo stato è **Installato**, l'Istanza del Wallet DEVE interagire solo con il Fornitore di Wallet per essere attivata. Quando avviene la revoca dell'Istanza del Wallet, l'Istanza del Wallet DEVE tornare da **Operativo** o **Valido** a **Installato**. La revoca segna la Cryptographic Hardware Key del Wallet, registrata durante l'attivazione
 (vedi :ref:`wallet-instance-lifecycle:Transizione a Operativo`), come non più utilizzabile. La revoca può avvenire nei seguenti casi:
