@@ -72,7 +72,7 @@ con i requisiti tecnici e di sicurezza, e l'autenticità e l'integrità dell'Ist
 Dopo la verifica con successo, il Fornitore di Wallet DEVE emettere almeno una Wallet Attestation valido all'Istanza del Wallet, quindi l'Istanza del Wallet entra nello stato **Operativo**.
 
 Inoltre, se non è già stato fatto, gli Utenti DEVONO impostare il loro metodo preferito per sbloccare la loro Istanza del Wallet; questo PUÒ essere realizzato inserendo un
-numero di identificazione personale (PIN) o utilizzando l'autenticazione biometrica, come l'impronta digitale o il riconoscimento facciale, secondo le preferenze
+PIN o utilizzando l'autenticazione biometrica, come l'impronta digitale o il riconoscimento facciale, secondo le preferenze
 personali e le capacità del dispositivo. Si prega di fare riferimento a :ref:`wallet-attestation-issuance:Emissione della Wallet Attestation`.
 
 Nello stato **Operativo**, gli Utenti possono richiedere l'emissione dell'Attestato Elettronico di Dati di Identificazione Personale (**PID ISS**) o di Attestati Elettronici di Attributi (Qualificati) se l'Attestato Elettronico di Dati di Identificazione Personale non è richiesto nell'emissione
