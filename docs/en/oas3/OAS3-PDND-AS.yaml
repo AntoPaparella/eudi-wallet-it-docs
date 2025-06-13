@@ -301,7 +301,7 @@ components:
                   id:
                     description: Unique identifier of the Dataset.
                     type: string
-                    example: '"6F9619FF-8B86-D011-B42D-00C04FC964FF"'
+                    example: "6F9619FF-8B86-D011-B42D-00C04FC964FF"
                 additionalProperties:
                     type: string
                 required: [id]
