@@ -181,10 +181,10 @@
         }
       },
       {
-        "docType": "org.iso.18013.5.1.IT.WalletAttestation",
+        "docType": "it.eid-wallet.trust-registry.WalletAttestation.1.0",
         "issuerSigned": {
           "nameSpaces": {
-            "org.iso.18013.5.1.IT": [
+            "it.eid-wallet.trust-registry.WalletAttestation.1.0": [
               24(<<
                 {
                   "digestID": 0,
