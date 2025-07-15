@@ -77,7 +77,7 @@ La seguente tabella riassume le principali informazioni che DEVONO essere fornit
    * - Termini di Utilizzo
      - Condizioni e limitazioni per l'utilizzo dell'Attestato Elettronico, come:
 
-       - **Validità della Credenziale**: Periodo di tempo durante il quale l'Attestato Elettronico è valido e, quando applicabile, meccanismi e dettagli tecnici per invalidare gli Attestati Elettronici (metodi di revoca/sospensione).
+       - **Validità dell'Attestato Elettronico**: Periodo di tempo durante il quale l'Attestato Elettronico è valido e, quando applicabile, meccanismi e dettagli tecnici per invalidare gli Attestati Elettronici (metodi di revoca/sospensione).
        - **Policy di restrizione**: Se applicabile, regole che governano l'uso dell'Attestato Elettronico e limitazioni secondo le normative nazionali. È utilizzata, ad esempio, per specificare se solo tipologie specifiche di Entità autorizzate, ad esempio Fornitore di Attestati Elettronici Pubblici di Attributi e Soluzioni Wallet pubbliche, possono emettere e ottenere l'Attestato Elettronico.
        - **Pricing Policy**: Informazioni relative ai modelli tariffari dell'Attestato Elettronico, come `free`, `issuance_based`, `verification_based`.
        - **Scopi dell'Attestato Elettronico**: Informazioni relative agli scopi consentiti per cui l'Attestato Elettronico può essere utilizzato. Ogni tipo di Attestato Elettronico può essere utilizzato per più scopi.
@@ -177,99 +177,143 @@ Il payload JWS contiene i seguenti parametri:
    :header-rows: 1
    :widths: 30 70
 
-   * - Nome
-     - Descrizione
-   * - **catalog_version**
-     - OBBLIGATORIO. Versione del formato del Catalogo degli Attestati Elettronici.
-   * - **iss**
-     - OBBLIGATORIO. Identificativo del Fornitore del Catalogo degli Attestati Elettronici.
-   * - **last_modified**
-     - OBBLIGATORIO. Timestamp dell'ultima modifica al Catalogo degli Attestati Elettronici.
-   * - **taxonomy_uri**
-     - OBBLIGATORIO. URI del documento di riferimento della tassonomia degli attributi.
-   * - **taxonomy_uri#integrity**
-     - OPZIONALE. Digest crittografico del documento di tassonomia per la verifica dell'integrità.
-   * - **credentials**
-     - OBBLIGATORIO. Array contenente le definizioni degli Attestati Elettronici.
+  * - Nome
+    - Descrizione
+  * - **catalog_version**
+    - OBBLIGATORIO. Versione del formato del Catalogo degli Attestati Elettronici.
+  * - **iss**
+    - OBBLIGATORIO. Identificativo del Fornitore del Catalogo degli Attestati Elettronici.
+  * - **last_modified**
+    - OBBLIGATORIO. Timestamp dell'ultima modifica al Catalogo degli Attestati Elettronici.
+  * - **taxonomy_uri**
+    - OBBLIGATORIO. URI del documento di riferimento della tassonomia degli attributi.
+  * - **taxonomy_uri#integrity**
+    - OPZIONALE. Digest crittografico del documento di tassonomia per la verifica dell'integrità.
+  * - **credentials**
+    - OBBLIGATORIO. Array contenente le definizioni degli Attestati Elettronici.
+  * - **wallet_attestations**
+    - OBBLIGATORIO. Oggetto JSON contenente informazioni sulle Attestazioni del Wallet supportate.
 
 Ogni elemento dell'array ``credentials`` contiene almeno le seguenti informazioni:
 
-.. list-table:: Campi di primo livello di ogni voce di Credenziale
+.. list-table:: Campi di primo livello di ogni voce di Attestato Elettronico
    :class: longtable
    :header-rows: 1
    :widths: 30 70
 
-   * - Nome del Campo
+  * - Nome del Campo
+    - Descrizione
+  * - **version**
+    - OBBLIGATORIO. Versione della definizione dell'Attestato Elettronico.
+  * - **credential_type**
+    - OBBLIGATORIO. Identificativo univoco del tipo di Attestato Elettronico.
+  * - **legal_type**
+    - OBBLIGATORIO. Classificazione legale dell'Attestato Elettronico (es., ``pub-eaa``, ``qeaa``, ``eaa``).
+  * - **localization**
+    - OPZIONALE. Impostazioni di localizzazione, inclusi:
+
+      * **default_locale**: localizzazione predefinita per il testo.
+      * **available_locales**: Elenco delle localizzazioni supportate.
+      * **base_uri**: URI base per le risorse di localizzazione.
+      * **version**: Versione dei file di localizzazione.
+  * - **name**
+    - OBBLIGATORIO. Nome *human-readable* dell'Attestato Elettronico. Un suffisso ``_l10n_id`` PUÒ essere aggiunto per la gestione della localizzazione del contenuto.
+  * - **description**
+    - OBBLIGATORIO. Descrizione *human-readable* dell'Attestato Elettronico. Un suffisso ``_l10n_id`` PUÒ essere aggiunto per la gestione della localizzazione del contenuto.
+  * - **restriction_policy**
+    - OPZIONALE. Restrizioni legali sulle Soluzioni tecniche di Fornitori di Wallet e/o di Attestati Elettronici autorizzati a richiedere/emettere un Attestato Elettronico.
+
+      * **allowed_wallet_ids**: Elenco degli identificativi delle Soluzioni Tecniche dei Fornitori di Wallet consentite.
+      * **allowed_issuer_ids**: Elenco degli identificativi delle Soluzioni Tecniche dei Fornitori di Attestati Elettronici autorizzati. Se presente, rappresenta una whitelist di Fornitori di Attestati Elettronici che possono essere aggiunti dal Trust Anchor nel campo **issuers** del corrispondente Attestato Elettronico.
+  * - **pricing_policy**
+    - OPZIONALE. Informazioni sui tariffari dell'Attestato Elettronico, come ad esempio:
+
+      * **models**: OBBLIGATORIO. Array di modelli di tariffari applicabili all'Attestato Elettronico, ciascuno contenente
+
+        - **pricing_type**: Tipo di modello di tariffario, come ``issuance_based``, ``verification_based``, ``subscription_based``, ``other``.
+        - **price**: Costo associato al modello.
+        - **currency**: Valuta della tariffa.
+
+      * **pricing_model_uri**: URI alla documentazione dettagliata del modello di tariffario.
+  * - **validity_info**
+    - Informazioni sulla validità dell'Attestato Elettronico, inclusi almeno:
+
+      * **max_validity_days**: Periodo massimo di validità in giorni.
+      * **status_methods**: Metodi di verifica dello stato supportati (es. ``status_list``).
+      * **allowed_states**: Stati consentiti dell'Attestato Elettronico (es. ``valid``, ``revoked``, ``suspended``).
+  * - **authentication**
+    - OBBLIGATORIO. Requisiti di autenticazione dell'Attestato Elettronico
+
+      * **user_auth_required**: OBBLIGATORIO. Flag che indica se l'autenticazione dell'Utente è richiesta durante l'emissione dell'Attestato Elettronico.
+      * **min_loa**: OBBLIGATORIO. Livello minimo di Garanzia richiesto per l'autenticazione dell'Attestato Elettronico. DEVE includere il Livello di Garanzia dell'autenticazione dell'Utente e dell'Istanza del Wallet che richiede l'Attestato Elettronico.
+      * **supported_eid_schemes**: OBBLIGATORIO se ``user_auth_required`` è ``true``. Schemi di autenticazione dell'identità digitale supportati.
+  * - **purposes**
+    - OBBLIGATORIO. Array di scopi o ambiti specifici per cui l'Attestato Elettronico può essere utilizzato, definendo contesti di utilizzo specifici e attributi richiesti per ciascuno scopo, come:
+
+      * **id**: Identificativo univoco per lo scopo (es., "driving-authorization", "person-identification").
+      * **description**: Descrizione *human-readable* dello scopo con un suffisso ``_l10n_id`` per la localizzazione del contenuto.
+      * **category**: Categoria principale nella tassonomia dell'Attestato Elettronico (es., ``AUTHORIZATION``, ``IDENTITY``).
+      * **subcategory**: Sottocategoria all'interno della tassonomia (es., ``DRIVING_LICENSE``, ``PERSON_IDENTIFICATION``).
+      * **claims_required**: Array di identificativi di claims che sono richiesti quando si utilizza l'Attestato Elettronico per questo scopo.
+      * **claims_recommended**: Array di identificativi di claims che sono raccomandati ma non obbligatori per questo scopo.
+  * - **issuers**
+    - OBBLIGATORIO. Array di informazioni rilevanti sui Fornitori di Attestato Elettronico autorizzati, inclusi dati amministrativi e tecnici come il nome dell'Organizzazione, un riferimento al documento di specifiche API e meccanismi di emissione supportati (ad esempio il supporto al *deferred flow*).
+  * - **authentic_sources**
+    - OBBLIGATORIO. Array di informazioni rilevanti sulle Fonti Autentiche autorizzate, inclusi dati amministrativi e tecnici relativi alla fornitura di dati ai Fornitori di Attestato Elettronico.
+  * - **formats**
+      - OBBLIGATORIO. Array dei formati tecnici supportati per le Credenziali Digitali, che include:
+
+        * **format**: Tipo di formato (ad esempio, ``dc+sd-jwt``, ``mso_mdoc``)
+        * **configuration_id**: Identificativo di configurazione del formato dell'Attestato Elettronico. Questo è formato concatenando il valore di ``credential_type`` al ``format`` (ad esempio, ``dc_sd_jwt_mDL`` o ``mso_mdoc_mDL``), ed è usato per fare riferimento in modo univoco alla configurazione per questo formato di Attestato Elettronico.
+        * **vct**: CONDIZIONALE. È OBBLIGATORIO solo se il ``format`` è ``dc+sd-jwt``. DEVE essere impostato come una stringa URI nel formato ``https://{dominio Trust Anchor}/{version}/{credential_type}`` (ad esempio, ``https://trust-registry.eid-wallet.example.it/1.0/mDL``).
+        * **docType**: CONDIZIONALE. È OBBLIGATORIO solo se il ``format`` è ``mso_mdoc``. Se l'Attestato Elettronico è:
+
+          * definita da uno standard ISO, DEVE essere una stringa nel formato ``iso.org.{iso-number}.{part}.{version}.{credential_type}`` (ad esempio, ``iso.org.18013.5.1.mDL``).
+          * definita a livello europeo, DEVE essere una stringa nel formato ``eu.europa.ec.{credential_type}.{version}`` (ad esempio, ``eu.europa.ec.personidentificationdata.1.0``).
+          * definita da uno standard nazionale, DEVE essere una stringa nel formato ``{dominio inverso Trust Anchor}.{credential_type}.{version}`` (ad esempio, ``it.eid-wallet.trust-registry.personidentificationdata.1.0``).
+  * - **display_properties**
+    - OBBLIGATORIO. Proprietà di presentazione visiva degli Attestati Elettronici, ad es.:
+
+      * **templates**: Modelli visivi per l'Attestato Elettronico, ad es. template `svg`.
+      * **background_color**: Colore di sfondo in formato esadecimale.
+      * **text_color**: Colore del testo in formato esadecimale.
+      * **logo_uri**: URI al logo dell'Attestato Elettronico.
+  * - **claims**
+    - OBBLIGATORIO. Array di claims contenuti nell'Attestato Elettronico.
+
+L'Oggetto ``wallet_attestations`` contiene almeno le seguenti informazioni:
+
+.. list-table:: Campi di Primo Livello di Ogni Voce di Attestato Elettronico
+   :class: longtable
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Nome Campo
      - Descrizione
    * - **version**
-     - OBBLIGATORIO. Versione della definizione dell'Attestato Elettronico.
+     - OBBLIGATORIO. Versione della definizione dell'Attestato Elettronicoe.
    * - **credential_type**
-     - OBBLIGATORIO. Identificativo univoco del tipo di Attestato Elettronico.
-   * - **legal_type**
-     - OBBLIGATORIO. Classificazione legale della Credenziale (es., ``pub-eaa``, ``qeaa``, ``eaa``).
-   * - **localization**
-     - OPZIONALE. Impostazioni di localizzazione, inclusi:
-
-       * **default_locale**: localizzazione predefinita per il testo.
-       * **available_locales**: Elenco delle localizzazioni supportate.
-       * **base_uri**: URI base per le risorse di localizzazione.
-       * **version**: Versione dei file di localizzazione.
+     - OBBLIGATORIO. Identificatore unico dell'Attestazione del Wallet. DEVE essere impostato su ``WalletAttestation``.
    * - **name**
-     - OBBLIGATORIO. Nome *human-readable* dell'Attestato Elettronico. Un suffisso ``_l10n_id`` PUÒ essere aggiunto per la gestione della localizzazione del contenuto.
+     - OBBLIGATORIO. Nome leggibile dall'utente dell'Attestazione del Wallet. DEVE essere impostato su ``Wallet Attestation``.
    * - **description**
-     - OBBLIGATORIO. Descrizione *human-readable* dell'Attestato Elettronico. Un suffisso ``_l10n_id`` PUÒ essere aggiunto per la gestione della localizzazione del contenuto.
-   * - **restriction_policy**
-     - OPZIONALE. Restrizioni legali sulle Soluzioni tecniche di Fornitori di Wallet e/o di Attestati Elettronici autorizzati a richiedere/emettere un Attestato Elettronico.
-
-       * **allowed_wallet_ids**: Elenco degli identificativi delle Soluzioni Tecniche dei Fornitori di Wallet consentite.
-       * **allowed_issuer_ids**: Elenco degli identificativi delle Soluzioni Tecniche dei Fornitori di Attestati Elettronici autorizzati. Se presente, rappresenta una whitelist di Fornitori di Attestati Elettronici che possono essere aggiunti dal Trust Anchor nel campo **issuers** del corrispondente Attestato Elettronico.
-   * - **pricing_policy**
-     - OPZIONALE. Informazioni sui tariffari dell'Attestato Elettronico, come ad esempio:
-
-       * **models**: OBBLIGATORIO. Array di modelli di tariffari applicabili all'Attestato Elettronico, ciascuno contenente
-
-         - **pricing_type**: Tipo di modello di tariffario, come ``issuance_based``, ``verification_based``, ``subscription_based``, ``other``.
-         - **price**: Costo associato al modello.
-         - **currency**: Valuta della tariffa.
-
-       * **pricing_model_uri**: URI alla documentazione dettagliata del modello di tariffario.
-   * - **validity_info**
-     - Informazioni sulla validità dell'Attestato Elettronico, inclusi almeno:
-
-       * **max_validity_days**: Periodo massimo di validità in giorni.
-       * **status_methods**: Metodi di verifica dello stato supportati (es. ``status_list``).
-       * **allowed_states**: Stati consentiti dell'Attestato Elettronico (es. ``valid``, ``revoked``, ``suspended``).
-   * - **authentication**
-     - OBBLIGATORIO. Requisiti di autenticazione dell'Attestato Elettronico
-
-       * **user_auth_required**: OBBLIGATORIO. Flag che indica se l'autenticazione dell'Utente è richiesta durante l'emissione dell'Attestato Elettronico.
-       * **min_loa**: OBBLIGATORIO. Livello minimo di Garanzia richiesto per l'autenticazione dell'Attestato Elettronico. DEVE includere il Livello di Garanzia dell'autenticazione dell'Utente e dell'Istanza del Wallet che richiede l'Attestato Elettronico.
-       * **supported_eid_schemes**: OBBLIGATORIO se ``user_auth_required`` è ``true``. Schemi di autenticazione dell'identità digitale supportati.
-   * - **purposes**
-     - OBBLIGATORIO. Array di scopi o ambiti specifici per cui l'Attestato Elettronico può essere utilizzato, definendo contesti di utilizzo specifici e attributi richiesti per ciascuno scopo, come:
-
-       * **id**: Identificativo univoco per lo scopo (es., "driving-authorization", "person-identification").
-       * **description**: Descrizione *human-readable* dello scopo con un suffisso ``_l10n_id`` per la localizzazione del contenuto.
-       * **category**: Categoria principale nella tassonomia della Credenziale (es., ``AUTHORIZATION``, ``IDENTITY``).
-       * **subcategory**: Sottocategoria all'interno della tassonomia (es., ``DRIVING_LICENSE``, ``PERSON_IDENTIFICATION``).
-       * **claims_required**: Array di identificativi di claims che sono richiesti quando si utilizza l'Attestato Elettronico per questo scopo.
-       * **claims_recommended**: Array di identificativi di claims che sono raccomandati ma non obbligatori per questo scopo.
-   * - **issuers**
-     - OBBLIGATORIO. Array di informazioni rilevanti sui Fornitori di Attestato Elettronico autorizzati, inclusi dati amministrativi e tecnici come il nome dell'Organizzazione, un riferimento al documento di specifiche API e meccanismi di emissione supportati (ad esempio il supporto al *deferred flow*).
-   * - **authentic_sources**
-     - OBBLIGATORIO. Array di informazioni rilevanti sulle Fonti Autentiche autorizzate, inclusi dati amministrativi e tecnici relativi alla fornitura di dati ai Fornitori di Attestato Elettronico.
+     - OBBLIGATORIO. Descrizione leggibile dall'utente dell'Attestato Elettronico.
+   * - **aal_values_supported**
+     - OBBLIGATORIO. Array di Stringhe, ognuna delle quali rappresenta un Livello di Assurance (LoA) supportato dall'Attestazione del Wallet. DEVE includere almeno i livelli basso, medio e alto.
    * - **formats**
-     - OBBLIGATORIO. Array di formati tecnici supportati degli Attestati Elettronici.
-   * - **display_properties**
-     - OBBLIGATORIO. Proprietà di presentazione visiva degli Attestati Elettronici, ad es.:
+     - OBBLIGATORIO. Array dei formati supportati per l'Attestazione del Wallet, che include:
 
-       * **templates**: Modelli visivi per l'Attestato Elettronico, ad es. template `svg`.
-       * **background_color**: Colore di sfondo in formato esadecimale.
-       * **text_color**: Colore del testo in formato esadecimale.
-       * **logo_uri**: URI al logo dell'Attestato Elettronico.
+       * **format**: Tipo di formato (ad esempio, ``dc+sd-jwt``, ``mso_mdoc`` o ``oauth-client-attestation+jwt``)
+       * **configuration_id**: Identificatore di configurazione dell'Attestazione del Wallet. Questo è formato concatenando la stringa ``wa`` al ``format`` (ad esempio, ``dc_sd_jwt_wa``, ``mso_mdoc_wa``, o ``jwt_wa``), ed è utilizzato per fare riferimento in modo univoco alla configurazione del formato dell'Attestazione del Wallet.
+       * **vct**: CONDIZIONALE. È presente solo se il ``format`` è ``dc+sd-jwt``. DEVE essere impostato come una stringa URI nel formato ``https://{dominio Trust Anchor}/{version}/{credential_type}`` (ad esempio, ``https://trust-registry.eid-wallet.example.it/1.0/WalletAttestation``).
+       * **docType**: CONDIZIONALE. È presente solo se il ``format`` è ``mso_mdoc``. È una stringa nel formato ``{dominio inverso Trust Anchor}.{credential_type}.{version}`` (ad esempio, ``it.eid-wallet.trust-registry.WalletAttestation.1.0``).
+       * **schema_uri**: URI che punta al documento di specifica del formato.
+       * **schema_uri#integrity**: Digest crittografico del documento di specifica del formato per la verifica dell'integrità. DEVE essere una stringa nel formato ``{metodo_digest}={valore_digest}``, dove ``{metodo_digest}`` è l'algoritmo di digest utilizzato (ad esempio, ``sha-256``) e ``{valore_digest}`` è il valore di digest codificato in base64url.
    * - **claims**
-     - OBBLIGATORIO. Array di claims contenuti nell'Attestato Elettronico.
+     - OBBLIGATORIO. Array di claim contenuti nell'Attestato Elettronico. DEVE includere almeno i seguenti claim:
 
+       * **Name**: Il nome del claim (ad esempio, ``sub``, ``aal``, ``wallet_link``, ``wallet_name``).
+       * **Namespaces**: CONDIZIONALE. Array di namespace a cui appartiene il claim. DEVE essere impostato su ``{dominio inverso Trust Anchor}.{credential_type}.{version}`` (ad esempio, ``it.eid-wallet.trust-registry.WalletAttestation.1.0``).
 
 L'esempio corrispondente del Catalogo degli Attestati Elettronici decodificato in JSON sia per l'header che per il payload è il seguente:
 
@@ -310,7 +354,7 @@ L'esempio corrispondente del Catalogo degli Attestati Elettronici decodificato i
 Tassonomia degli Attributi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Il Catalogo degli Attestati Elettronici DEVE includere anche un URI di riferimento alla Tassonomia degli Attributi che fornisce, in un'unica risorsa, le informazioni semantiche di tutti gli attributi registrati e disponibili all'interno dell'ecosistema IT-Wallet. DEVE essere neutrale rispetto al formato della Credenziale e ha lo scopo di facilitare le integrazioni degli Attestati Elettronici nelle Soluzioni Tecniche IT-Wallet.
+Il Catalogo degli Attestati Elettronici DEVE includere anche un URI di riferimento alla Tassonomia degli Attributi che fornisce, in un'unica risorsa, le informazioni semantiche di tutti gli attributi registrati e disponibili all'interno dell'ecosistema IT-Wallet. DEVE essere neutrale rispetto al formato dell'Attestato Elettronico e ha lo scopo di facilitare le integrazioni degli Attestati Elettronici nelle Soluzioni Tecniche IT-Wallet.
 
 Un esempio non normativo della Tassonomia degli Attributi è fornito di seguito.
 

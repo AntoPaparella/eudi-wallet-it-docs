@@ -182,6 +182,10 @@ Ogni Richiesta mdoc DEVE essere conforme alla seguente struttura e DEVE includer
 
        Questo componente DEVE essere presente solo se `ReaderAuthAllSupport` è impostato su `true` nel messaggio di DeviceEngagement, in questo caso, i campi individuali `readerAuth` non vengono utilizzati.
 
+.. note:: **Richiesta dell'Attestazione del Wallet**
+    
+    La Relying Party che richiede un'Attestazione del Wallet DEVE farlo aggiungendo un oggetto nell'array **docRequest** che abbia solo il campo ``docType`` impostato a ``it.eid-wallet.trust-registry.WalletAttestation.1.0``. La Relying Party NON DEVE includere il parametro ``nameSpaces`` nella richiesta, poiché l'Attestazione del Wallet non è una Credenziale Digitale ma una prova dell'affidabilità e delle capacità dell'Istanza del Wallet.
+
 Risposta mdoc
 ^^^^^^^^^^^^^^
 
@@ -256,6 +260,9 @@ Una struttura di dati **deviceSigned** DEVE essere conforme alla seguente strutt
    * - **deviceAuth**
      - *(COSE_Sign1)*. Contiene la struttura `DeviceAuth`, che DEVE includere la **deviceSignature** per l'autenticazione dell'Istanza del Wallet. La firma è calcolata sui dati `DeviceAuthentication`, che lega gli elementi restituiti alla sessione e alla richiesta. Vedi [`ISO18013-5`_ #9.1.3] per i dettagli sulla struttura di autenticazione.
 
+.. note:: **Presentazione dell'Attestazione del Wallet**
+  
+    L'Istanza del Wallet DEVE includere l'Attestazione del Wallet se richiesta dalla Relying Party nella richiesta mdoc. L'Istanza del Wallet DEVE includere tutte le divulgazioni selettive disponibili per l'Attestazione del Wallet nella risposta anche se la Relying Party non le ha richieste nella richiesta mdoc. L'Attestazione del Wallet è infatti una prova dell'affidabilità e delle capacità dell'Istanza del Wallet, ma non è una Credenziale Digitale di per sé. Pertanto, durante la presentazione, l'Istanza del Wallet NON DEVE richiedere il consenso dell'utente alla divulgazione degli attributi dell'Attestazione del Wallet, i quali sono dati tecnici non trasparenti verso l'utente.
 
 Chiusura della Sessione
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
