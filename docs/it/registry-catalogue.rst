@@ -192,7 +192,7 @@ Il payload JWS contiene i seguenti parametri:
     - OPZIONALE. Digest crittografico del documento di tassonomia per la verifica dell'integrità.
   * - **credentials**
     - OBBLIGATORIO. Array contenente le definizioni degli Attestati Elettronici.
-  * - **wallet_attestations**
+  * - **wallet_attestation**
     - OBBLIGATORIO. Oggetto JSON contenente informazioni sulle Attestazioni del Wallet supportate.
 
 Ogni elemento dell'array ``credentials`` contiene almeno le seguenti informazioni:
@@ -307,7 +307,7 @@ Ogni elemento dell'array ``credentials`` contiene almeno le seguenti informazion
       * **display_name_l10n_id**: OPZIONALE. Nome della claim leggibile dall'uomo con un suffisso ``_l10n_id`` per la gestione della localizzazione del contenuto.
 
 
-L'Oggetto ``wallet_attestations`` contiene almeno le seguenti informazioni:
+L'Oggetto ``wallet_attestation`` contiene almeno le seguenti informazioni:
 
 .. list-table:: Campi di Primo Livello di Ogni Voce di Attestato Elettronico
    :class: longtable

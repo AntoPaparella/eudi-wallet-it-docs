@@ -192,7 +192,7 @@ The JWS payload contains the following parameters:
      - OPTIONAL. Cryptographic digest of the taxonomy document for integrity verification.
    * - **credentials**
      - REQUIRED. Array containing Digital Credential definitions.
-   * - **wallet_attestations**
+   * - **wallet_attestation**
      - REQUIRED. JSON Object containing information about the Wallet Attestations supported.
 
 Each element of the ``credentials`` array contains at least the following information:
@@ -307,7 +307,7 @@ Each element of the ``credentials`` array contains at least the following inform
       * **display_name_l10n_id**: OPTIONAL. Human-readable name of the claim with a suffix ``_l10n_id`` for content localisation management.
 
 
-The ``wallet_attestations`` Object contains at least the following information:
+The ``wallet_attestation`` Object contains at least the following information:
 
 .. list-table:: First-level Fields of Each Credential Entry
   :class: longtable
