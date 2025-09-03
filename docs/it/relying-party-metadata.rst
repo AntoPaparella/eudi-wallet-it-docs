@@ -25,9 +25,9 @@ I metadata *openid_credential_verifier* DEVONO contenere i seguenti parametri.
   * - **authorization_signing_alg_values_supported**
     - JSON Array che contiene la lista degli algoritmi di firma [:rfc:`7515`] *alg* che DEVONO essere utilizzati per firmare le authorization response. L'algoritmo ``none`` NON DEVE essere utilizzato. Vedi `OIDC-RP-Metadata`_.
   * - **authorization_encryption_alg_values_supported**
-    - JSON Array che contiene la lista degli algoritmi utilizzati per crittografare le authorization response. Specifica alla Wallet Instance gli algoritmi di crittografia asimmetrica. Vedi `OIDC-RP-Metadata`_.
+    - JSON Array che contiene la lista degli algoritmi utilizzati per crittografare le authorization response. Questo parametro specifica alla Wallet Instance gli algoritmi di crittografia asimmetrica supportati. Vedi `OIDC-RP-Metadata`_.
   * - **authorization_encryption_enc_values_supported**
-    - JSON Array che contiene la lista  degli algoritmi di crittografia utilizzati per le authorization response. Specifica alla Wallet Instance gli algoritmi di crittografia simmetrica. Vedi `OIDC-RP-Metadata`_.
+    - JSON Array che contiene la lista  degli algoritmi di crittografia utilizzati per le authorization response. Questo parametro pecifica alla Wallet Instance gli algoritmi di crittografia simmetrica supportati. Vedi `OIDC-RP-Metadata`_.
   * - **vp_formats**
     - JSON Object che definisce i formati e i tipi di prova delle Presentazioni Verificabili e delle Credenziali Verificabili supportate dalla RP. Consiste in un elenco di coppie nome/valore, dove ogni nome identifica in modo univoco un tipo supportato. La RP DEVE supportare almeno ``dc+sd-jwt``. Il valore associato a ciascuna coppia nome/valore DEVE essere un oggetto JSON ``sd-jwt_alg_values`` che DEVE contenere un array JSON contenente identificatori di algoritmi crittografici che la RP supporta per la protezione di un SD-JWT. L'intestazione JOSE ``alg`` (come definito in :rfc:`7515`) dell'SD-JWT presentato DEVE corrispondere a uno dei valori dell'array. Vedi anche `OpenID4VP`_ Draft 20 Sezione 9.1.
   * - **jwks**
