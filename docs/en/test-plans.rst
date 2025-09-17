@@ -38,7 +38,8 @@ For each test case, the table specifies:
 .. toctree::
   :caption: Test Plans by Context
   :maxdepth: 3
-
+  
+  test-plans-wallet-provider.rst
   test-plans-signature.rst
   test-plans-trust.rst
   test-plans-wallet.rst
