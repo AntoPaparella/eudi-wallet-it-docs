@@ -1,7 +1,7 @@
 .. include:: ../common/common_definitions.rst
 
 
-IT-Wallet Onboarding System
+Onboarding System
 ============================
 
 The IT-Wallet ecosystem operates as a federated trust infrastructure where participating entities must establish cryptographic trust relationships and maintain compliance with common security standards.
@@ -126,7 +126,9 @@ Voluntary exit MUST require coordination with dependent entities and proper hand
 
 Removal processes MAY include investigations, remediations, and appeal procedures where appropriate.
 
-For critical security incidents or immediate threats to federation integrity, the Supervisory Body MAY implement emergency suspension with immediate effect. 
+.. warning::
+
+    For critical security incidents or immediate threats to federation integrity, the Supervisory Body MAY implement emergency suspension with immediate effect. 
 
 Lifecycle Coordination Requirements
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -226,7 +228,7 @@ Credential Issuer operators start by discovering available Authentic Source enti
 **Example - CI for Employee Badge (Private Scenario)**:
 
     - **AS Discovery**: Identifies the Authentic Source in AS Registry with employee access claims.
-    - **Integration Request**: Requires AS approval for commercial arrangement.
+    - **Integration Request**: Requires AS approval.
     - **Technical Setup**: Custom API integration with authentication.
     - **Catalog Publication**: Badge excluded from public catalog per supervisory policy.
     - **User Access**: Employees receive badges only via direct Credential Offer from company systems.
@@ -302,7 +304,7 @@ Service authorization by the Supervisory Body MUST involve policy-based evaluati
 
 
 End User Experience Journey
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------
 
 .. figure:: ./images/svg/onboarding-journey-maps/ux-onboarding-journey.svg
     :width: 100%
