@@ -738,8 +738,8 @@ covering both the **Remote Flow** and the **Proximity Flow** presentation phases
      - Wallet Instance verifies that the ``redirect_uri`` exactly matches one of the URIs listed in the Relying Party’s ``redirect_uris`` metadata. If it does not match, aborts the flow.
    * - WP_095
      - Proximity-flow, Presentation, Security
-     - Support supervised retrieval
-     - Wallet Instance supports a Credential presentation using the Supervised Device Retrieval method for an in-person verification scenario.
+     - Support supervised/unsupervised retrieval
+     - Wallet Instance supports a Credential presentation using the Supervised Device Retrieval method for an in-person verification scenario and via Device Retrieval (unsupervised) for automated verification without human oversight. 
    * - WP_096
      - Proximity-flow, Presentation, Security
      - Enforce BLE retrieval only
@@ -748,10 +748,30 @@ covering both the **Remote Flow** and the **Proximity Flow** presentation phases
      - Proximity-flow, Presentation, Security
      - Enforce device retrieval only
      - Wallet Instance rejects any request to initiate a proximity flow using the Server Retrieval mechanism.
+   * - WP_096b
+     - Proximity-flow, Presentation, Security
+     - Support NFC device retrieval (conditional)
+     - Wallet Instance completes the NFC retrieval flow successfully. If the profile states a conditional MUST on NFC hardware, failure constitutes non-compliance.
    * - WP_097
      - Proximity-flow, Presentation, UX
      - QR-based engagement
      - Wallet Instance supports DeviceEngagement based on QR code.
+   * - WP_097a
+     - Proximity-flow, Presentation, Interoperability
+     - QR engagement URI & encoding
+     - The QR mdoc: URI encodes DeviceEngagement (per Section 9.1 of [`ISO18013-5`_]) using base64url-without-padding (:rfc:`4648`).
+   * - WP_097b
+     - Proximity-flow, Presentation, Interoperability
+     - NFC Connection Handover (Static)
+     - Wallet Instance acts as NFC Tag (Type 4) and provides a Handover Select with at least one Alternative Carrier Record and associated Carrier Configuration Record; an Auxiliary Data Record carries the DeviceEngagement (type iso.org:18013:deviceengagement, id “mdoc”).
+   * - WP_097c
+     - Proximity-flow, Presentation, Interoperability
+     - NFC Connection Handover (Negotiated)
+     - Wallet Instance exposes the service ``urn:nfc:sn:handover``; upon Handover Request, it returns Handover Select with exactly one selected carrier and the auxiliary DeviceEngagement.
+   * - WP_097d
+     - Proximity-flow, Presentation, Interoperability
+     - Early SessionEstablishment via TNEP
+     - If ``HandoverSessionEstablishmentSupport`` set to ``true`` in DeviceEngagement, Wallet Instance accepts early ``SessionEstablishment`` over the announced TNEP service during negotiated handover and later verifies it matches the ``SessionEstablishment`` received during data retrieval.
    * - WP_098
      - Proximity-flow, Presentation, Security
      - Relying Party authentication
@@ -766,29 +786,37 @@ covering both the **Remote Flow** and the **Proximity Flow** presentation phases
      - Wallet Instance prompts the User to perform a WSCA-based authentication, directly or by unlocking the application, and does not proceed with the proximity flow until it succeeds.
    * - WP_101
      - Proximity-flow, Presentation, Security
-     - Generate BLE keys
+     - Generate ephemeral EC key pair
      - Wallet Instance successfully derives a fresh ephemeral elliptic-curve key pair (per the chosen `ISO18013-5`_ cipher suite).
    * - WP_102
      - Proximity-flow, Presentation, UX
      - Present DeviceEngagement QR
      - Wallet Instance successfully displays a QR code to the Relying Party, containing the DeviceEngagement data, which includes its ephemeral public key (``EDeviceKey.Pub``) and supported cryptographic information.
+   * - WP_102a
+     - Proximity-flow, Presentation, UX
+     - DeviceEngagement via NFC (Connection Handover)
+     - Wallet Instance exposes DeviceEngagement via NFC Connection Handover (Static or Negotiated).
    * - WP_103
      - Proximity-flow, Presentation, Interoperability
      - CBOR encoding of DeviceEngagement data
-     - The DeviceEngagement structure is CBOR encoded and contains at least: Version, Security, BleOptions, Capabilities and OriginInfos.
+     - The DeviceEngagement structure is CBOR encoded and contains at least: Version, Security, BLEOptions, NFCOptions, Capabilities and OriginInfos.
    * - WP_103a
      - Proximity-flow, Presentation, Interoperability
      - Verify Security component
      - The Security component within the DeviceEngagement data contains a supported cipher suite identifier and the Wallet Instance’s ephemeral public key per `ISO18013-5`_ Table 22.
    * - WP_103b
      - Proximity-flow, Presentation, Interoperability
-     - Verify BleOptions component
-     - The BleOptions component within the DeviceEngagement data indicates Central Client Mode and carries the correct device UUID.
+     - Verify BLEOptions component
+     - The BLEOptions component within the DeviceEngagement data indicates Central Client Mode and carries the correct device UUID.
    * - WP_103c
      - Proximity-flow, Presentation, Interoperability
-     - Verify Capabilities component
-     - The Capabilities component within the DeviceEngagement data correctly sets both the ``HandoverSessionEstablishmentSupport`` and ``ReaderAuthAllSupport`` flags to true.
+     - Verify DeviceRetrievalMode-NFCOptions component
+     - The DeviceRetrievalMode-NFCOptions component declares supported role (PICC for Wallet Instance) and maximum APDU command/response sizes per ISO mapping.
    * - WP_103d
+     - Proximity-flow, Presentation, Interoperability
+     - Verify Capabilities component
+     - The Capabilities component within the DeviceEngagement data correctly sets both the ``HandoverSessionEstablishmentSupport`` and ``ReaderAuthAllSupport`` flags to ``true``.
+   * - WP_103e
      - Proximity-flow, Presentation, Interoperability
      - Verify OriginInfos component
      - The OriginInfos component is present within the DeviceEngagement data and is correctly encoded as an empty array for the specified flow in Section 6.3.2.1 of [`ISO18013-5`_].
@@ -798,12 +826,12 @@ covering both the **Remote Flow** and the **Proximity Flow** presentation phases
      - Wallet Instance successfully derives session keys by performing the negotiated key-agreement protocol with its ephemeral private key and the Relying Party's ephemeral public key.
    * - WP_105
      - Proximity-flow, Presentation, Security
-     - Decrypt & verify SessionEstablishment
-     - Wallet Instance successfully decrypts the SessionEstablishment message using the derived session key and validates the Relying Party's signature.
+     - Decrypt & verify ``SessionEstablishment``
+     - Wallet Instance successfully decrypts the ``SessionEstablishment`` message using the derived session key and validates the Relying Party's signature.
    * - WP_106
      - Proximity-flow, Presentation, Security
-     - Validate SessionEstablishment contents
-     - Wallet Instance verifies the SessionEstablishment message includes the Relying Party’s Pub Key and a request for specific attribute(s), and an optional request for the Wallet Attestation) from the Relying Party.
+     - Validate ``SessionEstablishment`` contents
+     - Wallet Instance verifies the ``SessionEstablishment`` message includes the Relying Party’s Pub Key and a request for specific attribute(s), and an optional request for the Wallet Attestation) from the Relying Party.
    * - WP_107
      - Proximity-flow, Presentation, Privacy
      - Prompt attribute consent
@@ -831,11 +859,11 @@ covering both the **Remote Flow** and the **Proximity Flow** presentation phases
    * - WP_109
      - Proximity-flow, Presentation, Interoperability
      - Prepare mdoc Response
-     - Wallet Instance successfully builds the CBOR-encoded SessionData message (the mdoc Response) including a ``documents`` array populated with the requested Credentials.
+     - Wallet Instance successfully builds the CBOR-encoded ``SessionData`` message (the mdoc Response) including a ``documents`` array populated with the requested Credentials.
    * - WP_110
      - Proximity-flow, Presentation, Interoperability
      - mdoc authentication
-     - Wallet Instance correctly signs the ``deviceSigned`` authentication data for each presented Credential, following the mdoc authentication process as specified in Section 9.1.3 of [`ISO18013-5`_].
+     - Wallet Instance correctly signs the ``deviceSigned`` authentication data for each presented Credential, following the mdoc authentication process as specified in Section 12.4 of [`ISO18013-5`_].
    * - WP_111
      - Proximity-flow, Presentation, Interoperability
      - Validate mdoc Response structure
@@ -846,8 +874,16 @@ covering both the **Remote Flow** and the **Proximity Flow** presentation phases
      - Within each document, the ``deviceSigned`` component includes a ``deviceNameSpaces`` structure (possibly empty) plus a ``deviceAuth`` ``COSE_Sign1`` containing the required ``deviceSignature`` over the device-authentication data.
    * - WP_112
      - Proximity-flow, Presentation, Security
-     - Encrypt SessionData for BLE
-     - Wallet Instance encrypts the SessionData message with the derived session keys.
+     - Encrypt ``SessionData`` 
+     - Wallet Instance encrypts the ``SessionData`` message with the derived session keys.
+   * - WP_112a
+     - Proximity-flow, Presentation, Interoperability
+     - Transmit over BLE
+     - Wallet Instance transmits encrypted ``SessionEstablishment/SessionData`` over BLE per ISO GATT characteristics.
+   * - WP_112b
+     - Proximity-flow, Presentation, Interoperability
+     - Transmit over NFC
+     - Wallet Instance transmits encrypted ``SessionEstablishment`` and ``SessionData`` over NFC using the ISO 18013-5 APDU flow, without errors (including correct handling of APDU status and fragmentation).
    * - WP_113
      - Proximity-flow, Presentation, Security
      - Terminate session/ inactivity timeout
@@ -860,6 +896,10 @@ covering both the **Remote Flow** and the **Proximity Flow** presentation phases
      - Proximity-flow, Presentation, Security
      - Send termination signal
      - Wallet Instance transmits End command (or termination code) over BLE to signal session closure.
+   * - WP_113c
+     - Proximity-flow, Presentation, Security
+     - Send termination over NFC
+     - Wallet Instance signals end via a status code in ``SessionData`` and/or completes the APDU exchange per ISO; no further APDUs are accepted for the session.
    * - WP_114
      - Proximity-flow, Presentation, Security
      - Destroy session keys
@@ -868,7 +908,11 @@ covering both the **Remote Flow** and the **Proximity Flow** presentation phases
      - Proximity-flow, Presentation, Security
      - Close BLE channel
      - When a session is terminated, Wallet Instance disconnects BLE; no open channels remain.
-
+   * - WP_114b
+     - Proximity-flow, Presentation, Security
+     - Close NFC channel
+     - When a session is terminated, Wallet Instance cleanly ends the NFC transaction; no further APDU exchange is possible without a new SELECT.
+     
 .. _user-attribute-deletion-testcases:
 
 Test Cases for User Attribute Deletion on Relying Party Side
