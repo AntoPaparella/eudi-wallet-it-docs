@@ -32,8 +32,8 @@ Una descrizione ad alto livello del flusso remoto, dal punto di vista dell'Utent
   1. *Authorization Request*: l'Istanza del Wallet ottiene un URL nel flusso Same Device o un Codice QR contenente l'URL nel flusso Cross Device dove il Request Object firmato è disponibile per il download.
   2. *Richiesta URI Request*: l'Istanza del Wallet estrae dal payload i seguenti parametri: ``client_id``, ``request_uri``, ``state``, ``request_uri_method``.
 
-    * Se ``request_uri_method`` è fornito e impostato con il valore ``post``, l'Istanza del Wallet DOVREBBE trasmettere i suoi metadata all'endpoint ``request_uri`` della Relying Party utilizzando il metodo HTTP POST.
-    * Se ``request_uri_method`` è impostato con il valore ``get`` o non è presente, l'Istanza del Wallet DEVE recuperare il Request Object firmato utilizzando una richiesta HTTP con metodo GET all'endpoint fornito nel parametro ``request_uri`` (:ref:`RPR-75 <test-plans-remote-presentation:RPR-75>`).
+    * Se ``request_uri_method`` è fornito e impostato con il valore ``post``, l'Istanza del Wallet DOVREBBE trasmettere i suoi metadata all'endpoint ``request_uri`` della Relying Party utilizzando il metodo HTTP ``POST``.
+    * Se ``request_uri_method`` è impostato con il valore ``get`` o non è presente, l'Istanza del Wallet DEVE recuperare il Request Object firmato utilizzando una richiesta HTTP con metodo ``GET`` all'endpoint fornito nel parametro ``request_uri`` (:ref:`RPR-75 <test-plans-remote-presentation:RPR-75>`).
 
   3. *URI Request Response*: la Relying Party restituisce un Request Object firmato all'Istanza del Wallet.
   4. *Controlli Istanza di Wallet*: l'Istanza del Wallet:
@@ -43,7 +43,7 @@ Una descrizione ad alto livello del flusso remoto, dal punto di vista dell'Utent
     c. valuta gli Attetstati Elettronici richiesti e verifica l'idoneità della Relying Party nel richiedere questi ultimi applicando le politiche relative a quella specifica Relying Party, ottenute con la Trust Chain.
 
   5. *Consenso dell'Utente*: l'Istanza del Wallet chiede la divulgazione e il consenso dell'Utente mostrando l'identità della Relying Party e gli attributi richiesti.
-  6. *Risposta di Autorizzazione POST*: l'Istanza del Wallet presenta le informazioni richieste alla Relying Party, insieme alla Wallet Attestation se richiesto.
+  6. *Risposta di Autorizzazione ``POST``*: l'Istanza del Wallet presenta le informazioni richieste alla Relying Party, insieme alla Wallet Attestation se richiesto.
   7. *Controlli RP*: La Relying Party convalida le Credenziali presentate verificando la fiducia con i loro Fornitori di Attestati Elettronici e controlla la Wallet Attestation per garantire che il Fornitore di Wallet sia affidabile.
   8. *Risposta della Relying Party*: l'Istanza del Wallet informa l'Utente dell'autenticazione riuscita con la Relying Party, e l'Utente continua la navigazione.
 
@@ -97,7 +97,7 @@ I dettagli di ogni passaggio mostrato nell'immagine precedente sono descritti di
 .. note::
   Il *livello di correzione degli errori* scelto per il Codice QR DEVE essere Q (Quartile - fino al 25%), poiché offre un buon equilibrio tra capacità di correzione degli errori e densità/spazio dei dati. Questo livello di qualità e correzione degli errori consente al Codice QR di rimanere leggibile anche se è danneggiato o parzialmente oscurato (:ref:`RPR-74 <test-plans-remote-presentation:RPR-74>`).
 
-  Al contrario, nel **Flusso Same Device**, la Relying Party risponde tramite HTTP Response Redirect (con codice di stato impostato a 302) o mostra all'utente una pagina html con un pulsante href, aventi l'URL che fornisce le stesse informazioni del Flusso Cross Device. Di seguito è riportato un esempio non normativo:
+  Al contrario, nel **Flusso Same Device**, la Relying Party risponde tramite HTTP Response Redirect (con codice di stato impostato a ``302``) o mostra all'utente una pagina html con un pulsante href, aventi l'URL che fornisce le stesse informazioni del Flusso Cross Device. Di seguito è riportato un esempio non normativo:
 
 .. code-block:: http
 
@@ -226,7 +226,7 @@ I dettagli di ogni passaggio mostrato nell'immagine precedente sono descritti di
 
 **Passaggi 18-19 (Consenso dell'Utente)**: L'Istanza del Wallet richiede il consenso dell'Utente per divulgare gli Attetstati Elettronici richiesti mostrando l'identità della Relying Party e gli attributi richiesti. L'Utente autorizza e acconsente alla presentazione degli Attributi Elettronici selezionando/deselezionando i dati personali da rilasciare.
 
-**Passaggio 20 (Authorization Response)**: L'Istanza del Wallet fornisce la Authorization Response alla Relying Party utilizzando una richiesta HTTP con il metodo POST (modalità di risposta "direct_post.jwt").
+**Passaggio 20 (Authorization Response)**: L'Istanza del Wallet fornisce la Authorization Response alla Relying Party utilizzando una richiesta HTTP con il metodo ``POST`` (modalità di risposta ``direct_post.jwt``).
 
   Di seguito è riportato un esempio non normativo della Authorization Response:
 
@@ -420,11 +420,11 @@ I parametri del payload JWT sono descritti qui:
   * - **response_type**
     - DEVE essere impostato su ``vp_token`` (:ref:`RPR-83 <test-plans-remote-presentation:RPR-83>`).
   * - **wallet_nonce**
-    - Valore stringa utilizzato per mitigare gli attacchi di replay della Request URI Response, come definito nella Sezione 5.11 (Request URI Method) di `OpenID4VP`_. DEVE essere presente se precedentemente fornito dall'Istanza del Wallet (:ref:`RPR-94 <test-plans-remote-presentation:RPR-94>`).
+    - Valore stringa utilizzato per mitigare gli attacchi di replay della Request URI Response, come definito nella Sezione 5.11 (Request URI Method) di `OpenID4VP`_. DEVE essere presente se precedentemente fornito dall'Istanza del Wallet (:ref:`RPR-89 <test-plans-remote-presentation:RPR-89>`).
   * - **response_uri**
-    - L'URI di Risposta a cui l'Istanza del Wallet DEVE inviare la Authorization Response utilizzando una HTTP Request con il metodo POST (:ref:`RPR-91 <test-plans-remote-presentation:RPR-91>`).
+    - L'URI di Risposta a cui l'Istanza del Wallet DEVE inviare la Authorization Response utilizzando una HTTP Request con il metodo POST (:ref:`RPR-88 <test-plans-remote-presentation:RPR-88>`).
   * - **nonce**
-    - Numero unico e casuale con sufficiente entropia, la cui lunghezza DEVE essere di almeno 32 cifre (:ref:`RPR-84 <test-plans-remote-presentation:RPR-84>`).
+    - Numero unico e casuale con sufficiente entropia, la cui lunghezza DEVE essere di almeno 32 cifre (:ref:`RPR-81 <test-plans-remote-presentation:RPR-81>`).
   * - **state**
     - Identificatore univoco della Authorization Request.
   * - **iss**
@@ -432,31 +432,31 @@ I parametri del payload JWT sono descritti qui:
   * - **iat**
     - Timestamp Unix, che rappresenta l'ora in cui il JWT è stato emesso.
   * - **exp**
-    - Timestamp Unix, che rappresenta l'ora di scadenza in cui o dopo la quale il JWT NON DEVE più essere valido (:ref:`RPR-85 <test-plans-remote-presentation:RPR-85>`).
+    - Timestamp Unix, che rappresenta l'ora di scadenza in cui o dopo la quale il JWT NON DEVE più essere valido (:ref:`RPR-82 <test-plans-remote-presentation:RPR-82>`).
   * - **request_uri_method**
     - Stringa che determina il metodo HTTP da utilizzare con l'endpoint ``request_uri`` per fornire i metadata dell'Istanza del Wallet alla Relying Party. Il valore non fa distinzione tra maiuscole e minuscole e può essere impostato su: `get` o `post`. Il metodo GET, come definito in :rfc:`9101`, prevede che l'Istanza del Wallet invii una richiesta GET per recuperare un Request Object. Il metodo POST prevede che l'Istanza del Wallet richieda la creazione di un nuovo Request Object inviando una richiesta HTTP POST, con i suoi metadata, al ``request_uri`` della Relying Party.
 
 .. warning::
-  Per motivi di sicurezza e per prevenire attacchi di tipo endpoint mix-up, il valore contenuto nel parametro ``response_uri`` DEVE essere uno di quelli attestati da una terza parte fidata, come quelli forniti nei metadata ``openid_credential_verifier`` all'interno del parametro ``response_uris``, ottenuti dalla Trust Chain relativa alla Relying Party (:ref:`RPR-91 <test-plans-remote-presentation:RPR-91>`).
+  Per motivi di sicurezza e per prevenire attacchi di tipo endpoint mix-up, il valore contenuto nel parametro ``response_uri`` DEVE essere uno di quelli attestati da una terza parte fidata, come quelli forniti nei metadata ``openid_credential_verifier`` all'interno del parametro ``response_uris``, ottenuti dalla Trust Chain relativa alla Relying Party (:ref:`RPR-88 <test-plans-remote-presentation:RPR-88>`).
 
 .. note::
   Il seguente parametro, anche se definito in `OpenID4VP`_, non viene menzionato nel precedente esempio non normativo poiché il suo utilizzo è condizionale.
   
-  - ``client_metadata``: Un JSON Object contenente i valori dei metadata della Relying Party. Se il parametro ``client_metadata`` è presente, l'Istanza del Wallet DEVE ignorarlo e considerare i metadata del client ottenuti attraverso la Trust Chain OpenID Federation (:ref:`RPR-93 <test-plans-remote-presentation:RPR-93>`).
+  - ``client_metadata``: Un JSON Object contenente i valori dei metadata della Relying Party. Se il parametro ``client_metadata`` è presente, l'Istanza del Wallet DEVE ignorarlo e considerare i metadata del client ottenuti attraverso la Trust Chain OpenID Federation.
 
 .. note:: **Richiesta dell'Attestazione del Wallet**
   
-  La Relying Party che richiede un'Attestazione del Wallet DEVE farlo utilizzando una query DCQL standard, tuttavia NON DOVREBBE includere il parametro ``claims`` nella query. A seconda del formato dell'Attestazione del Wallet, la Relying Party DEVE richiedere il parametro ``vct_values`` nella query DCQL, il quale DEVE essere impostato al valore definito nella :ref:`registry-catalogue:Struttura del Catalogo degli Attestati Elettronici` (:ref:`RPR-86 <test-plans-remote-presentation:RPR-86>`, :ref:`RPR-87 <test-plans-remote-presentation:RPR-87>`, :ref:`RPR-88 <test-plans-remote-presentation:RPR-88>`).
+  La Relying Party che richiede un'Attestazione del Wallet DEVE farlo utilizzando una query DCQL standard, tuttavia NON DOVREBBE includere il parametro ``claims`` nella query. A seconda del formato dell'Attestazione del Wallet, la Relying Party DEVE richiedere il parametro ``vct_values`` nella query DCQL, il quale DEVE essere impostato al valore definito nella :ref:`registry-catalogue:Struttura del Catalogo degli Attestati Elettronici` (:ref:`RPR-83 <test-plans-remote-presentation:RPR-83>`, :ref:`RPR-84 <test-plans-remote-presentation:RPR-84>`, :ref:`RPR-85 <test-plans-remote-presentation:RPR-85>`).
 
 Errori dell'Endpoint URI Request
 --------------------------------
 
-Quando la Relying Party incontra errori durante l'emissione del Request Object dall'endpoint ``request_uri``, DEVE restituire una *Error Response* con ``application/json`` come tipo di contenuto e DEVE includere i seguenti parametri (:ref:`RPR-89 <test-plans-remote-presentation:RPR-89>`):
+Quando la Relying Party incontra errori durante l'emissione del Request Object dall'endpoint ``request_uri``, DEVE restituire una *Error Response* con ``application/json`` come tipo di contenuto e DEVE includere i seguenti parametri (:ref:`RPR-86 <test-plans-remote-presentation:RPR-86>`):
 
 * ``error``: Il codice di errore.
 * ``error_description``: Testo in forma leggibile che fornisce ulteriori dettagli per chiarire la natura dell'errore incontrato.
 
-La seguente tabella elenca gli *HTTP Status Code* e i relativi *Error codes* che DEVONO essere supportati per la *Error Response* (:ref:`RPR-89 <test-plans-remote-presentation:RPR-89>`):
+La seguente tabella elenca gli *HTTP Status Code* e i relativi *Error codes* che DEVONO essere supportati per la *Error Response* (:ref:`RPR-86 <test-plans-remote-presentation:RPR-86>`):
 
 .. list-table::
     :class: longtable
@@ -500,7 +500,7 @@ Dopo aver ottenuto l'autorizzazione e il consenso dell'Utente per la presentazio
 
 .. note:: **Presentazione dell'Attestazione del Wallet**
   
-    L'Istanza del Wallet DEVE includere l'Attestazione del Wallet se richiesta dalla Relying Party usando la query DCQL. Durante la presentazione, l'Istanza del Wallet NON DOVREBBE richiedere il consenso dell'utente alla divulgazione degli attributi dell'Attestazione del Wallet, i quali sono dati tecnici non trasparenti per l'utente (:ref:`RPR-86 <test-plans-remote-presentation:RPR-86>`, :ref:`RPR-87 <test-plans-remote-presentation:RPR-87>`, :ref:`RPR-88 <test-plans-remote-presentation:RPR-88>`).
+    L'Istanza del Wallet DEVE includere l'Attestazione del Wallet se richiesta dalla Relying Party usando la query DCQL. Durante la presentazione, l'Istanza del Wallet NON DOVREBBE richiedere il consenso dell'utente alla divulgazione degli attributi dell'Attestazione del Wallet, i quali sono dati tecnici non trasparenti per l'utente (:ref:`RPR-83 <test-plans-remote-presentation:RPR-83>`, :ref:`RPR-84 <test-plans-remote-presentation:RPR-84>`, :ref:`RPR-85 <test-plans-remote-presentation:RPR-85>`).
 
 Nella Authorization Response vengono utilizzati i seguenti parametri:
 
@@ -512,7 +512,7 @@ Nella Authorization Response vengono utilizzati i seguenti parametri:
   * - **Nome**
     - **Descrizione**
   * - **vp_token**
-    - Ci DEVONO essere almeno due presentazioni firmate in questo Array (:ref:`RPR-86 <test-plans-remote-presentation:RPR-86>`):
+    - Ci DEVONO essere almeno due presentazioni firmate in questo Array (:ref:`RPR-105 <test-plans-remote-presentation:RPR-105>`):
 
       - L'Attestato Elettronico richiesto (uno o più, in formato SD-JWT VC)
       - la Wallet Attestation (in formato SD-JWT VC)
@@ -523,15 +523,15 @@ Nella Authorization Response vengono utilizzati i seguenti parametri:
     - Identificatore univoco fornito dalla Relying Party all'interno della Authorization Request.
 
 
-SD-JWT definisce come un *Holder* può presentare una Attestato Elettronico a una Relying Party, dimostrando il legittimo possesso dell'Attestato Elettronico. Per fare ciò, l'*Holder* DEVE includere il ``KB-JWT`` nell'SD-JWT aggiungendo il ``KB-JWT`` alla termine della stringa contenente l'SD-JWT, come rappresentato nell'esempio seguente (:ref:`RPR-86 <test-plans-remote-presentation:RPR-86>`)
+SD-JWT definisce come un *Holder* può presentare una Attestato Elettronico a una Relying Party, dimostrando il legittimo possesso dell'Attestato Elettronico. Per fare ciò, l'*Holder* DEVE includere il ``KB-JWT`` nell'SD-JWT aggiungendo il ``KB-JWT`` alla termine della stringa contenente l'SD-JWT, come rappresentato nell'esempio seguente (:ref:`RPR-106 <test-plans-remote-presentation:RPR-106>`)
 
 .. code-block:: text
 
   <Issuer-Signed-JWT>~<Disclosure 1>~<Disclosure 2>~...~<Disclosure N>~<KB-JWT>
 
-Per convalidare la firma sul Key Binding JWT, la Relying Party DEVE utilizzare il materiale crittografico incluso nell'*Issuer-Signed-JWT*. La convalida della firma del Key Binding JWT (KB-JWT) DEVE utilizzare la chiave pubblica inclusa nell'SD-JWT contenuta nel parametro ``cnf`` contenuto nell'*Issuer-Signed-JWT* (:ref:`RPR-86 <test-plans-remote-presentation:RPR-86>`).
+Per convalidare la firma sul Key Binding JWT, la Relying Party DEVE utilizzare il materiale crittografico incluso nell'*Issuer-Signed-JWT*. La convalida della firma del Key Binding JWT (KB-JWT) DEVE utilizzare la chiave pubblica inclusa nell'SD-JWT contenuta nel parametro ``cnf`` contenuto nell'*Issuer-Signed-JWT* (:ref:`RPR-106 <test-plans-remote-presentation:RPR-106>`).
 
-Quando viene presentato un SD-JWT, il suo KB-JWT DEVE contenere i seguenti parametri nell'intestazione JWT (:ref:`RPR-86 <test-plans-remote-presentation:RPR-86>`):
+Quando viene presentato un SD-JWT, il suo KB-JWT DEVE contenere i seguenti parametri nell'intestazione JWT (:ref:`RPR-107 <test-plans-remote-presentation:RPR-107>`):
 
 .. list-table::
   :class: longtable
@@ -541,11 +541,11 @@ Quando viene presentato un SD-JWT, il suo KB-JWT DEVE contenere i seguenti param
   * - **Claim**
     - **Descrizione**
   * - **typ**
-    - OBBLIGATORIO. DEVE essere ``kb+jwt``, che caratterizza esplicitamente il Key Binding JWT come raccomandato nella Sezione 3.11 di :rfc:`8725` (:ref:`RPR-86 <test-plans-remote-presentation:RPR-86>`).
+    - OBBLIGATORIO. DEVE essere ``kb+jwt``, che caratterizza esplicitamente il Key Binding JWT come raccomandato nella Sezione 3.11 di :rfc:`8725` (:ref:`RPR-109 <test-plans-remote-presentation:RPR-109>`).
   * - **alg**
     - OBBLIGATORIO. Algoritmo di Firma utilizzando uno di quelli specificati nella Sezione :ref:`algorithms:Algoritmi Crittografici`.
 
-Quando viene presentato un SD-JWT, la firma KB-JWT DEVE essere verificata dalla stessa chiave pubblica inclusa nell'SD-JWT all'interno del parametro ``cnf``. Il KB-JWT DEVE contenere i seguenti parametri nel payload JWT (:ref:`RPR-86 <test-plans-remote-presentation:RPR-86>`):
+Quando viene presentato un SD-JWT, la firma KB-JWT DEVE essere verificata dalla stessa chiave pubblica inclusa nell'SD-JWT all'interno del parametro ``cnf``. Il KB-JWT DEVE contenere i seguenti parametri nel payload JWT (:ref:`RPR-108 <test-plans-remote-presentation:RPR-108>`):
 
 .. list-table::
   :class: longtable
@@ -555,11 +555,11 @@ Quando viene presentato un SD-JWT, la firma KB-JWT DEVE essere verificata dalla 
   * - **Claim**
     - **Descrizione**
   * - **iat**
-    - OBBLIGATORIO. Il valore di questa *claim* DEVE essere l'ora in cui è stato emesso il Key Binding JWT, utilizzando la sintassi definita in :rfc:`7519` (:ref:`RPR-86 <test-plans-remote-presentation:RPR-86>`).
+    - OBBLIGATORIO. Il valore di questa *claim* DEVE essere l'ora in cui è stato emesso il Key Binding JWT, utilizzando la sintassi definita in :rfc:`7519` (:ref:`RPR-110 <test-plans-remote-presentation:RPR-110>`).
   * - **aud**
-    - OBBLIGATORIO. Il ricevitore previsto del Key Binding JWT. Il valore di questo parametro DEVE corrispondere all'identificatore di entità (``client_id``) univoco della Relying Party (:ref:`RPR-86 <test-plans-remote-presentation:RPR-86>`).
+    - OBBLIGATORIO. Il ricevitore previsto del Key Binding JWT. Il valore di questo parametro DEVE corrispondere all'identificatore di entità (``client_id``) univoco della Relying Party (:ref:`RPR-111 <test-plans-remote-presentation:RPR-111>`).
   * - **nonce**
-    - OBBLIGATORIO. Garantisce l'unicità della firma. Il valore di questa *claim* DEVE essere una stringa e deve corrispondere a quello fornito nel Request Object (:ref:`RPR-86 <test-plans-remote-presentation:RPR-86>`).
+    - OBBLIGATORIO. Garantisce l'unicità della firma. Il valore di questa *claim* DEVE essere una stringa e deve corrispondere a quello fornito nel Request Object (:ref:`RPR-112 <test-plans-remote-presentation:RPR-112>`).
   * - **sd_hash**
     - OBBLIGATORIO. Il digest codificato in base64url del JWT firmato dal Fornitore di Attestati Elettronici (SD-JWT) e le *selective disclosures* selezionate dall'Utente.
 
