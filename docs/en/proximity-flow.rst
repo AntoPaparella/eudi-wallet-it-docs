@@ -406,7 +406,7 @@ The Device Engagement structure MUST be CBOR encoded and have at least the follo
 
 
    * - **DeviceRetrievalMode-NFCOptions**
-     - *(map)*. Provides options for NFC connections, including the supported role (PICC or PCD) and maximum PDU command/ response sizes. See Table 2 of `ISO18013-5`_ for the detailed mapping.
+     - *(map)*. Provides options for NFC connections, including the supported role (PICC or PCD) and maximum PDU command/response sizes. See Table 2 of `ISO18013-5`_ for the detailed mapping.
         
        In case NFC is used for Device Retrieval, the Wallet Instance SHALL support PICC mode and the Relying Party Instance SHALL support PCD mode [`ISO18013-5`_ #11.2].
         
