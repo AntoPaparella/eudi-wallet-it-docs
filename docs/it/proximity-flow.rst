@@ -29,7 +29,7 @@ Le Istanze di Relying Party e Wallet registrate nell'ecosistema IT-Wallet DEVONO
 
 - *Flusso di Device Retrieval supervisionato* dove una Relying Party umana supervisiona il processo di verifica di persona, o *flusso non supervisionato* dove la verifica potrebbe avvenire attraverso sistemi automatizzati senza supervisione umana.
 - *Autenticazione dell'Istanza di Relying Party* seguendo i meccanismi definiti nella `ISO18013-5`_ per l'*autenticazione del lettore*.
-- *Document Type* e *Namespaces* domestici definiti in questa specifica tecnica in aggiunta a quelli già definiti nella `ISO18013-5`_ per l'mDL (vedere :ref:`credential-data-model:mdoc-CBOR Credential Format` per maggiori dettagli).
+- *Document Type* e *Namespaces* domestici definiti in questa specifica tecnica in aggiunta a quelli già definiti nella `ISO18013-5`_ per l'mDL (vedere :ref:`credential-data-model:Attestato Elettronico in formato mdoc-CBOR` per maggiori dettagli).
 - *Validazione dell'Istanza del Wallet* attraverso l'Attestato del Wallet.
 
 La tabella seguente mostra le tecnologie di Device Engagement supportate, specificando quali sono obbligatorie.
@@ -447,7 +447,7 @@ Ogni Richiesta mdoc DEVE essere conforme alla seguente struttura, e DEVE include
 
        - **itemsRequest**. Struttura `ItemsRequest` codificata CBOR, formattata come:
 
-         - **docType** *(tstr)*. Il tipo di documento richiesto. Vedere :ref:`credential-data-model:mdoc-CBOR Credential Format`.
+         - **docType** *(tstr)*. Il tipo di documento richiesto. Vedere :ref:`credential-data-model:Attestato Elettronico in formato mdoc-CBOR`.
 
          - **nameSpaces** *(map)*. Una mappa di identificatori di namespace a *DataElements* richiesti.
 
@@ -468,7 +468,7 @@ Ogni Richiesta mdoc DEVE essere conforme alla seguente struttura, e DEVE include
 .. note::
     **Richiesta dell'Attestato del Wallet**
 
-    La Relying Party che richiede un Attestato del Wallet DEVE aggiungere un oggetto nell'array **docRequest** avendo il ``docType`` impostato su ``{Trust Anchor reverse domain}.{WalletAttestation}`` come descritto in :ref:`registry-catalogue:Digital Credentials Catalogue Structure`. La Relying Party NON DEVE includere il parametro ``nameSpaces`` nella richiesta.
+    La Relying Party che richiede un Attestato del Wallet DEVE aggiungere un oggetto nell'array **docRequest** avendo il ``docType`` impostato su ``{Trust Anchor reverse domain}.{WalletAttestation}`` come descritto in :ref:`registry-catalogue:Struttura del Catalogo degli Attestati Elettronici`. La Relying Party NON DEVE includere il parametro ``nameSpaces`` nella richiesta.
 
 Risposta mdoc
 ^^^^^^^^^^^^^
@@ -513,7 +513,7 @@ Ogni documento in **documents** DEVE essere conforme alla seguente struttura, e 
      - *(tstr)*. Identificatore del tipo di documento. Ad esempio, per un mDL, il valore DEVE essere ``org.iso.18013.5.1.mDL``.
 
    * - **issuerSigned**
-     - *(bstr)*. Contiene la struttura `IssuerNameSpaces`, che include elementi dati firmati dal Fornitore di Credenziale, e la struttura `issuerAuth`, che garantisce la loro autenticità e integrità utilizzando il Mobile Security Object (MSO). Vedere :ref:`credential-data-model:mdoc-CBOR Credential Format`.
+     - *(bstr)*. Contiene la struttura `IssuerNameSpaces`, che include elementi dati firmati dal Fornitore di Credenziale, e la struttura `issuerAuth`, che garantisce la loro autenticità e integrità utilizzando il Mobile Security Object (MSO). Vedere :ref:`credential-data-model:Attestato Elettronico in formato mdoc-CBOR`.
 
    * - **deviceSigned**
      - *(bstr)*. Contiene la struttura `DeviceNameSpaces` (elementi dati firmati dall'Istanza del Wallet), e la struttura `deviceAuth`, che include i dati di autenticazione firmati dall'Istanza del Wallet. Vedere la tabella sottostante per dettagli.
@@ -569,4 +569,4 @@ Quando una sessione viene terminata, l'Istanza del Wallet e l'Istanza di Relying
 - Chiusura del canale di comunicazione utilizzato per il device retrieval.
 
 .. note::
-  Vedere :ref:`credential-data-model:mdoc-CBOR Credential Format` per il significato degli acronimi di tipo CBOR.
+  Vedere :ref:`credential-data-model:Attestato Elettronico in formato mdoc-CBOR` per il significato degli acronimi di tipo CBOR.
