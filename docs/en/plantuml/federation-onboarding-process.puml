@@ -1,0 +1,44 @@
+@startuml Federation Entity Onboarding Process
+autonumber
+
+participant "Federation Entity" as fe
+participant "Federation Authority" as ta
+
+== Step 1: Onboarding Request Submission ==
+
+fe -> ta: Submit onboarding request\n(Entity ID, Public Key JWK, CSR)
+note right of ta: Federation Authority registers\nFederation Entity Identifier\nin lowercase format
+
+== Step 2: Federation Authority Validation and Certificate Issuance ==
+
+ta -> ta: Verify registration information
+ta -> ta: Validate Entity Configuration at\n/.well-known/openid-federation endpoint
+ta -> ta: Check metadata and certificates
+ta -> ta: Issue X.509 certificate for\nFederation Entity Public Key
+
+alt Validation successful
+    ta -> fe: Certificate chain response\n(Entity certificate + TA self-signed certificate)
+else Validation failed
+    ta -> fe: Rejection with identified issues
+end
+
+== Step 3: Entity Configuration Update and Resolve Request ==
+
+fe -> fe: Update Entity Configuration:\n- Add authority_hints claim\n- Add x5c claim with certificate chain
+fe -> fe: Publish updated EC at\n/.well-known/openid-federation
+fe -> ta: Resolve request\n(/resolve?sub=entity_id&trust_anchor=ta_id)
+
+== Step 4: Resolve Response and Onboarding Completion ==
+
+ta -> ta: Reconstruct valid trust chain
+ta -> ta: Generate signed JWT with\ntrust chain and validated metadata
+
+alt Resolve successful (200 OK)
+    ta -> fe: Resolve response with JWT\n(trust chain + validated metadata)
+    fe -> fe: Validate JWT and extract\ntrust chain and metadata
+    note right of fe: Entity onboarding completed\nReady for credential operations
+else Resolve failed (400/404)
+    ta -> fe: Error response with issues to resolve
+end
+
+@enduml
