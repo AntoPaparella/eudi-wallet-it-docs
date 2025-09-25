@@ -321,7 +321,7 @@ Definitions (Acronyms and Commands)
      - **Description**
 
    * - **PICC**
-     - Proximity Integrated Circuit Card — the Wallet Unit acting as the NFC tag.
+     - Proximity Integrated Circuit Card, implemented by Wallet Units acting as a NFC tag.
 
    * - **PCD**
      - Proximity Coupling Device, impletented by Relying Party instances using `APDU` exchanges.
