@@ -55,11 +55,11 @@ Authentic Source registration allows data providers to establish their authorita
 
 Authentic Source entities MUST undergo registration procedures that validate their data authority, declare their available claims from the standardized Claims Registry, and establish technical integration mechanisms. Authentic Source entities specify intended use cases that determine catalog eligibility per Supervisory Body policies. Public Authentic Sources MUST leverage PDND integration to provide government data through standardized national infrastructure, while Private Authentic Sources MAY establish custom service interfaces that accommodate specific organizational or regulatory requirements. Both pathways MUST assure data quality standards and establish audit trails for all data provisioning activities.
 
-**AS-CI Coordination Process**: Following AS registration, Credential Issuers identify suitable AS entities through the AS Registry and request integration approval. For regulatory mandates, approval MUST be automatic. Otherwise, Authentic Sources entities evaluate and approve Credential Issuers requests based on business and technical criteria. This coordination ensures proper data access relationships before credential type catalog publication.
+**AS-CI Coordination Process**: Following AS registration, Credential Issuers identify suitable AS entities through the AS Registry and request integration authorization during the administrative registration phase. For regulatory mandates, authorization MUST be automatic. Otherwise, Authentic Sources entities evaluate and authorize Credential Issuers requests based on business and technical criteria. Following administrative authorization, technical integration procedures establish the operational data access relationships before credential type catalog publication.
 
 Successfully registered Authentic Sources MUST be included in the AS Registry with their declared claims and capability. Credential types MUST become publicly discoverable in the :ref:`registry:Digital Credentials Catalog` only after successful AS-CI integration and Supervisory Body policy approval for catalog eligibility.
 
-Technical implementation procedures for Authentic Source registration and AS-CI integration are provided in :ref:`entity-onboarding:Authentic Sources Registration Process`.
+Technical implementation procedures for Authentic Source registration are provided in :ref:`entity-onboarding:Authentic Sources Registration Process`.
 
 
 Federation Onboarding Process

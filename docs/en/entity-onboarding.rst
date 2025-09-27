@@ -14,9 +14,9 @@ Overview
 Entity Onboarding System Architecture
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The IT-Wallet ecosystem is based on a federated trust infrastructure where participating entities MUST establish cryptographic trust relationships and maintain compliance with common security standards. The onboarding system addresses the main challenge of enabling secure Digital Credential operations while accommodating the different operational requirements that various participants need according to their role.
+The IT-Wallet ecosystem is based on a federated trust infrastructure where participating entities MUST establish cryptographic trust relationships and maintain compliance with common security standards. 
 
-The onboarding framework consists of dual-pathway architecture where the technical registration procedures are tailored to the participant's role in the IT-Wallet ecosystem:
+The onboarding framework MUST allow technical registration procedures that are tailored to the participant's role in the IT-Wallet ecosystem:
 
   1. For Authentic Sources requiring data-focused registration procedures.
   2. For operational Entities (Credential Issuers, Relying Parties, Wallet Providers) requiring cryptographic trust establishment through federation protocols.
@@ -158,26 +158,29 @@ During registration, Authentic Sources MUST provide the following information:
 AS Registration Procedure
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The AS registration follows a technical process as described below. 
+The Authentic Source registration follows a technical process as described below.
 
-**Step 1: Registration Package Preparation**
+.. plantuml:: plantuml/as-registration-process.puml
+    :width: 99%
+    :alt: Authentic Source registration process showing the 3-step procedure
+    :caption: `Authentic Source Registration Process. <https://www.plantuml.com/plantuml/svg/TLD1Rziw3BxxLn0zlG1vhs_hBK26TkqEFMmBbcAdNcY9SRJAaaPARRDVFzfE6iVBWXmCyUF7Z_p8Qyd8kRGURahUKiZEm3eMDWJVg76I6REB0LOS3ObKM78CfQs9goeXAzmb31akfkaNWAB_Kz2w9E9d9v5ty37QNG-IUiAqFfGUuanDLIsNiCwKuDrYeWlD4pQa-YZX_csvh2hD-_U3PY_s4OB83GRtQu2ui8dSzj-FuP_xrGsOQ6aEdXhqu6pNoSOHp_KzP3HPPYFAEpA-exIO4Gmch9rtsP4erwr7ryfR1oCkcSC3liOGsnreleY-cbx2AVV61OARrJsuDdbgDNtGR2cZyrsDrTsNkyklYKA7klhlVv14vYpRkW_i1gM9eyvU4LFDhct9EinqQMb3p6HXu-CBI4afSZuGIgs4fMvT1XvxmFIpaEIZIUyNy41c6rIGX-_edJqQ8_MUwX0Wc8xCH6tSOJ2asWQVvgTpf5T5aW9cOpvYRVLlCrOg6rjqGTFrXPh8ZlGx5KvHICPCjrioJuC5GP7xDf-9nsoT2IEf41b6bipEDSeaAGOX69e2oHWiiZstDqMmeRb2kiGMKtAXcUbU-poUg1JJdUMc-0hqDzH4cHm9fivwz5hc-PZRQwUiCoGlD6RTeFDa_s3yGQOFlxYyXH6H4odz7dMBuBXVMO4S0QrbLQS5WZrknzK2HYSEgr9xPwOBmjGiXf1iE_WdDJ_lr0_WVQBMEtG0TZX8ErviBQlGDwxF-4GTaNLYebg9jIUebUMMgLyjz73VDSAYwtvsZ8ToYyV0X7RNsGWnqH16FxcogWfHjNN5b6lUgr01MgkN1pKf8PqAUhj4hygABil9gD9nL5LrJS6Mrly6>`_ 
 
-AS entity prepares registration information according to the requirements table above. A non-normative example of information in JSON format is provided below. 
+**Step 1 - Registration Package Preparation**: The Entity prepares registration information according to the requirements table above. A non-normative example of information in JSON format is provided below. 
 
 .. code-block:: json
 
    {
-     "as_id": "https://motorizzazione.gov.example",
+     "as_id": "https://transport-authority.gov.example",
      "organization_info": {
-       "organization_name": "MIT -- Direzione Generale per la Motorizzazione",
+       "organization_name": "National Transport Authority",
        "organization_type": "public",
-       "ipa_code": "m_inf",
-       "legal_identifier": "80192770587",
-       "organization_country": "IT",
+       "ipa_code": "nta_001",
+       "legal_identifier": "12345678901",
+       "organization_country": "XX",
        "homepage_uri": "https://www.gov.example/transport",
-       "contacts": ["registry@gov.example", "technical-support@gov.example"],
+       "contacts": ["registry@transport-authority.gov.example", "technical-support@transport-authority.gov.example"],
        "policy_uri": "https://www.gov.example/transport/privacy-policy",
-       "user_information": "Driving license data is available for licenses issued after January 1, 2020. For older licenses, contact the local motorization office."
+       "user_information": "Driving license data is available for licenses issued after January 1, 2020. For older licenses, contact the local transport authority office."
      },
      "data_capabilities": [
        {
@@ -206,9 +209,7 @@ AS entity prepares registration information according to the requirements table 
      }
    }
 
-**Step 2: Technical Validation**
-
-Supervisory Body validates submitted registration focusing on:
+**Step 2 - Technical Validation**: Supervisory Body validates submitted registration focusing on:
 
   - **Claims Registry Compliance**: Validation of claims format, identifiers, and existence in Claims Registry.
   - **Taxonomy Validation**: Verification that declared domains, categories, and purposes are valid taxonomy entries.
@@ -219,22 +220,28 @@ Supervisory Body validates submitted registration focusing on:
 
   - **Response Format Standards**: Verification of Claims Registry format usage and state mapping specification.
 
-**Step 3: AS Registry Publication**
+**Step 3 - AS Registry Publication**: Upon successful validation:
 
-Upon successful validation:
-
-  - Authentic Source Entity published in AS Registry with complete declared capabilities.
+  - Authentic Source Entity is published in AS Registry with complete declared capabilities.
   - Authentic Source becomes discoverable by Credential Issuers for integration requests.
-  - Registration process complete: Authentic Source is ready for operational data provision.
-
-AS-CI Integration Process
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-AS-CI integration occurs separately when Credential Issuers register specific credential types requiring AS data. The complete AS-CI integration process is detailed in Section ... .
-
+  - Authentic Source is ready for operational data provision.
 
 .. note::
-   AS registration is complete and independent of CI integration. AS entities become discoverable immediately upon AS Registry publication, while credential availability to end-users depends on subsequent CI registration and integration approval.
+   AS registration is complete and independent of CI integration. AS entities become discoverable immediately upon AS Registry publication, while credential availability to end-users depends on administrative AS-CI authorization followed by successful technical integration and Supervisory Body policy approval for catalog eligibility.
+
+
+AS-CI Integration Process
+-------------------------
+
+Following administrative AS-CI authorization obtained during the administrative registration phase, technical integration procedures establish the operational API connections and data access mechanisms between Credential Issuers and Authentic Sources.
+
+Technical integration encompasses:
+
+- **API Endpoint Configuration**: Establishment of secure API connections as specified in AS technical specifications (PDND e-services for public AS, OpenAPI 3.0 implementations for private AS).
+- **Claims Mapping Validation**: Verification that CI implementation correctly maps AS data responses to standardized Claims Registry identifiers.
+- **Data Flow Testing**: Validation of immediate/deferred data provision capabilities and error handling mechanisms.
+- **Security Implementation**: Configuration of authentication, authorization, and audit logging as required by AS security standards.
+
 
 Federation Entities Onboarding Process
 ---------------------------------------
@@ -495,6 +502,9 @@ IT-Wallet Federation Trust Mark
 
 Federation Entities receive IT-Wallet Federation Trust Marks during successful onboarding completion. **Trust Marks are issued by the Federation Authority** (Trust Anchor for direct onboarding, Intermediate for mediated onboarding) and serve as verifiable attestations of federation membership, compliance with IT-Wallet technical requirements, and authorization policies for specific operational scopes.
 
+Trust Mark Types and Schema
+"""""""""""""""""""""""""""
+
 Entities MAY receive multiple Trust Marks for different purposes and entity types, enabling granular authorization policy enforcement. Trust Mark identifiers MUST follow a hierarchical schema that reflects the authorization scope:
 
 ``https://<federation_authority_domain>/trust_marks/<purpose>/<entity_type>``
@@ -502,14 +512,13 @@ Entities MAY receive multiple Trust Marks for different purposes and entity type
 Where:
 
   - ``<federation_authority_domain>``: The domain of the issuing Federation Authority.
-  - ``<purpose>``: The Trust Mark purpose. The ``federation-entity`` purpose is REQUIRED for all entities. Additional Trust Mark purposes MAY be supported, such as ``authorization_policy`` for granular operational scope definitions.
-
+  - ``<purpose>``: The Trust Mark purpose. The ``federation-entity`` purpose is **REQUIRED** for all entities. Additional Trust Mark purposes MAY be supported, such as ``authorization_policy`` for granular operational scope definitions.
   - ``<entity_type>``: The recipient entity type (e.g., ``credential-issuer``, ``relying-party``, ``wallet-provider``).
 
+Trust Mark Structure
+""""""""""""""""""""
 
-**Trust Mark Object Structure**
-
-Following OpenID Federation 1.0 specification, Trust Marks in Entity Configuration are represented as JSON objects containing the following claims:
+Trust Marks in Entity Configuration MUST be represented as JSON objects containing the following claims:
 
 .. list-table:: Trust Mark Object Claims (in Entity Configuration)
    :class: longtable
@@ -523,7 +532,6 @@ Following OpenID Federation 1.0 specification, Trust Marks in Entity Configurati
    * - **trust_mark**
      - **REQUIRED**. A signed JSON Web Token representing the Trust Mark issued by the Federation Authority.
 
-**Trust Mark JWT Claims**
 
 The Trust Mark JWT (contained in the ``trust_mark`` claim above) includes the following claims:
 
@@ -549,7 +557,7 @@ The Trust Mark JWT (contained in the ``trust_mark`` claim above) includes the fo
    * - **id_code**
      - **RECOMMENDED**. JSON object with identification codes (e.g., IPA code for public entities, VAT number).
    * - **organization_name**
-     - **RECOMMENDED**. Full name of the service-providing entity.
+     - **RECOMMENDED**. Full name of the Organizational Entity.
    * - **email**
      - **RECOMMENDED**. Institutional or PEC email of the organization.
    * - **logo_uri**
@@ -557,41 +565,41 @@ The Trust Mark JWT (contained in the ``trust_mark`` claim above) includes the fo
    * - **ref**
      - **OPTIONAL**. URL with additional web information about the Trust Mark.
 
-**Authorization Policy Trust Mark Examples**
 
-The following non-normative examples illustrate how authorization policy Trust Marks MAY include specific operational scope claims:
-
-**Example: Credential Issuer Authorization Policy**
+The following non-normative examples illustrate different Trust Mark JWT content for federation membership and authorization policies:
 
 .. code-block:: json
 
    {
      "iss": "https://trust-anchor.eid-wallet.example.it",
-     "sub": "https://ci.transport.example.gov",
-     "id": "https://trust-anchor.eid-wallet.example.it/trust_marks/authorization_policy/credential-issuer",
+     "sub": "https://ci.public-authority.gov.example",
+     "id": "https://trust-anchor.eid-wallet.example.it/trust_marks/federation-entity/credential-issuer",
      "iat": 1718207217,
      "exp": 1749743216,
      "organization_type": "public",
-     "authorized_claims": ["given_name", "family_name", "driving_privileges"],
-     "authorized_credential_types": ["mobile-driving-license"],
-     "scope_restrictions": {
-       "domains": ["AUTHORIZATION"],
-       "categories": ["DRIVING_LICENSE"],
-       "purposes": ["driving-authorization", "identity-verification"]
-     }
+     "id_code": {
+       "ipa_code": "pub_001",
+       "legal_identifier": "12345678901"
+     },
+     "organization_name": "Public Authority Services",
+     "email": "registry@public-authority.gov.example"
    }
-
-**Example: Relying Party Authorization Policy**
 
 .. code-block:: json
 
    {
      "iss": "https://trust-anchor.eid-wallet.example.it",
-     "sub": "https://rental.transport.example.com",
+     "sub": "https://rental.cars.example.com",
      "id": "https://trust-anchor.eid-wallet.example.it/trust_marks/authorization_policy/relying-party",
      "iat": 1718207217,
      "exp": 1749743216,
      "organization_type": "private",
+     "id_code": {
+       "vat_number": "IT12345678901",
+       "legal_identifier": "12345678901"
+     },
+     "organization_name": "Premium Car Rental Services Ltd",
+     "email": "compliance@rental.cars.example.com",
      "authorized_claims": ["given_name", "family_name", "driving_privileges"],
      "authorized_credential_types": ["mobile-driving-license"],
      "scope_restrictions": {
@@ -601,74 +609,10 @@ The following non-normative examples illustrate how authorization policy Trust M
      }
    }
 
-**Trust Mark Validation**
 
-Federation participants validate Trust Mark status through two mechanisms:
-
-1. **Static Validation**: Cryptographic verification using the issuing Federation Authority's public key from the trust chain.
-2. **Dynamic Validation**: Real-time status verification via the issuing Federation Authority's ``/trust_mark_status`` endpoint as defined in :ref:`trust:Federation API endpoints`.
-
-**Trust Mark Integration**
 
 Federation Entities MUST integrate Trust Marks in their Entity Configuration using the ``trust_marks`` claim as specified in :ref:`trust:Entity Configuration Leaves and Intermediates`. Entities MAY receive multiple Trust Marks for different authorization scopes.
 
-**Multi-Trust Mark Examples**
-
-The following examples illustrate how different entity types receive Trust Marks with specific authorization scopes:
-
-**Example: Credential Issuer with Multiple Authorization Scopes**
-
-.. code-block:: json
-
-   {
-     "iss": "https://ci.transport.example.gov",
-     "sub": "https://ci.transport.example.gov",
-     "jwks": { },
-     "authority_hints": ["https://trust-anchor.eid-wallet.example.it"],
-     "trust_marks": [
-       {
-         "trust_mark_type": "https://trust-anchor.eid-wallet.example.it/trust_marks/driving-authorization/credential-issuer",
-         "trust_mark": "eyJhbGciOiJFUzI1NiIsImtpZCI6IlRBS2V5SWQiLCJ0eXAiOiJKV1QifQ...mDL"
-       },
-       {
-         "trust_mark_type": "https://trust-anchor.eid-wallet.example.it/trust_marks/identity-verification/credential-issuer",
-         "trust_mark": "eyJhbGciOiJFUzI1NiIsImtpZCI6IlRBS2V5SWQiLCJ0eXAiOiJKV1QifQ...mDR"
-       }
-     ],
-     "metadata": { }
-   }
-
-Where each Trust Mark object contains:
-- ``trust_mark_type``: The Trust Mark identifier following the hierarchical schema.
-- ``trust_mark``: The signed JWT containing the Trust Mark claims.
-
-**Example: Relying Party with Specific Access Scope**
-
-.. code-block:: json
-
-   {
-     "iss": "https://rental.transport.example.com",
-     "sub": "https://rental.transport.example.com",
-     "jwks": { },
-     "authority_hints": ["https://trust-anchor.eid-wallet.example.it"],
-     "trust_marks": [
-       {
-         "trust_mark_type": "https://trust-anchor.eid-wallet.example.it/trust_marks/driving-authorization/relying-party",
-         "trust_mark": "eyJhbGciOiJFUzI1NiIsImtpZCI6IlRBS2V5SWQiLCJ0eXAiOiJKV1QifQ...rRP"
-       }
-     ],
-     "metadata": { }
-   }
-
-Where the Trust Mark object contains:
-- ``trust_mark_type``: The Trust Mark identifier for driving authorization scope.
-- ``trust_mark``: The signed JWT containing the Trust Mark claims.
-
-**Traditional Single-Trust Mark Examples**
-
-**Example 1: Direct Trust Anchor Onboarding**
-
-Entity onboarded directly by Trust Anchor:
 
 .. code-block:: json
 
@@ -686,9 +630,6 @@ Entity onboarded directly by Trust Anchor:
      "metadata": { }
    }
 
-**Example 2: Intermediate-Mediated Onboarding**
-
-Entity onboarded through a sectoral Intermediate:
 
 .. code-block:: json
 
@@ -706,8 +647,14 @@ Entity onboarded through a sectoral Intermediate:
      "metadata": { }
    }
 
-.. note::
-   **Trust Chain Construction**: In Intermediate-mediated onboarding, the complete trust chain includes: Entity Configuration → Intermediate Subordinate Statement → Trust Anchor Subordinate Statement. The Trust Anchor's ``/resolve`` endpoint constructs the full chain regardless of onboarding path.
+
+Trust Mark Validation
+"""""""""""""""""""""
+
+Federation participants validate Trust Mark status through two mechanisms:
+
+1. **Static Validation**: Cryptographic verification using the issuing Federation Authority's public key from the trust chain.
+2. **Dynamic Validation**: Real-time status verification via the issuing Federation Authority's ``/trust_mark_status`` endpoint as defined in :ref:`trust:Federation API endpoints`.
 
 
 Entity Lifecycle Management

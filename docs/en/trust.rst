@@ -357,7 +357,7 @@ In addition to the previously defined claims, the Entity Configuration of the Le
      - |check-icon|
    * - **trust_marks**
      - A JSON Array containing the Trust Marks.
-     - |uncheck-icon|
+     - |check-icon|
 
 
 Metadata Types
