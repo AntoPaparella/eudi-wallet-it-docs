@@ -38,6 +38,10 @@ except for Wallet Instances which are End-User's personal devices authenticated 
 
   This is called *Wallet Attestation* and is documented in the dedicated :ref:`wallet-attestation-issuance:Wallet Attestation Issuance`.
 
+**Role in Onboarding**: During entity registration, the Trust Anchor and Intermediates act as Federation Authorities. This establishes the participant's position in the trust hierarchy and enables them to participate in credential operations. Leaves (Credential Issuers, Relying Parties, Wallet Providers) undergo registration to prove their eligibility and receive authorization to perform their designated functions.
+
+**Role in Operations**: During credential issuance and presentation, these roles enable distributed trust validation without requiring centralized verification for each transaction. Leaves utilize their registered status to issue credentials, verify presentations, or provide wallet services to end users.
+
 Below the table with the summary of the Federation Entity roles, mapped on the corresponding EUDI Wallet roles, as defined in the `EIDAS-ARF`_.
 
 .. list-table::
@@ -294,6 +298,10 @@ Entity Configuration and within the Subordinate Statement issued by a immediate 
 
 The Entity Configuration MAY also contain one or more Trust Marks.
 
+**Role in Onboarding**: New entities publish their Entity Configuration as part of their registration process, declaring their capabilities, supported protocols, and compliance status to the federation. The configuration serves as the entity's initial declaration of its technical readiness and operational scope, enabling other participants to discover and validate its registration status.
+
+**Role in Operations**: During credential operations, Entity Configurations are retrieved by wallets, credential issuers, and relying parties to verify the current operational status, supported capabilities, and compliance attestations of other entities. This enables dynamic discovery of service endpoints, cryptographic keys, and protocol versions required for secure credential exchange.
+
 Technical details about Entity Configuration of Wallet Provider, Credential Issuer and Relying Party are given in Section :ref:`wallet-provider-entity-configuration:Wallet Provider Entity Configuration`, :ref:`credential-issuer-entity-configuration:Credential Issuer Entity Configuration` and :ref:`relying-party-entity-configuration:Relying Party Entity Configuration` respectively.
 
 .. note::
@@ -480,6 +488,10 @@ Trust Anchors and Intermediates MUST expose the Federation Fetch endpoint, where
 .. note::
   The Federation Fetch endpoint MAY also publish X.509 certificates for each of the public keys of the Subordinate. Making the distribution of the issued X.509 certificates via a RESTful service.
 
+**Role in Onboarding**: During entity registration, Trust Anchors and Intermediates issue Subordinate Statements to formally attest the registration and capabilities of new entities. These statements establish the hierarchical trust relationship and apply any required metadata policies that constrain or enhance the entity's declared capabilities based on federation policies.
+
+**Role in Operations**: During credential operations, Subordinate Statements are retrieved to validate trust chains and apply current metadata policies. They enable real-time verification of an entity's registration status and ensure that operational capabilities comply with federation-wide policies and the entity's authorized scope.
+
 Below there is a non-normative example of an Subordinate Statement issued by an Registration Body (such as the Trust Anchor or its Intermediate) in relation to one of its Subordinates.
 
 .. code-block:: text
@@ -589,11 +601,19 @@ The discovery process uses the Federation API to collect entity information and 
 
 The discovery process establishes the foundational concepts that are then applied in specific operational scenarios as detailed in the Trust Evaluation Mechanism section.
 
+**Role in Onboarding**: Discovery mechanisms are used during entity registration to verify the status of existing federation entities and validate trust relationships. New entities use discovery to confirm the validity and operational status of Registration Bodies (Trust Anchor, Intermediates) and other federation participants before completing their registration process.
+
+**Role in Operations**: Used by wallets, credential issuers, and relying parties during credential presentation to verify the real-time status of other entities and validate trust chains. This enables dynamic verification of entity compliance and revocation status without requiring centralized lookups for each credential transaction.
+
 
 Trust Chain
 -----------
 
 The Trust Chain is a sequence of verified statements that validates a participant's compliance with the Federation. It has an expiration date time, beyond which it MUST be renewed to obtain the fresh and updated metadata. The expiration date of the Trust Chain is determined by the earliest expiration timestamp among all the expiration timestamp contained in the statements. No Entity can force the expiration date of the Trust Chain to be higher than the one configured by the Trust Anchor.
+
+**Role in Onboarding**: During entity registration, Trust Chains are constructed to prove the complete hierarchical trust relationship from the Trust Anchor to the new entity. This establishes the entity's legitimate position in the federation and validates its compliance with all applicable policies and constraints.
+
+**Role in Operations**: During credential issuance and presentation, Trust Chains provide cryptographic proof of entity validity and compliance status. They enable offline verification of trust relationships and support scenarios where real-time federation endpoint access may not be available, while ensuring that trust attestations remain current and verifiable.
 
 Below is an abstract representation of a Trust Chain.
 
@@ -686,6 +706,10 @@ The Trust Chains can also be verified offline, using one of the Trust Anchor's p
   Since the Wallet Instance is not a Federation Entity, the Trust Evaluation Mechanism related to it **requires the presentation of the Wallet Attestation during the credential issuance and presentation phases**.
 
   The Wallet Attestation conveys all the required information pertaining to the instance, such as its public key and any other technical or administrative information, without any User's personal data.
+
+**Role in Onboarding**: Trust evaluation mechanisms are essential during entity registration and lifecycle management to verify the compliance status of new participants and validate changes to existing entities. This includes validating the registration credentials of entities requesting onboarding and ensuring they meet federation policies before granting operational authorization.
+
+**Role in Operations**: During credential issuance and presentation operations, trust evaluation provides real-time verification of entity validity and compliance status. This enables secure credential transactions by ensuring that all participating entities (credential issuers, relying parties, wallet providers) maintain their authorized status and comply with current federation policies.
 
 
 Establishing Trust with Credential Issuers
@@ -780,6 +804,10 @@ The X.509 Public Key Infrastructure (PKI) is a framework designed to create, man
 The integration of OpenID Federation 1.0 with the traditional X.509 based PKI (rfc:5280), complemented by a RESTful API, aims to enhance the infrastructure with additional features, making it navigable and transparent.
 
 This approach leverages the dynamic and flexible nature of OpenID Federation alongside the requirement of the X.509 Certificates for legacy applications and interoperability purposes, aiming to addresses the evolving needs of verification of the registration status of the federation participants, their compliance to the shared rules and the general and interoperable trust management in multilateral digital ecosystems.
+
+**Role in Onboarding**: During entity registration, X.509 certificates complement OpenID Federation mechanisms by providing interoperability with legacy systems and enabling integration with existing PKI infrastructures. Entities self-issue X.509 certificates using their federation keys, extending trust relationships to traditional certificate-based systems.
+
+**Role in Operations**: During credential operations, X.509 certificates enable secure communications with legacy systems and provide alternative verification paths for entities that require traditional PKI validation. This dual approach ensures that IT-Wallet infrastructure can interoperate with existing legacy systems while maintaining modern federation-based trust mechanisms.
 
 OpenID Federation and X.509 based PKI share several things in common, as listed below:
 
