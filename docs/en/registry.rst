@@ -90,7 +90,6 @@ The Supervisory Body MUST maintain the Claims Registry to ensure semantic consis
 
   - **Standardised Claims**: Semantic definitions for all credential attributes with data types and validation rules.
   - **Interoperability Mappings**: Alias definitions for claims that use different terminology across standards (e.g., ISO18013-5 ``place_of_birth`` mapped to canonical ``birth_place``).
-  - **Taxonomy References**: Claims reference applicable domains and purposes from the separate Taxonomy component for classification.
   - **Data Formats**: Standardised data types (string, date, numeric, boolean, email, url, image, array, object) with validation patterns.
 
 The Claims Registry MUST ensure:
@@ -101,31 +100,9 @@ The Claims Registry MUST ensure:
   - **Regulatory Alignment**: Coordinates with national and EU regulatory framework.
   - **Credential-Agnostic Scenarios**: Supports scenarios where **user convenience** and **business operational efficiency** are prioritized over **regulatory compliance** and **audit trails**.
 
-Each claim MUST specify domains and purposes to enable both **Credential-Specific Scenarios** and **Credential-Agnostic Scenarios** according to Relying Party's requirements and presentation request patterns:
-
-  1. **Credential-Specific Scenarios** (Primary for Government/Regulated Sectors): RPs request specific credential types for compliance and audit requirements, including for example:
-
-    - **Government Services**: ``"vct_values": ["person_identification_data"]`` for PID-specific identity verification.
-    - **Police Controls**: ``"docType": "org.iso.18013.5.1.mDL"`` for driving license verification.
-    - **Banking KYC**: Specific credential types mandated by financial regulations.
-    - **Healthcare Services**: ``"vct_values": ["european_disability_card"]`` for EU-compliant disability benefit access.
-
-  2. **Credential-Agnostic Scenarios** (Typical for Private Business): RPs request specific claims regardless of credential source for operational efficiency, such as:
-
-    - **E-commerce Delivery**: Any credential containing ``given_name``, ``family_name``, ``address`` for shipping.
-    - **Subscriptions**: Any credential with ``given_name``, ``email`` for personalization.
-    - **Service Personalization**: Business applications requiring basic personal data without strong source requirements.
-
-This approach allows:
-
-  - **Policy-based authorization** for credential-agnostic requests using domain/purpose mappings.
-  - **Implicit credential categorization** for private credentials not published in public.
-  - **Flexible RP registration** supporting both government compliance needs and business operational requirements.
-
 
 .. note::
    The Claims Registry defines semantic properties of individual attributes, but MUST NOT specify selective disclosure capabilities. Selective disclosure depends on credential format implementations (SD-JWT, mDocs), issuer technical configurations, and presentation context. These capabilities are specified at the credential type level within the Digital Credentials Catalog and implemented during credential presentation flows.
-
 
 
 Claims Registry Usage 
@@ -535,6 +512,25 @@ Digital Credentials recognized within the IT-Wallet ecosystem are hierarchically
        * CERTIFICATION
      - Credentials that provide official statements, confirmations of status, or certifications issued by authorities.
 
+Each Credential MUST specify domains and purposes to enable both **Credential-Specific Scenarios** and **Credential-Agnostic Scenarios** according to Relying Party's requirements and presentation request patterns:
+
+  1. **Credential-Specific Scenarios** (Primary for Government/Regulated Sectors): RPs request specific credential types for compliance and audit requirements, including for example:
+
+    - **Government Services**: ``"vct_values": ["person_identification_data"]`` for PID-specific identity verification.
+    - **Police Controls**: ``"docType": "org.iso.18013.5.1.mDL"`` for driving license verification.
+    - **Banking KYC**: Specific credential types mandated by financial regulations.
+    - **Healthcare Services**: ``"vct_values": ["european_disability_card"]`` for EU-compliant disability benefit access.
+
+  2. **Credential-Agnostic Scenarios** (Typical for Private Business): RPs request specific claims regardless of credential source for operational efficiency, such as:
+
+    - **E-commerce Delivery**: Any credential, among those to which he is authorized to access, containing ``given_name``, ``family_name``, ``address`` for shipping.
+    - **Subscriptions**: Any credential, among those to which he is authorized to access, with ``given_name``, ``email`` for personalization.
+    - **Service Personalization**: Business applications requiring basic personal data without strong source requirements.
+
+This approach allows:
+
+  - **Policy-based authorization** by using domain/purpose mappings.
+  - **Flexible RP registration** supporting both government compliance needs and business operational requirements.
 
 Digital Credentials Catalog Structure
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -4,19 +4,19 @@
 Infrastruttura del Registro
 ============================
 
-L'ecosistema IT-Wallet opera attraverso un'infrastruttura di registro che fornisce definizioni standardizzate dei dati, registrazione delle entità e capacità di scoperta delle credenziali. Il sistema di registro è composto da più componenti interconnessi che supportano l'intero ciclo di vita delle operazioni delle credenziali digitali, dall'onboarding delle entità alla presentazione delle credenziali.
+L'ecosistema IT-Wallet opera attraverso un'infrastruttura di registro che fornisce definizioni standardizzate dei dati, registrazione delle entità e capacità di discover delle credenziali. Il sistema di registro è composto da più componenti interconnessi che supportano l'intero ciclo di vita delle operazioni delle credenziali digitali, dall'onboarding delle entità alla presentazione delle credenziali.
 
-L'architettura del registro affronta i requisiti di standardizzazione semantica, gestione del trust della federazione e scoperta delle credenziali attraverso componenti di registro specializzati che garantiscono interoperabilità e conformità in tutto l'ecosistema.
+L'architettura del registro è necessaria a definire i requisiti di standardizzazione semantica, gestione del trust della federazione e discovery delle credenziali attraverso componenti di registro specializzati che garantiscono interoperabilità e conformità in tutto l'ecosistema.
 
 Panoramica dell'Architettura del Registro
 ------------------------------------------
 
 Il sistema di registro IT-Wallet comprende cinque componenti principali:
 
-  1. **Registro dei claim**: Definizioni semantiche standardizzate per singoli attributi delle credenziali, tipi di dati e regole di validazione.
+  1. **Registro degli Attributi**: Definizioni semantiche standardizzate per singoli attributi delle credenziali, tipi di dati e regole di validazione.
   2. **Registro delle Fonti Autentiche (AS)**: Catalogo dei fornitori di dati registrati con le loro capacità dichiarate e claim disponibili.
   3. **Registro della Federazione**: Elenco autorevole delle entità fidate che partecipano alla federazione con le loro configurazioni tecniche.
-  4. **Catalogo degli Attestati Elettronici**: Meccanismo di scoperta pubblico per i tipi di credenziali disponibili con i loro metadati e informazioni di rilascio.
+  4. **Catalogo degli Attestati Elettronici**: Meccanismo di discovery pubblico per i tipi di credenziali disponibili con i loro metadati e informazioni di rilascio.
   5. **Tassonomia**: Sistema di classificazione gerarchica che organizza le credenziali per dominio e scopo.
 
 Questi componenti del registro sono interconnessi e mantenuti dall'Organismo di Supervisione per garantire coerenza, sicurezza e conformità normativa in tutto l'ecosistema.
@@ -24,9 +24,9 @@ Questi componenti del registro sono interconnessi e mantenuti dall'Organismo di 
 Endpoint di Discovery del Registro
 ----------------------------------
 
-Il Trust Anchor DEVE fornire un meccanismo di scoperta per tutti i componenti del registro attraverso endpoint *well-known* standardizzati che forniscono metadati e informazioni di scoperta delle API REST per gestire operazioni complesse come paginazione e filtraggio.
+Il Trust Anchor DEVE fornire un meccanismo di discovery per tutti i componenti del registro attraverso endpoint *well-known* standardizzati che forniscono metadati e informazioni di discovery delle API REST per gestire operazioni complesse come paginazione e filtraggio.
 
-Il Trust Anchor DEVE pubblicare i metadati di scoperta del registro all'endpoint ``.well-known/it-wallet-registry`` con supporto per la negoziazione del contenuto:
+Il Trust Anchor DEVE pubblicare i metadati di discovery del registro all'endpoint ``.well-known/it-wallet-registry`` con supporto per la negoziazione del contenuto:
 
   - **Content-Type Predefinito**: ``application/jwt`` (JWT firmato che garantisce autenticità e integrità)
   - **Content-Type Alternativo**: ``application/json`` (JSON semplice per scopi di sviluppo/debug)
@@ -58,7 +58,7 @@ Di seguito viene fornito un esempio non normativo.
     HTTP/1.1 200 OK
     Content-Type: application/json
 
-Struttura del payload JWT (quando decodificato):
+Struttura del payload JWT (decodificato):
 
 .. code-block:: json
 
@@ -86,72 +86,48 @@ Registro degli Attributi
 
 Il **Registro degli Attributi** fornisce definizioni semantiche standardizzate per singoli attributi delle credenziali, tipi di dati e regole di validazione. Questo registro serve come fondamento semantico per la standardizzazione degli attributi delle credenziali in tutto l'ecosistema IT-Wallet, lavorando in coordinamento con il componente Tassonomia per la classificazione gerarchica.
 
-L'Organismo di Supervisione DEVE mantenere il Registro dei claim per garantire coerenza semantica e conformità normativa in tutto l'ecosistema. Il registro DEVE contenere:
+L'Organismo di Supervisione DEVE mantenere il Registro degli Attributi per garantire coerenza semantica e conformità normativa in tutto l'ecosistema. Il registro DEVE contenere:
 
   - **Claim Standardizzati**: Definizioni semantiche per tutti gli attributi delle credenziali con tipi di dati e regole di validazione.
-  - **Mappature di Interoperabilità**: Definizioni di alias per i claim che utilizzano terminologie diverse tra gli standard (ad esempio, ISO18013-5 ``place_of_birth`` mappato al canonico ``birth_place``).
-  - **Riferimenti alla Tassonomia**: I claim fanno riferimento ai domini e scopi applicabili dal componente Tassonomia separato per la classificazione.
+  - **Mappature di Interoperabilità**: Definizioni di alias per gli attributi che utilizzano terminologie diverse tra gli standard (ad esempio, ISO18013-5 ``place_of_birth`` mappato al canonico ``birth_place``).
   - **Formati dei Dati**: Tipi di dati standardizzati (string, date, numeric, boolean, email, url, image, array, object) con pattern di validazione.
 
-Il Registro dei claim DEVE garantire:
+Il Registro degli Attributi DEVE garantire:
 
-  - **Coerenza Semantica**: Previene conflitti tra claim duplicati o sovrapposte in tutto l'ecosistema.
-  - **Interoperabilità Transfrontaliera**: Garantisce conformità UE e interpretazione coerente dei claim.
-  - **Validazione dello Schema**: Fornisce definizioni autorevoli per la validazione dei claim in tutti gli scenari di credenziali.
+  - **Coerenza Semantica**: Previene conflitti tra attributi duplicati o ridondanti in tutto l'ecosistema.
+  - **Interoperabilità Transfrontaliera**: Garantisce conformità UE e interpretazione coerente degli attributi.
+  - **Validazione dello Schema**: Fornisce definizioni autorevoli per la validazione degli attributi in tutti gli scenari di credenziali.
   - **Allineamento Normativo**: Si coordina con il quadro normativo nazionale ed europeo.
-  - **Scenari Credential-Agnostic**: Supporta scenari in cui la **convenienza dell'utente** e l'**efficienza operativa aziendale** sono prioritarie rispetto alla **conformità normativa** e alle **tracce di audit**.
-
-Ogni claim DEVE specificare domini e scopi per abilitare sia **Scenari Credential-Specific** che **Scenari Credential-Agnostic** secondo i requisiti delle Relying Party e i pattern di richiesta di presentazione:
-
-  1. **Scenari Credential-Specific** (Primari per Settori Governativi/Regolamentati): Le RP richiedono tipi di credenziali specifici per requisiti di conformità e audit, inclusi ad esempio:
-
-    - **Servizi Governativi**: ``"vct_values": ["person_identification_data"]`` per la verifica dell'identità specifica del PID.
-    - **Controlli di Polizia**: ``"docType": "org.iso.18013.5.1.mDL"`` per la verifica della patente di guida.
-    - **KYC Bancario**: Tipi di credenziali specifici richiesti dalle normative finanziarie.
-    - **Servizi Sanitari**: ``"vct_values": ["european_disability_card"]`` per l'accesso ai benefici per disabilità conforme all'UE.
-
-  2. **Scenari Credential-Agnostic** (Tipici per Aziende Private): Le RP richiedono gli attributi specifichi indipendentemente dalla fonte delle credenziali per efficienza operativa, come:
-
-    - **Consegna E-commerce**: Qualsiasi credenziale contenente ``given_name``, ``family_name``, ``address`` per la spedizione.
-    - **Abbonamenti**: Qualsiasi credenziale con ``given_name``, ``email`` per la personalizzazione.
-    - **Personalizzazione del Servizio**: Applicazioni aziendali che richiedono dati personali di base senza forti requisiti di fonte.
-
-Questo approccio consente:
-
-  - **Autorizzazione basata su policy** per richieste credential-agnostic utilizzando mappature dominio/scopo.
-  - **Categorizzazione implicita delle credenziali** per credenziali private non pubblicate pubblicamente.
-  - **Registrazione RP flessibile** che supporta sia le esigenze di conformità governativa che i requisiti operativi aziendali.
-
+  - **Scenari Credential-Agnostic**: Supporta scenari in cui la **convenienza dell'utente** e l'**efficienza operativa aziendale** sono prioritarie rispetto alla **conformità normativa** e ai **log di audit**.
 
 .. note::
-   Il Registro dei claim definisce le proprietà semantiche dei singoli attributi, ma NON DEVE specificare le capacità di divulgazione selettiva. La divulgazione selettiva dipende dalle implementazioni del formato delle credenziali (SD-JWT, mDocs), dalle configurazioni tecniche dell'emittente e dal contesto di presentazione. Queste capacità sono specificate a livello del tipo di credenziale all'interno del Catalogo degli Attestati Elettronici e implementate durante i flussi di presentazione delle credenziali.
+   Il Registro degli Attributi definisce le proprietà semantiche dei singoli attributi, ma NON DEVE specificare le capacità di selective disclosure. La selective disclosure dipende dalle implementazioni del formato delle credenziali (SD-JWT, mDocs), dalle configurazioni tecniche dell'emittente e dal contesto di presentazione. Queste capacità sono specificate a livello del tipo di credenziale all'interno del Catalogo degli Attestati Elettronici e implementate durante i flussi di presentazione delle credenziali.
 
 
-
-Utilizzo del Registro dei claim
+Utilizzo del Registro degli Attributi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Il Registro dei claim DEVE supportare l'intero ciclo di vita dell'ecosistema:
+Il Registro degli Attributi DEVE supportare l'intero ciclo di vita dell'ecosistema:
 
 **Durante il Processo di Onboarding**:
 
-  - **Registrazione AS**: Le Fonti Autentiche dichiarano i claim disponibili dal registro standardizzato durante la registrazione delle capacità.
+  - **Registrazione AS**: Le Fonti Autentiche dichiarano i proprio claim disponibili tra quelli presenti nel registro standardizzato durante la registrazione delle capacità.
   - **Registrazione CI**: I Credential Issuer selezionano le entità AS basandosi sugli attributi richiesti e registrano i tipi di credenziali per la pubblicazione nel catalogo.
   - **Registrazione RP**: Le Relying Party specificano i requisiti di autorizzazione utilizzando domini/scopi per tipi di credenziali specifici e/o attributi dell'Utente.
 
 **Durante le Attività Operative**:
 
-  - **Rilascio di Credenziali**: Le definizioni dei claim garantiscono rappresentazione coerente dei dati tra diversi tipi di credenziali.
+  - **Rilascio di Credenziali**: Le definizioni degli attributi garantiscono rappresentazione coerente dei dati tra diversi tipi di credenziali.
   - **Richieste di Presentazione**: Le RP fanno riferimento agli attributi per la validazione dello schema e la verifica dell'autorizzazione in scenari sia credential-specific che credential-agnostic.
   - **Applicazione delle Policy**: Le policy di autorizzazione sfruttano le classificazioni dominio/scopo per il controllo degli accessi.
 
 
-Struttura del Registro dei claim
+Struttura del Registro degli Attributi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Il Registro dei claim mantiene definizioni tecniche, linguisticamente neutrali per la coerenza semantica in tutto l'ecosistema. Le localizzazioni rivolte all'utente per nomi e descrizioni dei claim sono fornite attraverso i bundle di localizzazione del Catalogo degli Attestati Elettronici, abilitando un supporto multilingue efficiente senza compromettere l'integrità strutturale del registro.
+Il Registro degli Attributi mantiene definizioni tecniche, linguisticamente neutrali per la coerenza semantica in tutto l'ecosistema. Le localizzazioni rivolte all'utente per nomi e descrizioni degli attributi sono fornite attraverso i bundle di localizzazione del Catalogo degli Attestati Elettronici, abilitando un supporto multilingue efficiente senza compromettere l'integrità strutturale del registro.
 
-Un esempio non normativo della struttura del Registro dei claim è fornito di seguito:
+Un esempio non normativo della struttura del Registro degli Attributi è fornito di seguito:
 
 .. literalinclude:: ../../examples/claims-registry-example.json
   :language: JSON
@@ -162,17 +138,17 @@ Registro delle Fonti Autentiche
 L'Organismo di Supervisione DEVE mantenere il Registro delle Fonti Autentiche per abilitare l'accesso coordinato ai dati e il rilascio di credenziali in tutto l'ecosistema. Il Registro AS DEVE contenere almeno:
 
   - **Informazioni sull'Organizzazione**: Dettagli dell'entità legale, stato normativo e ruolo autorevole all'interno di domini specifici.
-  - **Capacità dei Dati**: Disponibilità dichiarata dei claim che fanno riferimento alle definizioni standardizzate del Registro dei claim con le corrispondenti classificazioni della Tassonomia.
+  - **Capacità dei Dati**: Disponibilità dichiarata degli attributi che fanno riferimento alle definizioni standardizzate del Registro degli Attributi con le corrispondenti classificazioni della Tassonomia.
   - **Metodi di Integrazione**: Meccanismi di accesso tecnico (PDND per AS pubbliche, API personalizzate per AS private).
   - **Scopi Previsti**: Tipi di credenziali supportati e contesti aziendali per il coordinamento AS-CI.
-  - **Garanzia della Qualità dei Dati**: Stato autorevole, frequenza di aggiornamento e capacità di traccia di audit.
+  - **Garanzia della Qualità dei Dati**: Stato autoritativo, frequenza di aggiornamento e capacità di traccia di audit.
 
 Il Registro AS DEVE garantire:
 
-  - **Accesso Coordinato ai Dati**: Abilita la scoperta CI di dati appropriati dalle Fonti Autentiche per il rilascio di credenziali.
+  - **Accesso Coordinato ai Dati**: Abilita la discovery CI di dati appropriati dalle Fonti Autentiche per il rilascio di credenziali.
   - **Integrazione AS-CI**: Facilita i flussi di lavoro di approvazione e il coordinamento dell'accesso ai dati tra le entità.
-  - **Garanzia della Qualità**: Mantiene lo stato autorevole e l'affidabilità dei dati tra diversi domini.
-  - **Conformità Normativa**: Supporta i requisiti di trasparenza dell'amministrazione pubblica e coordinamento del settore privato.
+  - **Garanzia della Qualità**: Mantiene lo stato autoritativo e l'affidabilità dei dati tra diversi domini.
+  - **Conformità Normativa**: Supporta i requisiti di trasparenza dell'amministrazione pubblica e il coordinamento del settore privato.
 
 Utilizzo del Registro AS
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -180,8 +156,8 @@ Utilizzo del Registro AS
 Il Registro AS supporta il coordinamento dell'ecosistema durante tutto il ciclo di vita operativo:
 
 **Durante il Processo di Onboarding**:
-  - **Auto-Dichiarazione AS**: Le Fonti Autentiche registrano le capacità prima che esistano tipi di credenziali nel catalogo.
-  - **Scoperta CI**: I Credential Issuer cercano entità AS basandosi sugli attributi richiesti e sui tipi di credenziali previsti.
+  - **Auto-Dichiarazione AS**: Le Fonti Autentiche registrano le capacità prima che esista un qualsiasi tipo di credenziali nel catalogo.
+  - **Discovery dei CI**: I Credential Issuer cercano entità AS basandosi sugli attributi richiesti e sui tipi di credenziali previsti.
   - **Coordinamento delle Approvazioni**: Le entità AS valutano e approvano le richieste di accesso CI per la fornitura di dati.
 
 **Durante le Attività Operative**:
@@ -203,7 +179,7 @@ L'architettura del Registro AS supporta diversi pattern di coordinamento che rif
   2. **AS del Settore Privato** (Integrazione Flessibile): Le entità private forniscono dati specializzati attraverso accordi personalizzati:
 
     - **API Personalizzate**: ``"integration_method": "custom_api"`` per pattern di accesso ai dati specifici dell'azienda.
-    - **Divulgazione Selettiva**: Visibilità pubblica limitata con flussi di lavoro di approvazione specifici per CI.
+    - **Selective Disclosurea**: Visibilità pubblica limitata con flussi di lavoro di approvazione specifici per CI.
     - **Flessibilità Aziendale**: Integrazione su misura che supporta diversi casi d'uso del settore privato.
 
 Questo approccio abilita sia la **trasparenza normativa** per l'amministrazione pubblica che la **flessibilità aziendale** per le entità del settore privato mantenendo l'accesso coordinato ai dati in tutto l'ecosistema.
@@ -211,12 +187,12 @@ Questo approccio abilita sia la **trasparenza normativa** per l'amministrazione 
 Struttura del Registro AS
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Durante la registrazione, le Fonti Autentiche dichiarano le loro capacità prima che esistano tipi di credenziali nel catalogo. Questa dichiarazione stabilisce le fondamenta per la successiva registrazione CI e creazione di tipi di credenziali.
+Durante la registrazione, le Fonti Autentiche dichiarano le loro capacità prima che esista un qualsiasi tipo di credenziale nel catalogo. Questa dichiarazione stabilisce le fondamenta per la successiva registrazione CI e creazione di tipi di credenziali.
 
 Schema dell'Identificatore Univoco AS
 """"""""""""""""""""""""""""""""""""""
 
-Ogni Fonte Autentica DEVE essere assegnata un identificatore univoco che segue lo schema URL HTTPS definito di seguito. Questo identificatore è utilizzato per fare riferimento alle entità AS in tutto il sistema di registro e nel Catalogo degli Attestati Elettronici, garantendo coerenza con i pattern di identificazione delle entità OpenID Federation.
+Ad ogni Fonte Autentica DEVE essere assegnato un identificatore univoco che segue lo schema URL HTTPS definito di seguito. Questo identificatore è utilizzato per fare riferimento alle entità AS in tutto il sistema di registro e nel Catalogo degli Attestati Elettronici, garantendo coerenza con i pattern di identificazione delle entità OpenID Federation.
 
 **Schema dell'Identificatore AS:**
 
@@ -235,7 +211,7 @@ L'identificatore AS DEVE seguire queste regole normative:
 1. **Protocollo HTTPS**: DEVE utilizzare lo schema HTTPS per sicurezza e verifica del trust
 2. **Proprietà del Dominio**: L'organizzazione DEVE controllare il dominio DNS utilizzato nell'identificatore
 3. **Unicità**: Garantita attraverso l'unicità del namespace DNS
-4. **Stabilità**: DOVREBBE rimanere stabile nel tempo per evitare rotture dei riferimenti
+4. **Stabilità**: DOVREBBE rimanere stabile nel tempo per evitare la corruzione dei riferimenti
 5. **Risolvibilità**: L'URL DOVREBBE essere risolvibile (anche se non è richiesto che serva contenuto)
 
 **Esempi di identificatori AS conformi:**
@@ -299,7 +275,7 @@ Il Registro AS DEVE contenere i seguenti parametri per ogni Fonte Autentica regi
      - OPZIONALE. URL che punta alla documentazione del servizio della Fonte Autentica.
    * - **organization_info.user_information**
      - string
-     - OPZIONALE. Una stringa contenente informazioni leggibili dall'uomo sulla Credenziale Digitale rilevante per l'Utente. Questa stringa DEVE essere fornita dalla Fonte Autentica al Trust Anchor durante l'onboarding e DEVE essere formattata utilizzando il formato Markdown come definito in :rfc:`7763`. La formattazione Markdown può essere testo semplice o una combinazione di testo e link. Ad esempio, se il database della Fonte Autentica contiene solo i dati richiesti per gli attributi della Credenziale Digitale registrati *dopo* una data specifica, questa informazione DEVE essere comunicata al Trust Anchor in questa stringa Markdown.
+     - OPZIONALE. Una stringa contenente informazioni "human-readable" sulla Credenziale Digitale rilevante per l'Utente. Questa stringa DEVE essere fornita dalla Fonte Autentica al Trust Anchor durante l'onboarding e DEVE essere formattata utilizzando il formato Markdown come definito in :rfc:`7763`. La formattazione Markdown può essere testo semplice o una combinazione di testo e link. Ad esempio, se il database della Fonte Autentica contiene solo i dati richiesti per gli attributi della Credenziale Digitale registrati *dopo* una data specifica, questa informazione DEVE essere comunicata al Trust Anchor in questa stringa Markdown.
    * - **data_capabilities**
      - JSON Objects Array
      - RICHIESTO. Array contenente le specifiche delle capacità dei dati.
@@ -391,10 +367,10 @@ All'interno dell'architettura del registro IT-Wallet, il Registro della Federazi
 Accesso al Registro della Federazione
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Le operazioni del Registro della Federazione sono accessibili attraverso gli endpoint della federazione del Trust Anchor come dettagliato in :ref:`trust:Endpoint API di Federazione`. L'architettura di scoperta del registro fornisce informazioni sugli endpoint della federazione tramite l'Endpoint di Discovery del Registro descritto in `Endpoint di Discovery del Registro`_.
+Le operazioni del Registro della Federazione sono accessibili attraverso gli endpoint della federazione del Trust Anchor come dettagliato in :ref:`trust:Endpoint API di Federazione`. L'architettura di discovery del registro fornisce informazioni sugli endpoint della federazione tramite l'Endpoint di Discovery del Registro descritto in `Endpoint di Discovery del Registro`_.
 
 .. note::
-   Gli endpoint della federazione sono disponibili sia attraverso il meccanismo di scoperta del registro (per l'accesso unificato al registro) che attraverso l'Entity Configuration del Trust Anchor a ``.well-known/openid-federation`` (per operazioni specifiche della federazione). Entrambe le fonti forniscono gli stessi URL degli endpoint ma servono pattern di scoperta diversi: scoperta del registro per l'orientamento iniziale dell'ecosistema, Entity Configuration per la conformità standard OpenID Federation 1.0.
+   Gli endpoint della federazione sono disponibili sia attraverso il meccanismo di discovery del registro (per l'accesso unificato al registro) che attraverso l'Entity Configuration del Trust Anchor a ``.well-known/openid-federation`` (per operazioni specifiche della federazione). Entrambe le fonti forniscono gli stessi URL degli endpoint ma servono pattern di discovery diversi: discovery del registro per l'orientamento iniziale dell'ecosistema, Entity Configuration per la conformità standard OpenID Federation 1.0.
 
 Per le specifiche tecniche complete dei protocolli di federazione, configurazioni delle entità, meccanismi di valutazione del trust e validazione della catena di trust, vedere :ref:`trust:L'Infrastruttura di Trust`.
 
@@ -405,7 +381,7 @@ Il Catalogo degli Attestati Elettronici è il registro di tutti gli Attestati El
 
 Il Catalogo degli Attestati Elettronici mira a:
 
-  1. Facilitare la scoperta degli Attestati Elettronici per gli Utenti.
+  1. Facilitare la discovery degli Attestati Elettronici per gli Utenti.
   2. Standardizzare la descrizione tecnica e funzionale degli Attestati Elettronici.
   3. Abilitare l'interoperabilità tra diversi Issuer e Relying Party.
   4. Semplificare il processo di integrazione per Wallet Provider e Relying Party.
@@ -472,12 +448,12 @@ La seguente tabella riassume le principali informazioni che DEVONO essere fornit
 
        - **Validità delle credenziali**: Periodo di tempo durante il quale l'Attestato Elettronico è valido e, quando applicabile, meccanismi e dettagli tecnici per invalidare gli Attestati Elettronici (metodi di revoca/sospensione).
        - **Policy di restrizione**: Se applicabile, regole che governano l'uso e le limitazioni dell'Attestato Elettronico secondo le normative nazionali. È utilizzata, ad esempio, per specificare se solo specifici tipi legali di Entità, ad esempio Fornitore Pub-EAA e Soluzioni Wallet pubbliche, sono autorizzate a rilasciare e ottenere l'Attestato Elettronico.
-       - **Policy di prezzo**: Informazioni relative ai modelli di prezzo dell'Attestato Elettronico, come `free`, `issuance_based`, `verification_based`.
+       - **Policy di costo**: Informazioni relative ai modelli di costo dell'Attestato Elettronico, come `free`, `issuance_based`, `verification_based`.
        - **Scopi degli Attestati Elettronici**: Informazioni relative agli scopi consentiti per i quali l'Attestato Elettronico può essere utilizzato. Ogni tipo di Attestato Elettronico può essere utilizzato per scopi multipli.
    * - Attributi e Riferimenti alla Tassonomia
      - Informazioni di contenuto e classificazione:
 
-       - **Elenco dei claim visualizzate**: Contenuto specifico dell'Attestato Elettronico visualizzato all'Utente.
+       - **Elenco degli attributi visualizzate**: Contenuto specifico dell'Attestato Elettronico visualizzato all'Utente.
        - **Riferimenti strutturati alla tassonomia**: Sistemi di classificazione e vocabolari controllati utilizzati.
 
 
@@ -534,6 +510,27 @@ Gli Attestati Elettronici riconosciuti all'interno dell'ecosistema IT-Wallet son
        * CIVIL_STATUS
        * CERTIFICATION
      - Credenziali che forniscono dichiarazioni ufficiali, conferme di stato o certificazioni rilasciate dalle autorità.
+
+
+Ogni Credenziale DEVE specificare domini e scopi per abilitare sia **Scenari Credential-Specific** che **Scenari Credential-Agnostic** secondo i requisiti delle Relying Party e i pattern di richiesta di presentazione:
+
+  1. **Scenari Credential-Specific** (Primari per Settori Governativi/Regolamentati): Le RP richiedono tipi specifici di credenziali per requisiti di conformità e audit, inclusi ad esempio:
+
+    - **Servizi Governativi**: ``"vct_values": ["person_identification_data"]`` per la verifica dell'identità specifica del PID.
+    - **Controlli di Polizia**: ``"docType": "org.iso.18013.5.1.mDL"`` per la verifica della patente di guida.
+    - **KYC Bancario**: Tipi di credenziali specifici richiesti dalle normative finanziarie.
+    - **Servizi Sanitari**: ``"vct_values": ["european_disability_card"]`` per l'accesso ai benefici per disabilità conforme all'UE.
+
+  2. **Scenari Credential-Agnostic** (Tipici per Aziende Private): Le RP richiedono gli attributi specifichi indipendentemente dalla fonte delle credenziali per efficienza operativa, come:
+
+    - **Consegna E-commerce**: Qualsiasi credenziale, tra quelle a cui è autorizzato ad accedere, contenente ``given_name``, ``family_name``, ``address`` per la spedizione.
+    - **Abbonamenti**: Qualsiasi credenzialetra quelle a cui è autorizzato ad accedere, con ``given_name``, ``email`` per la personalizzazione.
+    - **Personalizzazione del Servizio**: Applicazioni aziendali che richiedono dati personali di base senza forti requisiti di fonte.
+
+Questo approccio consente:
+
+  - **Autorizzazione basata su policy** tramite l'utilizzo della mappatura dominio/scopo.
+  - **Registrazione RP flessibile** che supporta sia le esigenze di conformità governativa che i requisiti operativi aziendali.
 
 
 Struttura del Catalogo degli Attestati Elettronici
@@ -609,9 +606,9 @@ Ogni elemento dell'array ``credentials`` contiene almeno le seguenti informazion
       * **base_uri**: URI base per le risorse di localizzazione.
       * **version**: Versione dei file di localizzazione.
   * - **name**
-    - RICHIESTO. Nome leggibile dall'uomo dell'Attestato Elettronico. Un suffisso ``_l10n_id`` PUÒ essere aggiunto per la gestione della localizzazione del contenuto.
+    - RICHIESTO. Nome "human-readable" dell'Attestato Elettronico. Un suffisso ``_l10n_id`` PUÒ essere aggiunto per la gestione della localizzazione del contenuto.
   * - **description**
-    - RICHIESTO. Descrizione leggibile dall'uomo dell'Attestato Elettronico. Un suffisso ``_l10n_id`` PUÒ essere aggiunto per la gestione della localizzazione del contenuto.
+    - RICHIESTO. Descrizione "human-readable" dell'Attestato Elettronico. Un suffisso ``_l10n_id`` PUÒ essere aggiunto per la gestione della localizzazione del contenuto.
   * - **restriction_policy**
     - OPZIONALE. Restrizioni legali su Soluzioni Wallet e/o Credential Issuer autorizzati a richiedere/rilasciare l'Attestato Elettronico.
 
@@ -620,13 +617,13 @@ Ogni elemento dell'array ``credentials`` contiene almeno le seguenti informazion
   * - **pricing_policy**
     - OPZIONALE. Informazioni sui prezzi degli Attestati Elettronici, inclusi:
 
-      * **models**: RICHIESTO. Array di modelli di prezzo applicabili all'Attestato Elettronico, ognuno contenente
+      * **models**: RICHIESTO. Array di modelli di costo applicabili all'Attestato Elettronico, ognuno contenente
 
-        - **pricing_type**: Tipo di modello di prezzo, come ``issuance_based``, ``verification_based``, ``subscription_based``, ``other``.
+        - **pricing_type**: Tipo di modello di costo, come ``issuance_based``, ``verification_based``, ``subscription_based``, ``other``.
         - **price**: Costo associato al modello.
-        - **currency**: Valuta del prezzo.
+        - **currency**: Valuta del costo.
 
-      * **pricing_model_uri**: URI alla documentazione dettagliata del modello di prezzo.
+      * **pricing_model_uri**: URI alla documentazione dettagliata del modello di costo.
   * - **validity_info**
     - Informazioni sulla validità degli Attestati Elettronici, inclusi almeno:
 
@@ -643,7 +640,7 @@ Ogni elemento dell'array ``credentials`` contiene almeno le seguenti informazion
     - RICHIESTO. Array di scopi di utilizzo per i quali l'Attestato Elettronico può essere utilizzato, definendo contesti di utilizzo specifici e attributi richiesti per ogni scopo, come:
 
       * **id**: Identificatore univoco per lo scopo (ad esempio, "driving-authorization", "person-identification").
-      * **description**: Descrizione leggibile dall'uomo dello scopo con un suffisso ``_l10n_id`` per la localizzazione del contenuto.
+      * **description**: Descrizione "human-readable" dello scopo con un suffisso ``_l10n_id`` per la localizzazione del contenuto.
       * **claims_required**: Array di identificatori di attributi che sono richiesti quando si utilizza la Credenziale per questo scopo.
       * **claims_recommended**: Array di identificatori di attributi che sono raccomandati ma non obbligatori per questo scopo.
   * - **issuers**
@@ -690,9 +687,9 @@ L'Oggetto ``wallet_attestation`` contiene almeno le seguenti informazioni:
   * - **credential_type**
     - RICHIESTO. Identificatore univoco dell'Attestazione del Wallet. DEVE essere impostato a ``WalletAttestation``.
   * - **name**
-    - RICHIESTO. Nome leggibile dall'uomo dell'Attestazione del Wallet. DEVE essere impostato a ``Wallet Attestation``.
+    - RICHIESTO. Nome "human-readable" dell'Attestazione del Wallet. DEVE essere impostato a ``Wallet Attestation``.
   * - **description**
-    - RICHIESTO. Descrizione leggibile dall'uomo dell'Attestato Elettronico.
+    - RICHIESTO. Descrizione "human-readable" dell'Attestato Elettronico.
   * - **aal_values_supported**
     - RICHIESTO. Array di Stringhe ognuna delle quali è un Livello di Garanzia (LoA) supportato dall'Attestazione del Wallet. DEVE includere almeno i livelli ``low``, ``medium`` e ``high``.
   * - **formats**
@@ -774,12 +771,12 @@ La tassonomia supporta ambienti multilingue attraverso il pattern del suffisso `
 
 **Utilizzo della Tassonomia:**
 
-- **Registro dei claim**: Catalogo dei claim individuali
+- **Registro degli Attributi**: Catalogo degli attributi individuali
 - **Registro AS**: Le Fonti Autentiche dichiarano capacità utilizzando classificazioni della tassonomia
 - **Catalogo degli Attestati Elettronici**: I tipi di credenziali specificano domini e scopi supportati
 - **Policy di Autorizzazione**: La valutazione delle policy sfrutta la struttura della tassonomia per decisioni di controllo degli accessi
 
-La tassonomia è accessibile attraverso l'endpoint dedicato della tassonomia come definito nel meccanismo di scoperta del registro ed è mantenuta dall'Organismo di Supervisione per garantire conformità normativa e coerenza semantica.
+La tassonomia è accessibile attraverso l'endpoint dedicato della tassonomia come definito nel meccanismo di discovery del registro ed è mantenuta dall'Organismo di Supervisione per garantire conformità normativa e coerenza semantica.
 
 Un esempio non normativo della struttura della Tassonomia è fornito di seguito:
 
@@ -793,5 +790,5 @@ I componenti del registro sono interconnessi e lavorano insieme per supportare l
 
 1. **Registro AS** ↔ **Tassonomia**: Le entità AS dichiarano capacità utilizzando classificazioni della tassonomia per la categorizzazione standardizzata.
 2. **Registro AS** ↔ **Catalogo**: I tipi di credenziali fanno riferimento alle capacità AS per la validazione della fonte dati.
-3. **Catalogo** ↔ **Tassonomia**: Le voci delle credenziali specificano domini e scopi dalla tassonomia per scoperta e autorizzazione.
+3. **Catalogo** ↔ **Tassonomia**: Le voci delle credenziali specificano domini e scopi dalla tassonomia per discovery e autorizzazione.
 4. **Registro della Federazione** ↔ **Tutti i Componenti**: Fornisce validazione del trust crittografico per tutte le operazioni del registro e autenticazione delle entità.
