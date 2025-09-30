@@ -14,47 +14,47 @@ Panoramica
 Architettura del Sistema di Onboarding delle Entità
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-L'ecosistema IT-Wallet è basato su un'infrastruttura di trust federata dove le entità partecipanti DEVONO stabilire relazioni di trust crittografiche e mantenere la conformità con standard di sicurezza comuni.
+L'ecosistema IT-Wallet è basato su un'infrastruttura di trust federata dove le entità partecipanti DEVONO stabilire relazioni di trust crittografiche e mantenere la conformità A standard di sicurezza comuni.
 
-Il framework di onboarding DEVE consentire procedure di registrazione tecnica che sono adattate al ruolo del partecipante nell'ecosistema IT-Wallet:
+Il framework di onboarding DEVE consentire procedure di registrazione tecnica specifiche rispetto al ruolo del partecipante nell'ecosistema IT-Wallet:
 
-  1. Per le Fonti Autentiche che richiedono procedure di registrazione focalizzate sui dati.
-  2. Per le Entità operative (Credential Issuer, Relying Party, Fornitori di Wallet) che richiedono l'istituzione di trust crittografico attraverso protocolli di federazione.
+  1. Per le Fonti Autentiche sono richieste procedure di registrazione focalizzate sui dati.
+  2. Per le Entità operative (Credential Issuer, Relying Party, Fornitori di Wallet) è richiesta l'istituzione di trust crittografico attraverso protocolli di federazione.
 
-Tipi di Entità e Journey di Onboarding
+Tipi di Entità e percorsi di Onboarding
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-La seguente tabella riassume i tipi di entità, i loro ruoli e i corrispondenti Journey di onboarding:
+La seguente tabella riassume i tipi di entità, i loro ruoli e i corrispondenti percorsi di onboarding:
 
-.. list-table:: Tipi di Entità e Journey di Onboarding
+.. list-table:: Tipi di Entità e percorsi di Onboarding
    :class: longtable
    :widths: 20 30 25 25
    :header-rows: 1
 
    * - **Tipo di Entità**
      - **Ruolo Primario**
-     - **Journey di Onboarding**
+     - **Percorso di Onboarding**
      - **Requisiti Chiave**
    * - Fonti Autentiche
      - Fornitori di dati autorevoli per gli Attributi delle credenziali
      - :ref:`entity-onboarding:Processo di Registrazione delle Fonti Autentiche`
      - Validazione dell'autorità dei dati, integrazione API (PDND/Custom).
    * - Credential Issuer
-     - Generano ed emettono Credenziali Elettroniche utilizzando i dati delle Fonti Autentiche
+     - Generano ed emettono Attestati Elettronici utilizzando i dati delle Fonti Autentiche
      - :ref:`entity-onboarding:Processo di Onboarding delle Entità di Federazione`
      - Conformità all'Infrastruttura di Trust IT-Wallet, :ref:`trust:L'Infrastruttura di Trust`.
    * - Relying Party
-     - Verificano le Credenziali Elettroniche per l'accesso ai servizi
+     - Verificano gli Attestati Elettronici per l'accesso ai servizi
      - :ref:`entity-onboarding:Processo di Onboarding delle Entità di Federazione`
      - Conformità all'Infrastruttura di Trust IT-Wallet, :ref:`trust:L'Infrastruttura di Trust`.
    * - Fornitori di Wallet
      - Forniscono Soluzioni Wallet ai cittadini
      - :ref:`entity-onboarding:Processo di Onboarding delle Entità di Federazione`
-     - Conformità all'Infrastruttura di Trust IT-Wallet :ref:`trust:L'Infrastruttura di Trust`, capacità di Wallet Attestation :ref:`wallet-instance-registration:Inizializzazione e Registrazione dell'Istanza del Wallet`.
+     - Conformità all'Infrastruttura di Trust IT-Wallet :ref:`trust:L'Infrastruttura di Trust`, capacità di emissione della Wallet Attestation :ref:`wallet-instance-registration:Inizializzazione e Registrazione dell'Istanza del Wallet`.
    * - Istanze del Wallet
-     - Applicazioni di portafoglio digitale a livello Utente
+     - Applicazioni di portafoglio digitale reso disponibile all'Utente
      - Registrazione indiretta tramite Fornitore di Wallet, vedere :ref:`wallet-instance-registration:Inizializzazione e Registrazione dell'Istanza del Wallet`.
-     - Wallet Attestation da Fornitore di Wallet certificato.
+     - Wallet Attestation emessa da Fornitore di Wallet certificato.
 
 Registrazione Amministrativa vs Tecnica
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -63,7 +63,7 @@ Il processo di onboarding segue un approccio strutturato multi-fase:
 
   1. **Registrazione Amministrativa**: Tutte le entità DEVONO completare la registrazione amministrativa iniziale che valida la loro posizione legale, conformità normativa ed eleggibilità organizzativa per partecipare all'ecosistema IT-Wallet.
 
-  2. **Registrazione Tecnica**: Dopo l'approvazione amministrativa, le entità effettuano la registrazione tecnica attraverso Journey specializzati:
+  2. **Registrazione Tecnica**: Dopo l'approvazione amministrativa, le entità effettuano la registrazione tecnica secondo il proprio percorso previsto:
     
     - **Registrazione Fonte Autentica**: Procedure di registrazione focalizzate sui dati con validazione dell'integrazione API.
     - **Registrazione di Federazione**: Istituzione di trust crittografico come definito nella Sezione :ref:`trust:L'Infrastruttura di Trust`.
@@ -71,10 +71,10 @@ Il processo di onboarding segue un approccio strutturato multi-fase:
   3. **Integrazione del Registro IT-Wallet**:
 
     - **Integrazione del Registro Claims**: Le Fonti Autentiche selezionano definizioni di claim standardizzate dal Registro degli Attributi durante la dichiarazione delle specifiche.
-    - **Integrazione Tassonomia**: Tutte le entità utilizzano la classificazione gerarchica della Tassonomia (domini, scopi) per la struttura organizzativa per categorizzare le Credenziali.
-    - **Integrazione Registro AS**: Le Fonti Autentiche registrate con i loro attributi dichiarati e le relative specifiche, abilitando la discovery e coordinamento CI.
-    - **Integrazione Registro di Federazione**: Entità operative incluse per la validazione del trust durante le operazioni delle credenziali.
-    - **Integrazione Catalogo**: Tipi di credenziali pubblicati in :ref:`registry:catalogo degli attestati elettronici` basati sulle politiche dell'organismo di supervisione per l'eleggibilità alla discovery pubblica.
+    - **Integrazione della Tassonomia**: Tutte le entità utilizzano la classificazione gerarchica della Tassonomia (domini, scopi) per la struttura organizzativa per categorizzare gli Attestati Elettronici.
+    - **Integrazione del Registro AS**: Le Fonti Autentiche registrate con i loro attributi dichiarati e le relative specifiche, abilitando la discovery e coordinamento con i Credential Issuer.
+    - **Integrazione del Registro di Federazione**: Entità operative incluse per la validazione del trust durante le operazioni delle credenziali.
+    - **Integrazione del Catalogo**: Tipi di credenziali pubblicati in :ref:`registry:catalogo degli attestati elettronici` basati sulle politiche dell'organismo di supervisione per l'eleggibilità alla discovery pubblica.
 
 Tutti i componenti del registro e le loro interazioni sono dettagliati in :ref:`registry:Infrastruttura del Registro`.
 
@@ -88,18 +88,18 @@ Requisiti di Registrazione AS
 
 Le Fonti Autentiche DEVONO rispettare i seguenti requisiti tecnici per garantire l'interoperabilità dell'ecosistema:
 
-  - **Conformità Claims**:
+  - **Conformità dei Claims**:
 
-    - **Adozione Registro Claims**: Le Entità DEVONO utilizzare identificatori standardizzati del Registro Claims nelle risposte dei dati senza mappatura personalizzata dei claim.
+    - **Adozione del Registro dei Claims**: Le Entità DEVONO utilizzare identificativi standardizzati censiti nel Registro dei Claims all'interno delle response senza effettuare una mappatura personalizzata dei claim.
 
   - **Standard di Integrazione API**:
 
     - **Entità Pubbliche**: DEVONO integrarsi attraverso la piattaforma PDND con implementazione di e-service seguendo gli standard governativi.
-    - **Entità Private**: DEVONO fornire un documento completo di Specifica API OpenAPI 3.0 che include framework di autorizzazione, schemi di richiesta/risposta, meccanismi di gestione degli errori e ambiente sandbox per i test.
+    - **Entità Private**: DEVONO fornire un documento completo di Specifica API OpenAPI 3.0 che include framework di autorizzazione, schemi di request/response, meccanismi di gestione degli errori e ambiente sandbox per i test.
 
-  - **Standardizzazione del Formato di Risposta**:
+  - **Standardizzazione del Formato di Response**:
 
-    - **Formato Claims Standard**: Le Entità DEVONO utilizzare identificatori e formati del Registro Claims in tutte le risposte dei dati.
+    - **Formato Claims Standard**: Le Entità DEVONO utilizzare identificativi e formati del Registro dei Claims in tutte le risposte dei dati.
     - **Mappatura degli Stati**: Le Entità DEVONO gestire una mappatura chiara tra i loro stati interni e gli stati standard delle credenziali (valido, sospeso, revocato).
 
   - **Sicurezza e Garanzia di Qualità**:
