@@ -1,3 +1,5 @@
+.. _test-plans-remote-presentation:
+
 Remote Credential Presentation Test Matrix
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -353,6 +355,11 @@ This section provides the set of test cases designed for technical implementers 
     - Privacy Protection
     - Test that Relying Party correctly validates Wallet Instance metadata without User information.
     - Relying Party correctly evaluates Wallet Instance technical capabilities.
+
+  * - RPR-87
+    - Request URI POST Method
+    - Test that Relying Party supports receiving Wallet Instance metadata via POST to ``request_uri`` endpoint with content type ``application/x-www-form-urlencoded``.
+    - Relying Party correctly accepts and processes Wallet Instance metadata sent via POST with the required content type.
 
   * - RPR-88
     - Algorithm Validation
