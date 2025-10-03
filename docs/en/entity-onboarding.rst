@@ -228,8 +228,8 @@ The Authentic Source registration follows a technical process as described below
    AS registration is complete and independent of CI integration. AS entities become discoverable immediately upon AS Registry publication, while credential availability to end-users depends on administrative AS-CI authorization followed by successful technical integration and Supervisory Body policy approval for catalog eligibility.
 
 
-AS-CI Integration Process
--------------------------
+Authentic Source - Credential Issuer Integration Process
+---------------------------------------------------------
 
 Following administrative AS-CI authorization obtained during the administrative registration phase, technical integration procedures establish the operational API connections and data access mechanisms between Credential Issuers and Authentic Sources.
 
