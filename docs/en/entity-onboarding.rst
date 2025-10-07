@@ -314,26 +314,17 @@ A non-normative example of the technical information structure that Federation E
          "d": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
        }
 
-The following shows the decoded content of the CSR example above for reference:
+The example below shows the decoded content of the CSR:
 
-.. code-block:: text
-
-   Certificate Request:
-       Data:
-           Version: 0 (0x0)
-           Subject: CN=credentials.example.gov, OU=Digital Credentials, O=Example Organization, L=Roma, ST=Lazio, C=IT, emailAddress=technical@credentials.example.gov
-           Subject Public Key Info:
-               Public Key Algorithm: id-ecPublicKey
-                   Public-Key: (256 bit)
-                   ASN1 OID: prime256v1
-                   NIST CURVE: P-256
-       Signature Algorithm: ecdsa-with-SHA256
+.. literalinclude:: ../../examples/csr-decoded-example.txt
+   :language: text
+   :caption: CSR decoded content example
 
 .. note::
    The CSR Subject attributes MUST comply with the requirements specified in :ref:`trust:X.509 Certificates Issuance` for Federation Entities.
 
 .. note::
-   The Federation Entity Public Key in the ``jwks`` field and the public key contained in the ``certificate_signing_request`` MUST be the same key. The key is provided in two formats: JWK format for OpenID Federation operations and PKCS #10 CSR format for X.509 certificate issuance by the Federation Authority. application specific keys are included only in the Entity Configuration metadata, and they MUST NOT be included in the onboarding request.
+   The Federation Entity Public Keys contained in the ``jwks`` object and the public keys contained in the ``certificate_signing_requests`` object MUST match. The keys are provided in two formats: JWK format and PKCS #10 CSR format for X.509 Certificate issuance. Application specific keys are included only in the Entity Configuration metadata, and they MUST NOT be included in the onboarding request.
 
 .. note::
    The Entity Configuration Endpoint is constructed automatically by appending ``/.well-known/openid-federation`` to the Federation Entity Identifier (``entity_id``). Federation Entities do not need to specify this endpoint separately in the registration request.
@@ -343,14 +334,14 @@ The following shows the decoded content of the CSR example above for reference:
   - Verification of information provided in the registration request.
   - Validation of the Entity Configuration, and the metadata contained in it, published at the entity's ``/.well-known/openid-federation`` endpoint (as defined in :ref:`trust:The Infrastructure of Trust`).
   - **Metadata Policy Application**: Application of federation-specific metadata policies to the entity's metadata based on organizational characteristics and authorization scope as defined in :ref:`trust:Subordinate Statements`. When onboarded through an Intermediate, both Intermediate and Trust Anchor policies apply, with Trust Anchor policies taking precedence in case of conflicts.
-  - **Certificate Issuance**: Certification of the Federation Entity Public Key with X.509 Certificate issuance using the trust infrastructure detailed in :ref:`trust:Trust Infrastructure Requirements`. Intermediates issue Certificates with appropriate **naming constraints** to scope Certificate usage to their subordinates only.
+  - **Certificate Issuance**: Certification of the Federation Entity Public Key with X.509 Certificate issuance using the trust infrastructure detailed in :ref:`trust:Trust Infrastructure Requirements`. Intermediates MUST issue X.509 Certificates using appropriate **naming constraints** limiting the use of DNS names and URIs to their subordinates only.
 
 Upon successful validation, the entity receives a response containing an X.509 Certificate Chain where:
 
-  - The first element is the X.509 Certificate that certifies the Federation Entity Public Key (issued by the Federation Authority).
+  - The first element is the X.509 Certificate containing the Federation Entity Public Key (issued by the Federation Authority).
   - **For Trust Anchor onboarding**: The second element is the Trust Anchor's self-signed X.509 Certificate for validating the first X.509 Certificate.
   - **For Intermediate onboarding**: Additional elements include the Intermediate's X.509 Certificate and the Trust Anchor's self-signed Certificate, forming a complete X.509 Certificate chain.
-  - All X.509 Certificates are expressed in DER format encoded in Base64.
+  - All X.509 Certificates are expressed in DER format and encoded in Base64.
 
 Example X.509 Certificate chain response:
 
@@ -362,112 +353,100 @@ Example X.509 Certificate chain response:
    ]
 
 .. note::
-   If validation fails, the entity receives a response with identified issues to be resolved before submitting a new onboarding request.
-
-**Step 3 - Entity Configuration Update and Resolve Request**: After receiving the X.509 Certificate chain from the Federation Authority, the entity MUST:
-
-  1. **Update Entity Configuration**:
-
-    - Add an ``authority_hints`` claim with a JSON Array containing the **immediate Federation Authority's** Federation Entity Identifier (Trust Anchor for direct onboarding, or Intermediate for mediated onboarding) as defined in :ref:`trust:Federation Roles`.
-    - Update the Federation Entity Public Key in the ``jwks`` claim by adding an ``x5c`` claim with the complete X.509 Certificate chain received from the Federation Authority.
-    - Update the application specific keys in the metadata ``jwks`` claims by extending their existing ``x5c`` claims to include the X.509 Certificate chain, creating a complete Trust Chain from application specific keys to the Root Authority.
-
-    Example authority_hints addition:
-
-    .. code-block:: json
-
-        {
-          "iat": 1718207217,
-          "exp": 1749743216,
-          "iss": "https://credentials.example.gov",
-          "sub": "https://credentials.example.gov",
-          "authority_hints": ["https://trust-anchor.example.gov"],
-          //...
-        }
-
-    Example Federation JWK with certificate chain:
-
-    .. code-block:: json
-
-        {
-          "kid": "NsXymfIILEPR5Y0t",
-          "kty": "EC",
-          "x": "gXY4FApFJCj91Gpb1K9GEIouTq2X3L0K64Iq0ob4l_g",
-          "y": "l-6dcrIrFVdrzoY9cRJv9zNuFOR3MsDz6TSDhB0xEo4",
-          "crv": "P-256",
-          "x5c": [
-            "MIIDqjCCA1GgAwIBAgIGAZc6/V9qMAoGCCqGSM49BAMCMIGzMQsw...",
-            "MIIDQzCCAuigAwIBAgIGAZc6+XlDMAoGCCqGSM49BAMCMIGzMQsw..."
-          ]
-        }
-
-    Example Protocol JWK with extended certificate chain:
-
-    .. code-block:: json
-
-        {
-          "kid": "ProtocolKeyId123",
-          "kty": "EC",
-          "x": "protocol_key_x_coordinate...",
-          "y": "protocol_key_y_coordinate...",
-          "crv": "P-256",
-          "x5c": [
-            "MIIDprotocolCert...",  // Protocol cert (signed by Federation key)
-            "MIIDqjCCA1GgAwIBAgIGAZc6/V9qMAoGCCqGSM49BAMCMIGzMQsw...",  // Federation cert
-            "MIIDQzCCAuigAwIBAgIGAZc6+XlDMAoGCCqGSM49BAMCMIGzMQsw..."   // Root cert
-          ]
-        }
-
-  2. **Publish Updated Entity Configuration**: Publish the updated EC at the ``/.well-known/openid-federation`` endpoint as specified in :ref:`trust:The Infrastructure of Trust`.
-
-  3. **Submit Resolve Request**: Call the **Trust Anchor**'s ``/resolve`` endpoint (as defined in :ref:`trust:Trust Infrastructure Requirements`) with URL-encoded parameters:
-
-    - ``sub``: Federation Entity Identifier.
-    - ``trust_anchor``: **Trust Anchor** Federation Entity Identifier (always the root Trust Anchor, even for Intermediate-mediated onboarding).
-
-    Example resolve request:
-
-    .. code-block:: http
-
-        GET /resolve?sub=https%3A%2F%2Fcredentials.example.gov&trust_anchor=https%3A%2F%2Ftrust-anchor.example.gov HTTP/1.1
-        Host: trust-anchor.example.gov
-
-**Step 4: Resolve Response and Onboarding Completion**
-
-Following the resolve request, the **Federation Authority** performs:
-
-  - **Trust Chain Reconstruction**: Reconstruction of a valid Trust Chain for the entity as defined in :ref:`trust:The Infrastructure of Trust`.
-  - **Federation Trust Mark Generation**: Generation of an IT-Wallet Federation Trust Mark as a signed JWT attestation of the entity's federation membership and compliance with IT-Wallet technical requirements.
-  - **Trust Mark Integration in Subordinate Statement**: The generated Trust Mark is included in the entity's Subordinate Statement as defined in :ref:`trust:Subordinate Statements`.
-  - **Metadata Policy Application**: Application of cascading metadata policies during Trust Chain construction, where Trust Anchor policies take precedence over Intermediate policies.
-  - Generation of a signed JSON Web Token (JWT) using algorithms specified in :ref:`algorithms:Cryptographic Algorithms` containing the reconstructed Trust Chain and validated entity metadata.
-  - Transmission of an HTTP response containing the created JWT (Resolve Response).
-
-If the response status code is ``200 OK``, the Federation Entity MUST complete the onboarding process by:
-
-  - **Validate Resolve Response**: Validate the JWT contained in the Resolve Response and extract the Trust Chain and validated metadata from the JWT payload.
-  - **Fetch Subordinate Statement**: Retrieve its own Subordinate Statement from the immediate Federation Authority using the ``/fetch`` endpoint as defined in :ref:`trust:Federation API endpoints`.
-  - **Extract Trust Mark**: Extract the Federation Trust Mark from the Subordinate Statement ``trust_marks`` claim.
-  - **Trust Mark Integration**: Include the extracted Trust Mark in its Entity Configuration using the ``trust_marks`` claim as specified in :ref:`trust:Entity Configuration Leaves and Intermediates`.
-  - **Final Entity Configuration Update**: Publish the updated Entity Configuration with the integrated Trust Mark at the ``/.well-known/openid-federation`` endpoint.
-
-Upon successful completion of Step 4, the **entity onboarding is successfully completed**. The entity is now operational within the IT-Wallet federation and ready for operational activities.
+   If issuance process fails, the requestor entity receives a response with identified issues to be resolved before submitting a new onboarding request.
 
 .. note::
-   If the ``/resolve`` endpoint responds with status code set to ``400`` or ``404``, the entity MUST resolve the issues described in the response message, before calling the resolve endpoint again. 
+   Each entity can collect its X.509 Certificate Chain by obtaining the Trust Anchor's self-signed X.509 Certificate, which is included within the Entity Configuration's ``jwks`` object, and by aggregating all the ``x5c`` values published by its superior entities, from the Trust Anchor down to its immediate superior. This enables the entity to reconstruct the full certificate chain required for validation and trust establishment within the federation.
+
+**Step 3 - Fetch Subordinate Statement**: as confirmation of success of the onboarding process, the entity MUST fetch the Subordinate Statement about itself from the immediate Federation Authority using the ``/fetch`` endpoint as defined in :ref:`trust:Federation API endpoints`.
+
+Example fetch request:
+
+.. code-block:: http
+
+    GET /fetch?sub=https%3A%2F%2Fcredentials.example.gov HTTP/1.1
+    Host: trust-anchor.example.gov
+
+.. note::
+   If the ``/fetch`` endpoint responds with status code set to ``400`` or ``404``, the entity MUST resolve the issues described in the response message, before calling the fetch endpoint again. 
+
+
+**Step 4: Entity Configuration Update and Onboarding Completion**
+
+Following the fetch request, the **Federation Authority** returns the entity's Subordinate Statement, which is a signed JWT containing:
+
+  - **Entity Metadata**: The entity's validated metadata with applied federation policies.
+  - **Trust Information**: Information about the trust relationship between the Federation Authority and the entity, including the issued `x5c` within the `jwk` object about the Subordinate.
+  - **Trust Marks**: The Trust Marks issued by the Federation Authority for the entity's specific operational scope and capabilities.
+
+     Example Federation JWK about the Subordinate including the issued X.509 Certificate:
+
+     .. code-block:: json
+
+         {
+           "kid": "NsXymfIILEPR5Y0t",
+           "kty": "EC",
+           "x": "gXY4FApFJCj91Gpb1K9GEIouTq2X3L0K64Iq0ob4l_g",
+           "y": "l-6dcrIrFVdrzoY9cRJv9zNuFOR3MsDz6TSDhB0xEo4",
+           "crv": "P-256",
+           "x5c": [
+             "MIIDqjCCA1GgAwIBAgIGAZc6/V9qMAoGCCqGSM49BAMCMIGzMQsw..."
+           ]
+         }
+
+The Federation Entity MUST complete the onboarding process by:
+
+  1. **Update and Publish the Entity Configuration**:
+
+    The content of ``/.well-known/openid-federation`` endpoint must be updated to include the following claims:
+
+     - Add an ``authority_hints`` claim with a JSON Array containing the **immediate Federation Authority's** Federation Entity Identifier (Trust Anchor for direct onboarding, or Intermediate for mediated onboarding) as defined in :ref:`trust:Federation Roles`.
+
+     - **Integrate Trust Marks**: Include the Trust Marks from the Subordinate Statement in the Entity Configuration using the ``trust_marks`` claim as specified in :ref:`trust:Entity Configuration Leaves and Intermediates`.
+
+     Example authority_hints addition:
+
+     .. code-block:: json
+
+         {
+           "iat": 1718207217,
+           "exp": 1749743216,
+           "iss": "https://credentials.example.gov",
+           "sub": "https://credentials.example.gov",
+           "authority_hints": ["https://trust-anchor.example.gov"],
+           //...
+         }
+
+
+     Example Trust Marks integration:
+
+     .. code-block:: json
+
+         "trust_marks": [
+           {
+             "trust_mark_type": "https://trust-anchor.example.gov/trust_marks/federation-entity/credential-issuer",
+             "trust_mark": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3RydXN0LWFuY2hvci5leGFtcGxlLmdvdiIsInN1YiI6Imh0dHBzOi8vY3JlZGVudGlhbC1pc3N1ZXIuZXhhbXBsZS5nb3YiLCJ0cnVzdF9tYXJrX3R5cGUiOiJodHRwczovL3RydXN0LWFuY2hvci5leGFtcGxlLmdvdi90cnVzdF9tYXJrcy9mZWRlcmF0aW9uLWVudGl0eS9jcmVkZW50aWFsLWlzc3VlciIsImlhdCI6MTcwMDAwMDAwMCwiZXhwIjoxNzMwMDAwMDAwfQ.abc123signature"
+           }
+         ]
+
+.. note::
+   To update Trust Marks after onboarding, the entity can use the fetch endpoint of its immediate superior to obtain all the updated Trust Marks about itself. When the Trust Mark issuer is different from the superior entity that has onboarded the entity, Federation Entities can obtain fresh Trust Marks anytime needed by using the Federation Trust Mark endpoint as defined in :ref:`trust:Federation API endpoints`.
+
+Upon successful completion of Step 4, the **entity onboarding is successfully completed**. The entity is now operational within the IT-Wallet federation and ready for operational activities.
+   
 
 .. note::
    **Federation Registry Integration**: Upon successful onboarding completion, the entity's Federation Entity Identifier becomes discoverable through the Trust Anchor's entity listing mechanisms (as defined in :ref:`trust:The Infrastructure of Trust`), indicating active federation participation. The entity becomes part of the federation infrastructure detailed in :ref:`registry:Registry Infrastructure`.
 
-IT-Wallet Federation Trust Mark
+IT-Wallet Federation Trust Marks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Federation Entities receive IT-Wallet Federation Trust Marks during successful onboarding completion. **Trust Marks are issued by the Federation Authority** (Trust Anchor for direct onboarding, Intermediate for mediated onboarding) and serve as verifiable attestations of federation membership, compliance with IT-Wallet technical requirements, and authorization policies for specific operational scopes.
+Federation Entities receive IT-Wallet Federation Trust Marks during successful onboarding completion. **Trust Marks are issued by the Federation Authority** (Trust Anchor for direct onboarding, Intermediate for mediated onboarding) and serve as verifiable attestations about compliance with IT-Wallet technical profiles and or authorization policies.
 
 Trust Mark Types and Schema
 """""""""""""""""""""""""""
 
-Entities MAY receive multiple Trust Marks for different purposes and entity types, enabling granular authorization policy enforcement. Trust Mark identifiers MUST follow a hierarchical schema that reflects the authorization scope:
+Entities MAY receive multiple Trust Marks for different purposes. Trust Mark identifiers MUST follow a hierarchical schema that reflects the authorization scope:
 
 ``https://<federation_authority_domain>/trust_marks/<purpose>/<entity_type>``
 
@@ -507,8 +486,8 @@ The Trust Mark JWT (contained in the ``trust_mark`` claim above) includes the fo
    * - **iss**
      - **REQUIRED**. Federation Authority issuing the Trust Mark (immediate superior: Trust Anchor or Intermediate).
    * - **sub**
-     - **REQUIRED**. Federation Entity Identifier of the recipient.
-   * - **id**
+     - **REQUIRED**. Federation Entity Identifier of the subject.
+   * - **trust_mark_type**
      - **REQUIRED**. Unique Trust Mark identifier, MUST match the ``trust_mark_type`` claim.
    * - **iat**
      - **REQUIRED**. Trust Mark issuance timestamp.
@@ -516,8 +495,12 @@ The Trust Mark JWT (contained in the ``trust_mark`` claim above) includes the fo
      - **REQUIRED**. Trust Mark expiration timestamp.
    * - **organization_type**
      - **REQUIRED**. Entity organization type (``public`` or ``private``).
-   * - **id_code**
-     - **RECOMMENDED**. JSON object with identification codes (e.g., IPA code for public entities, VAT number).
+   * - **vat_number**
+     - **RECOMMENDED**. VAT number of the entity (typically for private organizations).
+   * - **legal_identifier**
+     - **RECOMMENDED**. Legal registration number or identifier of the entity (e.g., business registration number, tax code).
+   * - **ipa_code**
+     - **RECOMMENDED**. IPA (Indice delle Pubbliche Amministrazioni) code for public sector entities.
    * - **organization_name**
      - **RECOMMENDED**. Full name of the Organizational Entity.
    * - **email**
@@ -539,10 +522,8 @@ The following non-normative examples illustrate different Trust Mark JWT content
      "iat": 1718207217,
      "exp": 1749743216,
      "organization_type": "public",
-     "subject_id_codes": {
-       "ipa_code": "pub_001",
-       "legal_identifier": "12345678901"
-     },
+     "ipa_code": "pub_001",
+     "legal_identifier": "12345678901",
      "organization_name": "Public Authority Services",
      "email": "registry@public-authority.gov.example"
    }
@@ -556,10 +537,8 @@ The following non-normative examples illustrate different Trust Mark JWT content
      "iat": 1718207217,
      "exp": 1749743216,
      "organization_type": "private",
-     "id_code": {
-       "vat_number": "IT12345678901",
-       "legal_identifier": "12345678901"
-     },
+     "vat_number": "IT12345678901",
+     "legal_identifier": "12345678901",
      "organization_name": "Premium Car Rental Services Ltd",
      "email": "compliance@rental.cars.example.com",
      "authorized_claims": ["given_name", "family_name", "driving_privileges"],
@@ -579,10 +558,8 @@ The following non-normative examples illustrate different Trust Mark JWT content
      "iat": 1718207217,
      "exp": 1749743216,
      "organization_type": "private",
-     "id_code": {
-       "vat_number": "IT98765432101",
-       "legal_identifier": "98765432101"
-     },
+     "vat_number": "IT98765432101",
+     "legal_identifier": "98765432101",
      "organization_name": "Badge Services Ltd",
      "email": "compliance@rprivate-badge.ci.example.com",
      "authorized_claims": ["given_name", "family_name", "company_id"],
@@ -646,424 +623,7 @@ Trust Mark Validation
 Federation participants validate Trust Mark status through two mechanisms:
 
 1. **Static Validation**: Cryptographic verification using the issuing Federation Authority's public key from the Trust Chain.
-2. **Dynamic Validation**: Real-time status verification via the issuing Federation Authority's ``/trust_mark_status`` endpoint as defined in :ref:`trust:Federation API endpoints`.
+2. **Dynamic Validation**: Real-time status verification, against any revocations, using the Federation Authority's ``/trust_mark_status`` endpoint as defined in :ref:`trust:Federation API endpoints`.
 
-
-Certificate Management Operations
-----------------------------------
-
-This section defines the operational procedures for X.509 Certificate management within the IT-Wallet federation, covering certificate chain analysis, validation procedures, and revocation verification. These procedures complement the federation onboarding processes and support ongoing X.509 Certificate lifecycle management for all the participants.
-
-Federation PKI Architecture
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The IT-Wallet federation operates a hierarchical Public Key Infrastructure where:
-
-	- **Trust Anchor**: Acts as Root Certificate Authority where root certificates MUST NOT exceed **5-year validity period**.
-	- **Federation Entity Certificate**: Each federation participant receives a certificate that operates as a limited sub-CA where certificates MUST NOT exceed **2-year validity period**.
-	- **Protocol Certificates**: Self-issued certificates for internal services where certificates SHOULD NOT exceed **1-year validity period**.
-
-Each federation entity MUST expose its Federation Entity certificate on a publicly accessible endpoint. The Federation Entity private key serves dual purposes:
-
-	1. Self-issuing Protocol X.509 Certificates for internal cryptographic operations (limited sub-CA capability).
-	2. Acting as the Federation Entity Key for signing Entity Statements.
-
-.. note:: 
-  Federation entities (Leaves) can ONLY issue X.509 Certificates for themselves (Protocol certificates), NOT for other federation entities. Only Federation Authorities (Trust Anchor and Intermediates) can issue X.509 Certificates for other entities.
-
-For protocol specific X.509 Certificates, with validity periods exceeding 24 hours, the issuing entity MUST publish and regularly update a Certificate Revocation List (CRL) on a publicly accessible endpoint.
-
-Certificate Chain Structure and Analysis
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Federation entities receive X.509 Certificate chains during the onboarding process. Federation entities MUST validate these chains about themselves.
-
-Certificate Chain Visualization
-""""""""""""""""""""""""""""""""
-
-
-The following script enables federation entities to:
-
-	- Extract certificate details for verification.
-	- Analyze certificate extensions and constraints.
-	- Verify certificate hierarchy and relationships
-
-.. code-block:: bash
-
-   #!/bin/bash
-   # Certificate chain analysis for federation entities
-   # Array containing certificates in DER format encoded in Base64
-   certificate_chain=(
-       "MIIDyzCCA3GgAwIBAgI..." # Federation Entity Certificate
-       "MIIDQzCCAuigAwIBAgI..." # Trust Anchor Certificate
-   )
-
-   # Display first certificate (Federation Entity)
-   echo "===================================="
-   echo " Federation Entity Certificate Analysis"
-   echo "===================================="
-   echo
-   echo "${certificate_chain[0]}" | base64 -d > federation_entity.der
-   openssl x509 -in federation_entity.der -inform DER -text -noout
-
-   # Display second certificate (Trust Anchor)
-   echo "====================================="
-   echo " Trust Anchor Certificate Analysis"
-   echo "====================================="
-   echo
-   echo "${certificate_chain[1]}" | base64 -d > trust_anchor.der
-   openssl x509 -in trust_anchor.der -inform DER -text -noout
-
-   # Cleanup temporary files
-   rm federation_entity.der trust_anchor.der
-
-
-Certificate Chain Validation
-"""""""""""""""""""""""""""""
-
-Federation entities MUST validate certificate chains to ensure proper trust establishment and verify compliance with federation PKI requirements.
-
-A non-normative exampe of certificate chain validation procedure is given below:
-
-.. code-block:: bash
-
-   #!/bin/bash
-   # Certificate chain validation for federation entities
-
-   # Convert DER certificates to PEM format for validation
-   openssl x509 -inform der -in federation_entity.der -out federation_entity.pem
-   openssl x509 -inform der -in trust_anchor.der -out trust_anchor.pem
-
-   # Validate Trust Anchor certificate (self-signed)
-   echo "Validating Trust Anchor certificate..."
-   openssl verify -CAfile trust_anchor.pem trust_anchor.pem
-
-   # Validate Federation Entity certificate against Trust Anchor
-   echo "Validating Federation Entity certificate..."
-   openssl verify -CAfile trust_anchor.pem federation_entity.pem
-
-   # Cleanup
-   rm federation_entity.pem trust_anchor.pem
-
-Federation entities SHOULD verify:
-
-	1. **Certificate Signatures**: Each certificate MUST be properly signed by its issuer.
-	2. **Certificate Chain Integrity**: Issuer-Subject relationships MUST be valid throughout the chain.
-	3. **Certificate Validity Periods**: All certificates MUST be within their validity periods and MUST comply with federation limits.
-	4. **Certificate Extensions**: Basic Constraints and Key Usage MUST comply with federation requirements:
-
-		- Federation Entity certificates: ``CA:TRUE, pathlen:0`` (can only self-issue certificates).
-		- Protocol certificates: ``CA:FALSE`` (cannot issue certificates).
-
-Certificate Revocation Management
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Federation entities MUST implement X.509 Certificate revocation verification to ensure ongoing trust validation and compliance with federation security requirements.
-
-CRL Distribution and Access
-""""""""""""""""""""""""""""
-
-Federation authorities publish Certificate Revocation Lists (CRL) at publicly accessible endpoints. Federation entities MUST be able to access and process these CRL distributions for revocation verification.
-
-The following procedure enables federation entities to:
-
-	- Locate CRL distribution endpoints from certificates.
-	- Download current revocation lists.
-	- Analyze CRL content and validity periods.
-
-.. code-block:: bash
-
-   #!/bin/bash
-   # CRL extraction and analysis for federation entities
-
-   # Extract CRL URL from certificate CRL Distribution Points extension
-   crl_url=$(openssl x509 -in certificate.der -inform DER -text -noout | \
-             grep "URI:" | sed 's/.*URI://')
-
-   echo "CRL Distribution Point: $crl_url"
-
-   # Download CRL from distribution point
-   curl -s -O "$crl_url"
-   crl_file=$(basename "$crl_url")
-
-   # Display CRL information
-   echo "CRL Content Analysis:"
-   openssl crl -in "$crl_file" -inform DER -text -noout
-
-
-Certificate Revocation Verification
-""""""""""""""""""""""""""""""""""""
-
-Federation entities MUST verify certificate revocation status by checking certificate serial numbers against current Certificate Revocation Lists.
-
-Federation entities SHOULD implement automated revocation checking for:
-
-	- **Federation Entity Certificates**: Verify own certificate status periodically.
-	- **Peer Entity Certificates**: Validate certificates of other federation participants.
-	- **Trust Chain Validation**: Ensure entire certificate chains remain valid.
-
-Below a bash script for certificate revocation status verification is given as a non-normative example:
-
-.. code-block:: bash
-
-   #!/bin/bash
-   # Certificate revocation verification for federation entities
-
-   # Extract certificate serial number
-   certificate_serial=$(openssl x509 -in certificate.der -inform DER -noout -serial | \
-                       cut -d= -f2)
-
-   # Normalize serial number (remove leading zeros, convert to lowercase)
-   normalized_serial=$(echo "$certificate_serial" | sed 's/^0*//' | tr '[:upper:]' '[:lower:]')
-
-   echo "Certificate Serial Number: $normalized_serial"
-
-   # Extract CRL URL and download
-   crl_url=$(openssl x509 -in certificate.der -inform DER -text -noout | \
-             grep "URI:" | sed 's/.*URI://')
-   curl -s -O "$crl_url"
-   crl_file=$(basename "$crl_url")
-
-   # Validate CRL signature against Trust Anchor
-   echo "Validating CRL signature..."
-   openssl crl -in "$crl_file" -inform DER -noout -text -CAfile trust_anchor.pem
-
-   # Extract revoked serial numbers from CRL
-   revoked_serials=$(openssl crl -in "$crl_file" -inform DER -text -noout | \
-                    grep 'Serial Number' | \
-                    sed 's/.*Serial Number: //' | \
-                    sed 's/^0*//' | \
-                    tr '[:upper:]' '[:lower:]')
-
-   # Check if certificate is revoked
-   if echo "$revoked_serials" | grep -q "$normalized_serial"; then
-       echo "Certificate Status: REVOKED"
-       exit 1
-   else
-       echo "Certificate Status: VALID"
-       exit 0
-   fi
-
-
-
-Certificate Management Best Practices
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Certificate Validation Integration
-"""""""""""""""""""""""""""""""""""
-
-Federation entities SHOULD integrate X.509 Certificate validation procedures into their standard federation operations:
-
-	1. **Entity Configuration Updates**: Verify X.509 Certificate chains when processing authority hints and certificate updates.
-	2. **Trust Chain Construction**: Validate all X.509 Certificates during trust chain building procedures.
-	3. **Federation API Operations**: Perform X.509 Certificate revocation checks during ``/resolve`` and ``/fetch`` operations.
-	4. **Protocol Certificate Management**: Validate self-issued protocol specific X.509 Certificate for internal services.
-	5. **Periodic Validation**: Implement regular X.509 Certificate and CRL validation schedules.
-
-Diagnostic and Troubleshooting
-"""""""""""""""""""""""""""""""
-
-Federation entities MUST implement diagnostic procedures to identify and resolve X.509 Certificate-related issues:
-
-  - **Certificate Validation**, including:
-
-    - **Authority Key Identifier Mismatches**: CRL Authority Key Identifier does not match Trust Anchor Subject Key Identifier.
-    - **Trust Anchor Certificate Rotation**: Outdated Trust Anchor X.509 Certificate causing validation failures.
-    - **Serial Number Format Issues**: Serial number normalization problems in revocation checking.
-
-  - **CRL Validation Failure**: When CRL validation fails, federation entities SHOULD:
-
-    1. **Verify Trust Anchor Certificate**: Ensure current Trust Anchor certificate is being used.
-    2. **Check Authority Key Identifier**: Compare CRL Authority Key Identifier with Trust Anchor Subject Key Identifier.
-    3. **Validate CRL Signature**: Verify CRL is properly signed by expected issuing authority.
-    4. **Update Trust Anchor Certificate**: Download updated Trust Anchor certificate if rotation has occurred.
-
-  - **Endpoint Accessibility Verification**: Federation entities SHOULD implement connectivity testing for certificate infrastructure endpoints.
-
-
-The following non-normative example provides a script for Federation certificate infrastructure connectivity test:
-
-.. code-block:: bash
-
-   #!/bin/bash
-   # Federation certificate infrastructure connectivity test
-
-   # Test Trust Anchor certificate endpoint
-   ta_cert_url="https://trust-anchor.eid-wallet.example.it/pki/ta.cer"
-   if curl -f -s "$ta_cert_url" > /dev/null; then
-       echo "Trust Anchor certificate endpoint: ACCESSIBLE"
-   else
-       echo "Trust Anchor certificate endpoint: FAILED"
-   fi
-
-   # Test CRL distribution endpoints
-   ta_crl_url="https://trust-anchor.eid-wallet.example.it/pki/ta.crl"
-   if curl -f -s "$ta_crl_url" > /dev/null; then
-       echo "Trust Anchor CRL endpoint: ACCESSIBLE"
-   else
-       echo "Trust Anchor CRL endpoint: FAILED"
-   fi
-
-Certificate Lifecycle Coordination
-"""""""""""""""""""""""""""""""""""
-
-Federation entities MUST coordinate certificate management with federation lifecycle procedures following the established validity periods:
-
-- **Certificate Renewal**: Align certificate renewals with Entity Configuration updates and Trust Mark refresh cycles, according to the federation limits defined in :ref:`entity-onboarding:Federation PKI Architecture`.
-- **Key Rotation**: Coordinate Federation Entity Key rotation with certificate renewal procedures.
-- **CRL Management**: For Protocol certificates with validity > 24 hours, maintain current CRL publication.
-- **Federation Exit**: Ensure proper X.509 Certificate revocation during voluntary or supervisory body-initiated federation exit.
-
-
-Entity Lifecycle Management
-----------------------------
-
-This section provides technical implementation procedures for entity lifecycle management. For high-level lifecycle concepts and business processes, see :ref:`onboarding-high-level:Entity Lifecycle Management`.
-
-While administrative data update MUST follow governance processes that are out of scope of this technical specification, technical configuration updates are described in the following sections.
-
-Technical Configuration Updates
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Technical updates affecting federation protocol operations MUST follow specific procedures for:
-
-  - **Certificate Renewal**
-
-    1. **Pre-renewal Preparation**: The Entity MUST generate a new CSR with updated certificate information.
-    2. **Renewal Request**: The Entity MUST submit renewal request with new CSR following the same technical procedure as initial onboarding.
-    3. **Certificate Integration**: The Entity MUST update its Entity Configuration with new certificate chain in ``x5c`` parameter.
-    4. **Trust Chain Validation**: The Entity MUST verify updated Trust Chain through ``/resolve`` endpoint.
-    5. **Registry Update**: The Entity SHOULD confirm updated entity information in Trust Anchor ``/list`` endpoint.
-
-  - **Key Rotation**
-
-    1. **New Key Generation**: The Entity MUST generate a new Federation Entity Public Key pair.
-    2. **Parallel Key Publication**: The Entity MUST publish both old and new keys in Entity Configuration ``jwks`` claim during transition period.
-    3. **Certificate Request**: The Entity MUST request new certificate for new public key following standard procedure.
-    4. **Gradual Migration**: The Entity MUST update Entity Configuration to use new key for signing while maintaining old key for verification.
-    5. **Old Key Deprecation**: The Entity MUST remove old key from Entity Configuration after validation period.
-
-  - **Metadata Updates**
-
-    - **Endpoint Changes**: The Entity MAY update service endpoints in entity-specific metadata.
-    - **Capability Updates**: The Entity MAY modify supported protocols, algorithms, or service capabilities within the constraints defined by this IT-Wallet implementation profile.
-
-
-
-All technical updates MUST be validated through:
-
-  1. **Entity Configuration Validation**: The Entity MUST verify updated EC structure and content.
-  2. **Trust Chain Resolution**: The Entity MUST confirm ``/resolve`` endpoint returns valid Trust Chain.
-  3. **Federation Status**: The Entity MUST verify entity operational status in federation registry.
-  4. **Integration Testing**: The Entity SHOULD test federation protocol operations with updated configuration.
-
-Technical Federation Exit Procedures
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-For business context on federation exit processes, see :ref:`onboarding-high-level:Federation Exit and Removal Processes`. This section covers technical implementation procedures.
-
-Voluntary Exit - Technical Deactivation
-""""""""""""""""""""""""""""""""""""""""""
-
-  1. **Certificate Revocation Request**: The Entity MUST submit a X.509 Certificate revocation request to Federation Authority with revocation reason. The request MUST be signed with the Federation Entity Private Key corresponding to the X.509 Certificate being revoked to prove the legitimacy of the revocation request.
-  2. **CRL Update Verification**: The Federation Authority MUST revoke the Entity's X.509 Certificate and the Entity MUST verify they appear in updated Certificate Revocation List.
-  3. **Subordinate Statement Removal**: The Federation Authority MUST completely remove the Entity's Subordinate Statement from the Federation Registry to prevent any trust relationship validation, and therefore remove any reference to that Entity in the listing endpoint, resolve endpoint or trust marked listing endpoint.
-  4. **Entity Configuration Deactivation**: The Entity MUST deactivate its Entity Configuration. The Entity MAY either:
-
-     a. Remove the Entity Configuration completely from the ``/.well-known/openid-federation`` endpoint (returning HTTP 404), OR
-     b. Keep the Entity Configuration as expired (with ``exp`` claim in the past). It therefore MUST NOT update it with fresh timestamps.
-
-  5. **Registry Status Update**: The Entity SHOULD verify removal from Federation Registry, also verifying the Trust Mark status using the Trust Mark Status endpoint. 
-
-Non-normative example of X.509 Certificate revocation request following :rfc:`3280` format:
-
-.. code-block:: text
-
-   Certificate Revocation Request:
-   Subject: CN=credentials.example.gov, OU=Digital Credentials, O=Example Organization, L=Roma, ST=Lazio, C=IT, emailAddress=technical@credentials.example.gov
-   Certificate Serial Number: 987654321
-   Revocation Reason: cessation_of_operation (5)
-   Revocation Date: 2025-12-31T23:59:59Z
-
-   Request signed with Federation Entity Private Key corresponding to:
-   Public Key Algorithm: id-ecPublicKey
-   ASN1 OID: prime256v1
-   NIST CURVE: P-256
-   Key ID: NsXymfIILEPR5Y0t
-
-   Note: The CRR MUST be signed with the same private key that corresponds to the
-   certificate being revoked to authenticate the revocation request.
-
-Example CRR in DER format (Base64 encoded):
-
-.. code-block:: text
-
-   -----BEGIN CERTIFICATE REVOCATION REQUEST-----
-   MIIBVjCB/wIBADBpMQswCQYDVQQGEwJJVDEOMAwGA1UECAwFTGF6aW8xDTALBgNV
-   BAcMBFJvbWExGjAYBgNVBAoMEUV4YW1wbGUgT3JnYW5pemF0aW9uMR8wHQYDVQQD
-   DBZjcmVkZW50aWFscy5leGFtcGxlLmdvdjBZMBMGByqGSM49AgEGCCqGSM49AwEH
-   A0IABIBgZ4HBgUCNXwY5LJSlKzm7gXY4FApFJCj91Gpb1K9GEIouTq2X3L0K64Iq
-   0ob4l_gslT14644zbYXYF-xmw7aPdlbMuw3T1URwI4nafMtKrYwDQYJKoZIhvcNAQ
-   kEAwIJrRLl1VR987654321gBgJKwYBBQUHAgEWHGh0dHBzOi8vZXhhbXBsZS5vcmcv
-   cG9saWN5MAoGCCqGSM49BAMCA0gAMEUCIQC9h3Y6hFgd7zUzZyBrQ3jJ8HmVF2Qa
-   -----END CERTIFICATE REVOCATION REQUEST-----
-
-Supervisory Body Removal - Technical Implementation
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-  1. **Emergency Certificate Revocation**: The Federation Authority MUST immediately revoke X.509 Certificate with appropriate reason code (e.g., "Key Compromise", "Cessation of Operation").
-  2. **CRL Emergency Update**: The Trust Anchor MUST publish updated CRL within emergency timeframe.
-  3. **Subordinate Statement Removal**: The Federation Authority MUST immediately stop issuing the Entity's Subordinate Statements using the fetch endpoint, and or any reference to that Entity using the listing endpoint, or the trust marked listing endpoint, or the resolve endpoint.
-  4. **Entity Configuration Invalidation**: The Entity's Configuration at ``/.well-known/openid-federation`` becomes invalid due to X.509 Certificate revocation (signature verification fails).
-  5. **Trust Chain Invalidation**: Trust Chain resolution MUST return error status for affected entity.
-  6. **Service Endpoint Isolation**: Federation infrastructure MUST block access to federation service endpoints.
-
-Example emergency revocation verification:
-
-.. code-block:: bash
-
-   # Check emergency CRL update
-   curl -o emergency.crl https://trust-anchor.eid-wallet.example.it/pki/ta-sub.crl
-   openssl crl -in emergency.crl -text -noout | grep "Last Update"
-   
-   # Verify Trust Chain resolution fails
-   curl "https://trust-anchor.eid-wallet.example.it/resolve?sub=https%3A//suspended-entity.example.it&trust_anchor=https%3A//trust-registry.eid-wallet.example.it"
-   # Expected: HTTP 404 or specific error response
-
-**Component-Level Technical Modifications**
-
-Specific technical components MAY be modified while maintaining federation membership:
-
-.. code-block:: json
-
-   {
-     "iss": "https://ci.example.it",
-     "sub": "https://ci.example.it",
-     "jwks": { 
-       // jwks content
-     },
-     "metadata": {
-       "openid_credential_issuer": {
-         "credential_endpoint": "https://ci.example.it/credential",
-         "credentials_supported": [ ]
-         // removed: "batch_credential_endpoint" for maintenance
-       }
-     }
-   }
-
-The Entity MUST follow these steps for component modifications:
-
-1. **Entity Configuration Update**: The Entity MUST modify metadata to reflect component changes.
-2. **Trust Chain Revalidation**: The Entity MUST verify updated configuration through ``/resolve`` endpoint.
-3. **Service Testing**: The Entity SHOULD test remaining federation protocol operations.
-4. **Registry Verification**: The Entity SHOULD confirm updated capabilities in federation registry.
-
-**Post-Exit Technical Obligations**
-
-Entities that exit the federation MUST maintain the following for regulatory compliance:
-
-1. **Historical Entity Configuration**: The Entity MUST maintain ``/.well-known/openid-federation`` endpoint accessibility for audit purposes.
-2. **Certificate Chain Archive**: The Entity MUST keep X.509 Certificate chains accessible for existing Credential verification (minimum 7 years).
-3. **Audit Log Preservation**: The Entity MUST archive federation protocol logs per regulatory requirements.
 
 
