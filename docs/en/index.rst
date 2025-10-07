@@ -16,7 +16,7 @@ This document provides the technical architecture, implementation framework and 
   architecture-overview.rst
   onboarding-high-level.rst
   functionalities.rst
-  trust.rst
+  trust-infrastructure.rst
   registry.rst
   entity-onboarding.rst
   x5c-evaluation.rst
