@@ -152,6 +152,9 @@ Durante la registrazione, le Fonti Autentiche DEVONO fornire le seguenti informa
        - URI del logo con verifica dell'integrità crittografica per il branding degli Attestati Elettronici.
        - URI del template visivo con verifica dell'integrità per la presentazione degli Attestati Elettronici.
 
+.. note::
+  Solo Fonti Autentiche italiane possono essere onboardate nella fase attuale di IT-Wallet.
+
 Procedura di Registrazione AS
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

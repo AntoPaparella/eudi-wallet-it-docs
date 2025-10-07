@@ -154,6 +154,9 @@ During registration, Authentic Sources MUST provide the following information:
        - Logo URI with cryptographic integrity verification for Digital Credential branding.
        - Visual template URI with integrity verification for Digital Credential presentation.
 
+.. note::
+  Only Italian Authentic Sources can be onboarded at the current stage of IT-Wallet.
+
 Authentic Source Registration Procedure
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
