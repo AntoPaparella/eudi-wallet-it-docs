@@ -179,7 +179,9 @@ The Authentic Source registration follows a technical process as described below
        "homepage_uri": "https://www.gov.example/transport",
        "contacts": ["registry@transport-authority.gov.example", "technical-support@transport-authority.gov.example"],
        "policy_uri": "https://www.gov.example/transport/privacy-policy",
-       "user_information": "Driving license data is available for licenses issued after January 1, 2020. For older licenses, contact the local transport authority office."
+       "user_information": "Driving license data is available for licenses issued after January 1, 2020. For older licenses, contact the local transport authority office.",
+       "logo_uri": "https://www.gov.example/assets/transport-logo.svg",
+       "logo_uri#integrity": "sha-256-a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3"
      },
      "data_capabilities": [
        {
@@ -196,15 +198,13 @@ The Authentic Source registration follows a technical process as described below
            "immediate_flow": true,
            "deferred_flow": false
          },
-         "update_frequency": "real_time"
+         "update_frequency": "real_time",
+         "display": {
+          "background_color": "#003d82",
+          "text_color": "#ffffff",
+         }
        }
      ],
-     "display": {
-       "background_color": "#003d82",
-       "text_color": "#ffffff",
-       "logo_uri": "https://www.gov.example/assets/transport-logo.svg",
-       "logo_uri#integrity": "sha-256-a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3"
-     }
    }
 
 **Step 2 - Technical Validation**: Supervisory Body validates submitted registration focusing on:

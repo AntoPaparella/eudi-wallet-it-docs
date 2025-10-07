@@ -177,7 +177,9 @@ La registrazione della Fonte Autentica segue un processo tecnico come descritto 
        "homepage_uri": "https://www.gov.example/transport",
        "contacts": ["registry@transport-authority.gov.example", "technical-support@transport-authority.gov.example"],
        "policy_uri": "https://www.gov.example/transport/privacy-policy",
-       "user_information": "I dati della patente di guida sono disponibili per le patenti rilasciate dopo il 1° gennaio 2020. Per patenti più vecchie, contattare l'ufficio dell'autorità dei trasporti locale."
+       "user_information": "I dati della patente di guida sono disponibili per le patenti rilasciate dopo il 1° gennaio 2020. Per patenti più vecchie, contattare l'ufficio dell'autorità dei trasporti locale.",
+       "logo_uri": "https://www.gov.example/assets/transport-logo.svg",
+       "logo_uri#integrity": "sha-256-a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3"
      },
      "data_capabilities": [
        {
@@ -194,15 +196,13 @@ La registrazione della Fonte Autentica segue un processo tecnico come descritto 
            "immediate_flow": true,
            "deferred_flow": false
          },
-         "update_frequency": "real_time"
+         "update_frequency": "real_time",
+         "display": {
+          "background_color": "#003d82",
+          "text_color": "#ffffff",
+         }
        }
-     ],
-     "display": {
-       "background_color": "#003d82",
-       "text_color": "#ffffff",
-       "logo_uri": "https://www.gov.example/assets/transport-logo.svg",
-       "logo_uri#integrity": "sha-256-a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3"
-     }
+     ]
    }
 
 **Fase 2 - Validazione Tecnica**: L'Organismo di Supervisione valida la registrazione presentata concentrandosi su:
