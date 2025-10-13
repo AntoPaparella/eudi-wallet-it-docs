@@ -2,7 +2,7 @@
 
 .. "included" file, so we start with '-' title level
 
-Endpoint del Backend Remoto per le App di Verifica
+Endpoint del Backend del Provider di Relying Party
 ---------------------------------------------------
 
 La Relying Party DEVE esporre una serie di endpoint per gestire il ciclo di vita delle App di Verifica che utilizzano un servizio di backend remoto fornito dal loro Backend del Provider di Relying Party. Questi endpoint supportano i flussi di presentazione in prossimità fornendo generazione di nonce, registrazione delle chiavi hardware, convalida dell'integrità e rilascio del Certificato di Accesso. I dettagli specifici della loro implementazione sono lasciati alla discrezione della Relying Party.
