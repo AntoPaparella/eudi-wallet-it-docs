@@ -37,7 +37,7 @@ The system architecture comprises the following main components:
 		- **MRTD PoP Service:** Handles electronic document proof of possession with cryptographic document validation.
 
 	- **LoA3 Identity Provider:** Provides Electronic Identification Schemes with eIDAS LoA3 compliance (CIEid and SPID).
-	- **CIE National Registry:** Provides privacy-preserved evidence of the binding between NIS and User's Tax payer's identification number required for the MRTD verification and, optionally, the MRZ data (document number, date of birth, expiry date, citizenship and gender) to improve the User experience. It also provides information related to the validity status of the document. It acts as the authoritative source for the CIE.
+	- **CIE National Registry:** Acts as the authoritative source for the CIE. Provides information related to the validity status of the document. It also optionally provides the MRZ data (document number, date of birth, expiry date, citizenship and gender) to improve the user experience.
 
 .. _fig_eID_MRTD_System_Architecture:
 .. plantuml:: plantuml/l2plus-system-architecture.puml
@@ -114,6 +114,10 @@ Below a non-normative example of PAR:
 
     client_id=47b982369791d08003a7283f059cb0d1&
     request=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJmODU1NWNlYi1jNjVjLTQwMjUtOTM3OC1iNjY3MmI2MTQ5YWYiLCJhdWQiOiJodHRwczovL3BpZC1wcm92aWRlci5leGFtcGxlLm9yZyIsImlhdCI6MTcxNTg0MjU2MCwiZXhwIjoxNzE1ODQyODYwLCJyZXNwb25zZV90eXBlIjoiY29kZSIsInJlc3BvbnNlX21vZGUiOiJmb3JtX3Bvc3Quand0IiwiY2xpZW50X2lkIjoiNDdiOTgyMzY5NzkxZDA4MDAzYTcyODNmMDU5Y2IwZDEiLCJpc3MiOiI0N2I5ODIzNjk3OTFkMDgwMDNhNzI4M2YwNTljYjBkMSIsInN0YXRlIjoiZnlaaU9MOUxmMkNlS3VOVDJKenhpTFJEaW5rMHVQY2QiLCJjb2RlX2NoYWxsZW5nZSI6IkU5TWVsaG9hMk93dkZyRU1USmd1Q0hhb2VLMXQ4VVJXYnVHSlNzdHctY00iLCJjb2RlX2NoYWxsZW5nZV9tZXRob2QiOiJTMjU2Iiwic2NvcGUiOiJwaWQiLCJhdXRob3JpemF0aW9uX2RldGFpbHMiOlt7InR5cGUiOiJvcGVuaWRfY3JlZGVudGlhbCIsImNyZWRlbnRpYWxfY29uZmlndXJhdGlvbl9pZCI6ImRjX3NkX2p3dF9waWQifSx7InR5cGUiOiJpdF9sMitkb2N1bWVudF9wcm9vZiIsIm11bHRpX3N0ZXBfbWV0aG9kIjoibXJ0ZCtpYXMiLCJpZHBoaW50aW5nIjoiaHR0cHM6Ly9pZHAuZXhhbXBsZS5vcmciLCJtdWx0aV9zdGVwX3JlZGlyZWN0X3VyaSI6Imh0dHBzOi8vc3RhcnQud2FsbGV0LmV4YW1wbGUub3JnL2NoYWxsZW5nZSJ9XSwicmVkaXJlY3RfdXJpIjoiaHR0cHM6Ly9zdGFydC53YWxsZXQuZXhhbXBsZS5vcmcifQ.AuthRequestSign456_NoKidJWTSignature-abc123def456ghi789jkl012mno345pqr678stu901vwx234yz567
+
+When the ``it_l2+document_proof object`` is not present in the authorization_details array, the PID Provider MUST authenticate the User with CIEid LoA High.
+The PAR Response and the Authorization Request are the same as in the IT-Wallet Specification.
+
 
 Phase 2: Primary Authentication
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -196,7 +200,7 @@ A non-normative example is provided below:
 
 .. code-block:: http
 
-    HTTP/1.1 302 Found
+    HTTP/1.1 302 Found\n Location: https://start.wallet.example.org/challenge? challenge_info=eyJhbGciOiJSUzI1NiIsInR5cCI6Im1ydGQraWFzK2p3dCIsImtpZCI6ImI0YTFhNmMyZTlkNTZuOGY5YzNlN2EyYTJmNGI2Yzk3In0.eyJpc3MiOiJodHRwczovL3BpZC1wcm92aWRlci5leGFtcGxlLm9yZyIsImF1ZCI6IjQ3Yjk4MjM2OTc5MWQwODAwM2E3MjgzZjA1OWNiMGQxIiwiaWF0IjoxNzUzNTU1MzU4LCJleHAiOjE3NTM1NTU2NTgsInN0YXR1cyI6InJlcXVpcmVfaW50ZXJhY3Rpb24iLCJ0eXBlIjoibXJ0ZCtpYXMiLCJtcnRkX2F1dGhfc2Vzc2lvbiI6Ind4cm9WckJZMk1DcTRkRE5HWEFDUyIsInN0YXRlIjoiZnlaaU9MOUxmMkNlS3VOVDJKenhpTFJEaW5rMHVQY2QiLCJtcnRkX3BvcF9qd3Rfbm9uY2UiOiJub25jZTEiLCJodHUiOiJodHRwczovL2Vkb2MtcHJvb2YvaW5pdCIsImh0bSI6IlBPU1QifQ.i6p_FN7qNNawyL4KnOV1r8FrNVjzd-7Ve1wEGASHNnlXwuJ1f216v0Ml_KpVrq9yXkmOo_M2xZwih2SlHVfrzkuG3Pn7LWRL7dsyCtqEY2e58rFHjCa2miBnnKr0NU4wcBMMYe2_qKCOkA7SOa7usNTBluBLMQ28GfiMbr3tcpfpM4rD0POKQcfijvNkNbh-VdOxM8GdHb6IQO_xfpsaSzd8cc0k5yIYCWjDTeINVKebIz4m9Rm2JStvRrWUq8OCqkv-8dTJH9q-JXx0PzJC998RMwe6tqSL-kkE3dZLWwCJdP8Z7bITtowU49rEe-AkrGxVma4ANPq317umEfUwmw
 
 The Authorization Server MUST:
 
@@ -452,7 +456,7 @@ The Validation JWT (``mrtd_validation_jwt``) structure is given in the following
      - REQUIRED. MRTD validation data containing Data Groups and SOD.
    * - **ias**
      - JSON Object
-     - REQUIRED. IAS validation data containing NIS, Anti-Cloning Public Key, and SOD.
+     - REQUIRED. IAS validation data containing Anti-Cloning Public Key, and SOD.
 
 MRTD Object Structure
 """""""""""""""""""""
@@ -490,9 +494,6 @@ The ``ias`` object contains the following fields:
    * - **Field**
      - **Type**
      - **Description**
-   * - **nis**
-     - string
-     - REQUIRED. NIS (Service Identification Number) value.
    * - **ias_pk**
      - string
      - REQUIRED. Base64-encoded IAS public key in DER format.
@@ -514,7 +515,7 @@ Below a non-normative example of an MRTD PoP Validation Request:
     OAuth-Client-Attestation-PoP: eyJhbGciOiJFUz…
 
     {
-      "mrtd_validation_jwt":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3dhbGxldC5leGFtcGxlLm9yZy9pbnN0YW5jZS8xMjM0NSIsImF1ZCI6Imh0dHBzOi8vcGlkLXByb3ZpZGVyLmV4YW1wbGUub3JnIiwiaWF0IjoxNzUzNTU1NDAwLCJleHAiOjE3NTM1NTU3MDAsImRvY3VtZW50X3R5cGUiOiJjaWUiLCJtcnRkIjp7ImRnMSI6IlVEeEpWRUU4VTAxSlZFZzhQRXBQU0U0OFBFcFBTRTRnVTAxSlZFZzhQREU1T0RBME1UVThUVDxQTnpjM056SXpNUT09IiwiZGcxMSI6Ik1USXpORFUyTnpnNVFVSkRSRVZHUjBoSlNrdE1UVTVQVUVGT1IxSlRWRlZXV0ZsYVUwRkVSVVU9Iiwic29kX21ydGQiOiJNSUlGempDQ0JMYWdBd0lCQWdJSVFPWTJLSkdGVFVJd0RRWUpLb1pJaHZjTkFRRUxCUUF3WHpFTE1Baz0ifSwiaWFzIjp7Im5pcyI6IklUMTIzNDU2Nzg5MDEyMzQiLCJpYXNfcGsiOiJNSUlCSWpBTkJna3Foa2lHOXcwQkFRRUZBQU9DQVE4QU1JSUJDZ0tDQVFFQXoxMjM0NTY3ODkwPSIsInNvZF9pYXMiOiJNSUlGYURDQ0JGQ2dBd0lCQWdJSkFMMktKR0ZUVUl3RFFZSktvWklodmNOQVFFTEJRQXdYekVMTUE9PSIsImNoYWxsZW5nZV9zaWduZWQiOiJhMWIyYzNkNGU1ZjY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OTBhYmNkZWYxMjM0NTY3ODkwYWJjZGVmPT0ifX0.xyz456abc789def012ghi345jkl678mno901pqr234stu567vwx890yz123",
+      "mrtd_validation_jwt":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL3dhbGxldC5leGFtcGxlLm9yZy9pbnN0YW5jZS8xMjM0NSIsImF1ZCI6Imh0dHBzOi8vcGlkLXByb3ZpZGVyLmV4YW1wbGUub3JnIiwiaWF0IjoxNzUzNTU1NDAwLCJleHAiOjE3NTM1NTU3MDAsImRvY3VtZW50X3R5cGUiOiJjaWUiLCJtcnRkIjp7ImRnMSI6IlVEeEpWRUU4VTAxSlZFZzhQRXBQU0U0OFBFcFBTRTRnVTAxSlZFZzhQREU1T0RBME1UVThUVDxQTnpjM056SXpNUT09IiwiZGcxMSI6Ik1USXpORFUyTnpnNVFVSkRSRVZHUjBoSlNrdE1UVTVQVUVGT1IxSlRWRlZXV0ZsYVUwRkVSVVU9Iiwic29kX21ydGQiOiJNSUlGempDQ0JMYWdBd0lCQWdJSVFPWTJLSkdGVFVJd0RRWUpLb1pJaHZjTkFRRUxCUUF3WHpFTE1Baz0ifSwiaWFzIjp7Imlhc19wayI6Ik1JSUJJakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBUThBTUlJQkNnS0NBUUVBejEyMzQ1Njc4OTA9Iiwic29kX2lhcyI6Ik1JSUZhRENDQkZDZ0F3SUJBZ0lKQUwyS0pHRlRVSXdEUVlKS29aSWh2Y05BUUVMQlFBd1h6RUxNQT09IiwiY2hhbGxlbmdlX3NpZ25lZCI6ImExYjJjM2Q0ZTVmNjc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MGFiY2RlZjEyMzQ1Njc4OTBhYmNkZWY9PSJ9fQ.xyz456abc789def012ghi345jkl678mno901pqr234stu567vwx890yz123”, 
       "mrtd_auth_session":"wxroVrBY2MCq4dDNGXACS",
       "mrtd_pop_nonce":"9f2c4a7e3b1d8c9a6e5f4b2a1c3d7e8f"
     }
@@ -523,7 +524,7 @@ Below a non-normative example of an MRTD PoP Validation Request:
 
 	- Perform `ICAO 9303`_ compliant NFC document reading (PACE,etc.).
 	- Validate document cryptographic signatures and certificate chains.
-	- Extract identity attributes (DG1 and DG11), NIS, Anti-Cloning Public Key from document data groups, and SODs (form MRTD and IAS Applications).
+  - Extract identity attributes (DG1 and DG11), Anti-Cloning Public Key from document data groups, and SODs (form MRTD and IAS Applications).
 	- Perform the Anti-Cloning Internal Authentication.
 	- Generate validation evidence in the JWT.
 	- Authenticate using a valid Wallet Instance Attestation.
@@ -544,7 +545,7 @@ Below a non-normative example of an MRTD PoP Validation Request:
 - Validate document cryptographic proofs and certificate chains.
 - Perform identity correlation between document data and LoA3 result.
 - Check document validity (non revocation status).
-- Check the binding between NIS obtained from IAS Application and Tax payer's identification number of the User read from the MRTD Application in order to ensure that both values are coming from the same chip.
+- Verify the binding between IAS and MRTD applications by checking that the NUN extracted from DG1 is present (as hashed value) in the IAS SOD, and the DG1 itself is present (as hashed value) in the MRTD SOD. This dual verification ensures both applications reside on the same physical chip.
 
 MRTD PoP Validation Response
 """"""""""""""""""""""""""""
@@ -664,7 +665,7 @@ MRTD PoP Validation Response Errors
    * - **access_denied**
      - User authentication or document validation failed.
    * - **invalid_document**
-     - Document cryptographic validation failed (SOD validation, NIS/CF binding, revocation status, etc.).
+     - Document cryptographic validation failed (SOD validation, IAS/MRTD binding, revocation status, etc.).
    * - **id_matching_failed**
      - The matching between the identity obtained during primary authentication (eID LoA3) and the one obtained from the PoP of the Electronic Document failed.
    * - **temporarily_unavailable**
@@ -792,15 +793,12 @@ The following security controls MUST be implemented in the protocol:
      - The MRTD PoP Service verifies the integrity of the data extracted from the CIE by checking the SOD elements (both IAS and MRTD) and the related hashes.
      - Phase 3
    * - **SC15**
-     - The PID Authorization Server verifies the existence and consistency of the User’s Tax payer's identification number extracted from the eID LoA3 assertion, by interacting with the Authoritative Source (AS_NIS).
+     - The MRTD PoP Service verifies that the binding between IAS and MRTD applications by checking that the NUN extracted from DG1 is present (as hashed value) in the IAS SOD, and the DG1 itself is present (as hashed value) in the MRTD SOD. This dual verification ensures both applications reside on the same physical chip.
      - Phase 3
    * - **SC16**
-     - The MRTD PoP Service verifies that the identity proven during the IAS interaction is correlated with the identity proven during the MRTD interaction, by interacting with the Authoritative Source (AS_NIS).
-     - Phase 3
-   * - **SC17**
      - The MRTD PoP Service verifies that the identity proven during the eID LoA3 phase is correlated with the identity proven during the MRTD PoP phase.
      - Phase 3
-   * - **SC18**
+   * - **SC17**
      - The MRTD PoP Service verifies that the CIE used during the MRTD PoP phase has not expired and not revoked by interacting with the CIE National Registry.
      - Phase 3
 
