@@ -179,7 +179,7 @@ Nel caso in cui il parametro ``authorization_servers`` venga omesso, è possibil
 Di seguito è riportato un esempio non normativo.
 
 .. code-block:: http
-  
+
     GET /.well-known/oauth-authorization-server HTTP/1.1
     Host: oauth-authorization-server.example.com
 
