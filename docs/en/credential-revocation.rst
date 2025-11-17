@@ -429,7 +429,7 @@ The requests to the *Status Assertion endpoint* MUST be HTTP with method POST, u
 
 Below a non-normative example representing a Status Assertion Request array with Status Assertion Request objects in JWT format.
 
-.. code::
+.. code-block:: http
 
   POST /status HTTP/1.1
   Host: issuer.example.org
@@ -553,7 +553,7 @@ The HTTP response MUST:
 
 A non-normative example of a HTTP Status Assertion Response is given below.
 
-.. code::
+.. code-block:: http
 
     HTTP/1.1 200 Ok
     Content-Type: application/json
@@ -635,14 +635,16 @@ The Status Assertion MUST contain the parameters and claims defined below
 
 Below a non-normative example of a Status Assertion Response object in JWT format, with the headers and payload represented in JSON and without applying the signature.
 
-.. code::
-
+.. code-block:: json
+  
   {
     "alg": "ES256",
     "typ": "status-assertion+jwt",
     "kid": "Issuer-JWK-KID"
   }
- .
+
+.. code-block:: json
+
   {
     "iss": "https://issuer.example.org",
     "jti": "6f204f7e-e453-4dfd-814e-9d155319408c"
@@ -729,14 +731,16 @@ The `error` claim for the Status Assertion Error object MUST be set with one of 
 
 Below a non-normative example of a Status Assertion Error object in JWT format, with the headers and payload represented in JSON and without applying the signature.
 
-.. code::
+.. code-block:: json
 
   {
     "alg": "ES256",
     "typ": "status-assertion-error+jwt",
     "kid": "Issuer-JWK-KID"
   }
-  .
+
+.. code-block:: json
+
   {
     "iss": "https://issuer.example.org",
     "jti": "6f204f7e-e453-4dfd-814e-9d155319408c"
@@ -879,14 +883,16 @@ A JSON-encoded Status List has the following structure:
 
 The following is an example of Status List Token before applying signature and encoding:
 
-.. code::
+.. code-block:: json
 
   {
     "alg": "ES256",
     "kid": "$KID",
     "typ": "statuslist+jwt"
   }
-  .
+
+.. code-block:: json
+
   {
     "exp": 2291720170,
     "iat": 1686920170,
@@ -954,7 +960,7 @@ The Relying Party SHOULD send the ``application/statuslist+jwt`` Accept-Header t
 
 The following is a non-normative example of a request for a Status List Token:
 
-.. code::
+.. code-block:: http
 
   GET /statuslists HTTP/1.1
   Host: example-issuer.com
@@ -972,7 +978,7 @@ If caching-related HTTP headers are present in the HTTP response, Relying Partie
 
 The following is a non-normative example of a response for a Status List Token with type ``application/statuslist+jwt``:
 
-.. code::
+.. code-block:: http
 
   HTTP/1.1 200 OK
   Content-Type: application/statuslist+jwt

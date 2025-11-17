@@ -524,7 +524,7 @@ Figure below shows how to obtain a new DPoP Access Token and a new DPoP Refresh 
 **Step 2**: To refresh a DPoP-bound Access Token, the Wallet Instance sends a token request using the parameter ``grant_type`` set to ``refresh_token``, including the DPoP header and the OAuth Client Attestation headers (:ref:`WP_068 <wallet-credential-issuance-testcases>`).
 A non-normative example of the token request for a DPoP Access Token using a Refresh Token is shown below.
 
-.. code::
+.. code-block:: http
 
   POST /token HTTP/1.1
   Host: eaa-provider.example.org
@@ -546,7 +546,7 @@ If the request checks are successful, the Credential Issuer generates a new Acce
 
 A non-normative example of a successful response is shown below.
 
-.. code::
+.. code-block:: http
 
   HTTP/1.1 200 OK
   Content-Type: application/json

@@ -71,7 +71,6 @@ Di seguito un esempio non normativo di un URL relativo a una Credential Offer ch
 
   openid-credential-offer://?credential_offer%3D%7B%22credential_issuer%22%3A%22https%3A%2F%2Feaa-provider.example.org%22%2C%22credential_configuration_ids%22%3A%5B%22dc_sd_jwt_Education_degree%22%5D%2C%22grants%22%3A%7B%22authorization_code%22%3A%7B%22issuer_state%22%3A%22oaKazRN8I0IbtZ0C7JuMn5%22%7D%7D%7D
 
-
 Il seguente diagramma mostra il *flusso di emissione*.
 
 .. _fig_Low-Level-Flow-ITWallet-PID-QEAA-Issuance:
@@ -487,7 +486,7 @@ La figura seguente mostra come ottenere un nuovo Access Token DPoP e un nuovo Re
 **Passo 2**: Per aggiornare un Access Token vincolato a DPoP, l'Istanza del Wallet invia una richiesta di token utilizzando il parametro ``grant_type`` impostato su ``refresh_token``, includendo l'header DPoP e gli header di OAuth Client Attestation (:ref:`WP_068 <wallet-credential-issuance-testcases>`).
 Un esempio non normativo della richiesta di token per un Access Token DPoP utilizzando un Refresh Token è mostrato di seguito.
 
-.. code::
+.. code-block:: http
 
   POST /token HTTP/1.1
   Host: eaa-provider.example.org
@@ -509,7 +508,7 @@ Se i controlli della richiesta hanno successo, il Credential Issuer genera un nu
 
 Un esempio non normativo di una risposta di successo è mostrato di seguito.
 
-.. code::
+.. code-block:: http
 
   HTTP/1.1 200 OK
   Content-Type: application/json

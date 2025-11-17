@@ -425,7 +425,7 @@ Le richieste all'*endpoint di Status Assertion* DEVONO essere HTTP con metodo PO
 
 Di seguito un esempio non normativo che rappresenta un array di Status Assertion Request con Status Assertion Request object in formato JWT.
 
-.. code::
+.. code-block:: http
 
   POST /status HTTP/1.1
   Host: issuer.example.org
@@ -548,7 +548,7 @@ La risposta HTTP DEVE:
 
 Un esempio non normativo di una HTTP Status Assertion Response è fornito di seguito.
 
-.. code::
+.. code-block:: http
 
     HTTP/1.1 200 Ok
     Content-Type: application/json
@@ -631,14 +631,16 @@ La Status Assertion DEVE contenere i parametri e i claim definiti di seguito
 
 Di seguito un esempio non normativo di un Status Assertion Response object in formato JWT, con gli header e il payload rappresentati in JSON e senza applicare la firma.
 
-.. code::
+.. code-block:: json
 
   {
     "alg": "ES256",
     "typ": "status-assertion+jwt",
     "kid": "Issuer-JWK-KID"
   }
- .
+
+.. code-block:: json
+
   {
     "iss": "https://issuer.example.org",
     "jti": "6f204f7e-e453-4dfd-814e-9d155319408c"
@@ -726,14 +728,16 @@ Il claim `error` per l'oggetto Status Assertion Error DEVE essere impostato con 
 
 Di seguito un esempio non normativo di un oggetto Status Assertion Error in formato JWT, con gli header e il payload rappresentati in JSON e senza applicare la firma.
 
-.. code::
+.. code-block:: json
 
   {
     "alg": "ES256",
     "typ": "status-assertion-error+jwt",
     "kid": "Issuer-JWK-KID"
   }
-  .
+
+.. code-block:: json
+
   {
     "iss": "https://issuer.example.org",
     "jti": "6f204f7e-e453-4dfd-814e-9d155319408c"
@@ -878,14 +882,16 @@ Una Status List codificata in JSON ha la seguente struttura:
 
 Di seguito è riportato un esempio di Token di Status List prima di applicare la firma e la codifica:
 
-.. code::
+.. code-block:: json
 
   {
     "alg": "ES256",
     "kid": "$KID",
     "typ": "statuslist+jwt"
   }
-  .
+
+.. code-block:: json
+
   {
     "exp": 2291720170,
     "iat": 1686920170,
@@ -953,7 +959,7 @@ La Relying Party DOVREBBE inviare l'Accept-Header ``application/statuslist+jwt``
 
 Di seguito è riportato un esempio non normativo di una richiesta per un Token di Status List:
 
-.. code::
+.. code-block:: http
 
   GET /statuslists HTTP/1.1
   Host: example-issuer.com
@@ -971,7 +977,7 @@ Se gli header HTTP relativi alla cache sono presenti nella risposta HTTP, le Rel
 
 Di seguito è riportato un esempio non normativo di una risposta per un Token di Status List con tipo ``application/statuslist+jwt``:
 
-.. code::
+.. code-block:: http
 
   HTTP/1.1 200 OK
   Content-Type: application/statuslist+jwt
