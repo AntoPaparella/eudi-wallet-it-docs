@@ -165,16 +165,16 @@ Il payload JWT contiene i seguenti claim. Alcuni di questi claim possono essere 
       - 4.1.1 `SD-JWT`_
 
 .. note::
-  I claim JWT standard ``nbf`` e ``exp`` sono utilizzati per esprimere il periodo di validità tecnica di un PID conforme a SD-JWT VC.
+  I claim JWT standard ``nbf`` e ``exp`` sono utilizzati per esprimere il periodo di validità tecnica di una Attestazione Elettronica conforme a SD-JWT VC.
 
 .. note::
    Il claim ``verification`` è un'**estensione domestica** definita dalla specifica italiana IT-Wallet. NON fa parte dell'ARF PID Rulebook (EUDI Wallet Architecture Reference Framework, Annex 3.01, PID Rulebook v1.3), ma è **permessa ai sensi del requisito ARF PID_06**, che consente agli Stati Membri di definire attributi domestici aggiuntivi oltre a quelli specificati nel Regolamento di Esecuzione della Commissione (CIR) 2024/2977.
 
    Questo claim è OBBLIGATORIO per i PID italiani per garantire:
 
-   - Tracciabilità del metodo di autenticazione dell'Utente (SPID/CIE/IT-Wallet/EUDI-Wallet)
-   - Conformità al livello di garanzia (LoA High/Substantial per Regolamento eIDAS)
-   - Verificabilità dei processi di verifica dell'identità
+   - Tracciabilità del metodo di autenticazione dell'Utente.
+   - Conformità al livello di garanzia (LoA High/Substantial per Regolamento eIDAS).
+   - Verificabilità dei processi di verifica dell'identità.
 
    Per la codifica mdoc-CBOR, questo claim è incluso nel **namespace domestico** come ``nameSpaces.elementIdentifier.verification`` (vedi tabella di mappatura cross-format).
 
@@ -236,7 +236,7 @@ A seconda del tipo di Attestato Elettronico **vct**, possono essere aggiunti dei
       -
 
 .. note::
-   Il claim ``tax_id_code`` è un'**estensione domestica** specifica dei PID italiani. NON è definito nell'ARF PID Rulebook (EUDI Wallet Architecture Reference Framework, Annex 3.01, PID Rulebook v1.3), ma è permesso ai sensi del requisito ARF PID_06, che consente agli Stati Membri di definire attributi domestici aggiuntivi oltre a quelli specificati nel Regolamento di Esecuzione della Commissione (CIR) 2024/2977.
+   Il claim ``tax_id_code`` è un'**estensione domestica** specifica dei PID italiani. NON è definito nell'ARF PID Rulebook (EUDI Wallet Architecture Reference Framework, Annex 3.01, PID Rulebook v1.3), ma è permesso ai sensi del requisito ARF **PID_06**, che consente agli Stati Membri di definire attributi domestici aggiuntivi oltre a quelli specificati nel Regolamento di Esecuzione della Commissione (CIR) 2024/2977.
 
 
 Esempi Non Normativi di PID
@@ -828,7 +828,7 @@ I seguenti **elementIdentifiers** sono definiti per gli Attestati Elettronici co
      - [ISO 18013-5#7.2]
 
    * - **issuing_authority**
-     - *(tstr, OBBLIGATORIO)*. Nome dell'autorità amministrativa che ha emesso l'mDL.
+     - *(tstr, OBBLIGATORIO)*. Nome dell'autorità amministrativa che ha emesso l'Attestato Elettronico.
        Il valore deve contenere solo caratteri Latin1b e deve avere una lunghezza massima di 150 caratteri.
      - [ISO 18013-5#7.2]
 

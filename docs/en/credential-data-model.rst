@@ -167,16 +167,16 @@ The JWT payload contains the following claims. Some of these claims can be discl
 
 
 .. note::
-  The standard JWT claims ``nbf`` and ``exp`` are used to express the technical validity period of a SD-JWT VC-compliant PID.
+  The standard JWT claims ``nbf`` and ``exp`` are used to express the technical validity period of a SD-JWT VC-compliant Digital Credential.
 
 .. note::
    The ``verification`` claim is a **domestic extension** defined by the Italian IT-Wallet specification. It is NOT part of the ARF PID Rulebook (EUDI Wallet Architecture Reference Framework, Annex 3.01, PID Rulebook v1.3), but is **permitted under ARF requirement PID_06**, which allows Member States to define additional domestic attributes beyond those specified in Commission Implementing Regulation (CIR) 2024/2977.
 
    This claim is REQUIRED for Italian PIDs to ensure:
 
-   - Traceability of User authentication method (SPID/CIE/IT-Wallet/EUDI-Wallet)
-   - Level of assurance compliance (LoA High/Substantial per eIDAS Regulation)
-   - Auditability of identity verification processes
+   - Traceability of User authentication method.
+   - Level of assurance compliance (LoA High/Substantial per eIDAS Regulation).
+   - Auditability of identity verification processes.
 
    For mdoc-CBOR encoding, this claim is included in the **domestic namespace** as ``nameSpaces.elementIdentifier.verification`` (see cross-format mapping table).
 
@@ -238,7 +238,7 @@ Depending on the Digital Credential type **vct**, additional claims data MAY be 
       -
 
 .. note::
-   The ``tax_id_code`` claim is a **domestic extension** specific to Italian PIDs. It is NOT defined in the ARF PID Rulebook (EUDI Wallet Architecture Reference Framework, Annex 3.01, PID Rulebook v1.3), but is permitted under ARF requirement PID_06, which allows Member States to define additional domestic attributes beyond those specified in Commission Implementing Regulation (CIR) 2024/2977.
+   The ``tax_id_code`` claim is a **domestic extension** specific to Italian PIDs. It is NOT defined in the ARF PID Rulebook (EUDI Wallet Architecture Reference Framework, Annex 3.01, PID Rulebook v1.3), but is permitted under ARF requirement **PID_06**, which allows Member States to define additional domestic attributes beyond those specified in Commission Implementing Regulation (CIR) 2024/2977.
 
 
 PID Non-Normative Examples
@@ -547,15 +547,6 @@ The Metadata type document MUST be a JSON object and contains the following para
     * - **extends#integrity**
       - CONDITIONAL. REQUIRED if **extends** is present.
       - [`SD-JWT-VC`_] Section 6.2.
-    * - **schema**
-      - CONDITIONAL. REQUIRED if **schema_uri** is not present.
-      - [`SD-JWT-VC`_] Section 6.2.
-    * - **schema_uri**
-      - CONDITIONAL. REQUIRED if **schema** is not present.
-      - [`SD-JWT-VC`_] Section 6.2.
-    * - **schema_uri#integrity**
-      - CONDITIONAL. REQUIRED if **schema_uri** is present.
-      - [`SD-JWT-VC`_] Section 6.2.
     * - **data_source**
       - REQUIRED. Object containing information about the data origin. It MUST contain the object ``verification`` with the following sub-value:
 
@@ -836,7 +827,7 @@ The following **elementIdentifiers** are defined for Digital Credentials encoded
      - [ISO 18013-5#7.2]
 
    * - **issuing_authority**
-     - *(tstr, REQUIRED)*. Name of the administrative authority that has issued the mDL.
+     - *(tstr, REQUIRED)*. Name of the administrative authority that has issued the Digital Credential.
        The value shall only use Latin1b characters and shall have a maximum length of 150 characters.
      - [ISO 18013-5#7.2]
 
