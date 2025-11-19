@@ -513,11 +513,12 @@ Un esempio non normativo di una risposta di successo è mostrato di seguito.
   HTTP/1.1 200 OK
   Content-Type: application/json
   Cache-Control: no-store
+  
   {
       "access_token": "eyJ0eXAiOiJhdCtqd3QiLCJhbGciOiJFU..",
       "refresh_token": "eyC3fiLdCtqd3QiLCJhbGciOiCL3..",
       "token_type": "DPoP",
-      "expires_in": 3600,
+      "expires_in": 3600
   }
 
 Se il Refresh Token è scaduto o non valido, il Credential Issuer DEVE emettere un errore, utilizzando il claim `error type` impostato su ``invalid_grant``. Pertanto, per ottenere l'Attestato Elettronico è necessario un flusso di emissione che autentichi l'Utente, come definito nella Sezione :ref:`credential-issuance-low-level:Issuance Flow`.

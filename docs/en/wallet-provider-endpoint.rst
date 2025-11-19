@@ -14,7 +14,7 @@ The Wallet Provider, responsible for delivering a Wallet Solution, MUST expose t
 .. note::
   Tests related to the use of Wallet Provider endpoints are defined in 
   :ref:`wallet-provider-test-matrix`, particularly 
-  :ref:`wallet-provider-backend-testcases`, 
+  :ref:`wallet-provider-backend-testcases`,
   :ref:`wallet-instance-testcases`, and 
   :ref:`wallet-instance-optional-testcases`.
 

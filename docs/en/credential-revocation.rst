@@ -429,7 +429,7 @@ The requests to the *Status Assertion endpoint* MUST be HTTP with method POST, u
 
 Below a non-normative example representing a Status Assertion Request array with Status Assertion Request objects in JWT format.
 
-.. code-block:: http
+.. code-block:: text
 
   POST /status HTTP/1.1
   Host: issuer.example.org
@@ -500,7 +500,7 @@ Below, is given a non-normative example of a single *Status Assertion Request ob
     "alg": "ES256",
     "typ": "status-assertion-request+jwt"
   }
-  
+
 .. code-block:: json
 
   {
@@ -553,7 +553,7 @@ The HTTP response MUST:
 
 A non-normative example of a HTTP Status Assertion Response is given below.
 
-.. code-block:: http
+.. code-block:: text
 
     HTTP/1.1 200 Ok
     Content-Type: application/json
@@ -643,11 +643,11 @@ Below a non-normative example of a Status Assertion Response object in JWT forma
     "kid": "Issuer-JWK-KID"
   }
 
-.. code-block:: json
+.. code-block:: text
 
   {
     "iss": "https://issuer.example.org",
-    "jti": "6f204f7e-e453-4dfd-814e-9d155319408c"
+    "jti": "6f204f7e-e453-4dfd-814e-9d155319408c",
     "credential_hash": "$CREDENTIAL-HASH",
     "credential_hash_alg": "sha-256",
     "credential_status_type": 0x01,

@@ -551,11 +551,12 @@ A non-normative example of a successful response is shown below.
   HTTP/1.1 200 OK
   Content-Type: application/json
   Cache-Control: no-store
+  
   {
       "access_token": "eyJ0eXAiOiJhdCtqd3QiLCJhbGciOiJFU..",
       "refresh_token": "eyC3fiLdCtqd3QiLCJhbGciOiCL3..",
       "token_type": "DPoP",
-      "expires_in": 3600,
+      "expires_in": 3600
   }
 
 If the Refresh Token is expired or invalid, the Credential Issuer MUST issue an error, using the error type member set to ``invalid_grant``. Therefore, to obtain the Digital Credential an issuance flow authenticating the User is required, as defined in Section :ref:`credential-issuance-low-level:Low-Level Issuance Flow`.

@@ -761,8 +761,8 @@
                 "vouch"
             ]
         },
-      "openid_credential_verifier": {
-        // see relying party metadata section and endpoints
+        "openid_credential_verifier": {
+            // see relying party metadata section and endpoints
         },
         "jwks": {
             "keys": [

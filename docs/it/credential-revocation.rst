@@ -425,7 +425,7 @@ Le richieste all'*endpoint di Status Assertion* DEVONO essere HTTP con metodo PO
 
 Di seguito un esempio non normativo che rappresenta un array di Status Assertion Request con Status Assertion Request object in formato JWT.
 
-.. code-block:: http
+.. code-block:: text
 
   POST /status HTTP/1.1
   Host: issuer.example.org
@@ -548,7 +548,7 @@ La risposta HTTP DEVE:
 
 Un esempio non normativo di una HTTP Status Assertion Response è fornito di seguito.
 
-.. code-block:: http
+.. code-block:: text
 
     HTTP/1.1 200 Ok
     Content-Type: application/json
@@ -639,11 +639,11 @@ Di seguito un esempio non normativo di un Status Assertion Response object in fo
     "kid": "Issuer-JWK-KID"
   }
 
-.. code-block:: json
+.. code-block:: text
 
   {
     "iss": "https://issuer.example.org",
-    "jti": "6f204f7e-e453-4dfd-814e-9d155319408c"
+    "jti": "6f204f7e-e453-4dfd-814e-9d155319408c",
     "credential_hash": "$CREDENTIAL-HASH",
     "credential_hash_alg": "sha-256",
     "credential_status_type": 0x01,
