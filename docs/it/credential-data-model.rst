@@ -436,7 +436,7 @@ Il formato combinato per l'emissione del (Q)EAA è rappresentato di seguito:
   :language: text
 
 Type Metadata dell'Attestato Elettronico
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Il documento di *Type Metadata*, se fornito, DEVE essere un *JSON object* e DEVE contenere i seguenti parametri.
 
