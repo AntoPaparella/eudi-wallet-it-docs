@@ -82,7 +82,7 @@ The following procedure enables federation entities to:
 	- Download current revocation lists.
 	- Analyze CRL content and validity periods.
 
-.. includeliteral:: ../../utils/crl-analysis.sh
+.. literalinclude:: ../../utils/crl-analysis.sh
    :language: bash
 
 
@@ -99,7 +99,7 @@ Federation entities SHOULD implement automated revocation checking for:
 
 Below a bash script for X.509 certificate revocation status verification is given as a non-normative example:
 
-.. includeliteral:: ../../utils/certificate-revocation-verification.sh
+.. literalinclude:: ../../utils/certificate-revocation-verification.sh
    :language: bash
 
 
@@ -140,7 +140,7 @@ Federation entities MUST implement diagnostic procedures to identify and resolve
 
 The following non-normative example provides a script for Federation X.509 certificate infrastructure connectivity test:
 
-.. includeliteral:: ../../utils/federation-connectivity-test.sh
+.. literalinclude:: ../../utils/federation-connectivity-test.sh
    :language: bash
 
 
@@ -177,11 +177,12 @@ Technical updates affecting federation protocol operations MUST follow specific 
 
   - **Key Rotation**
 
-    1. **New Key Generation**: The Entity MUST generate a new Federation Entity Public Key pair.
-    2. **Parallel Key Publication**: The Entity MUST publish both old and new keys in Entity Configuration ``jwks`` claim during transition period.
-    3. **X.509 Certificate Request**: The Entity MUST request new X.509 certificate for new public key following standard procedure.
-    4. **Gradual Migration**: The Entity MUST update Entity Configuration to use new key for signing while maintaining old key for verification.
-    5. **Old Key Deprecation**: The Entity MUST remove old key from Entity Configuration after validation period.
+    1. **Key Activation**: In case of incident or planned rotation, the Entity MUST activate an alternative Federation Entity Key for signing operations.
+    2. **New Key Generation**: The Entity MUST generate a new Federation Entity Public Key pair to serve as an additional key.
+    3. **Parallel Key Publication**: The Entity MUST publish all available keys in Entity Configuration ``jwks`` claim during transition period.
+    4. **X.509 Certificate Request**: The Entity MUST request new X.509 certificate for new key following standard procedure.
+    5. **Gradual Migration**: The Entity MUST update Entity Configuration to use the activated key for signing while maintaining all keys for verification.
+    6. **Old Key Deprecation**: The Entity MUST remove the old key from Entity Configuration after validation period, maintaining the alternative key and new key.
 
   - **Metadata Updates**
 

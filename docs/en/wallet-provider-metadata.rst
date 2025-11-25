@@ -25,17 +25,22 @@ The metadata JSON Object whose key is ``wallet_provider`` contains the following
     * - ``signed_jwks_uri``
       - CONDITIONAL. URL referencing a signed JWT having the Entity's JWK Set document for that Entity Type as its payload. This URL MUST use the https scheme. The JWT MUST be signed using a Federation Entity Key. A successful response from the URL MUST use the HTTP status code 200 with the Content Type ``application/jwk-set+jwt``. It MUST be present if ``jwks`` and ``jwks_uri`` are absent.
       - `OID-FED`_.
+    * - **logo_uri**
+      - REQUIRED. URL of the entity's logo that will be shown to the User during interactions with the Wallet Instance. The logo mime type MUST be ``application/svg``.
+      - `OID-FED`_ Section 5.2.2
 
 Below is a non-normative example of the Entity Configuration for a Wallet Provider.
 
-.. code-block:: javascript
+.. code-block:: json
 
   {
     "alg": "ES256",
     "kid": "5t5YYpBhN-EgIEEI5iUzr6r0MR02LnVQ0OmekmNKcjY",
     "typ": "entity-statement+jwt"
   }
-  .
+
+.. code-block:: json
+
   {
   "iss": "https://wallet-provider.example.org",
   "sub": "https://wallet-provider.example.org",
@@ -52,6 +57,7 @@ Below is a non-normative example of the Entity Configuration for a Wallet Provid
   },
   "metadata": {
     "wallet_provider": {
+      "logo_uri": "https://wallet-provider.example.org/compact-logo.svg",
       "jwks": {
         "keys": [
           {
@@ -63,11 +69,6 @@ Below is a non-normative example of the Entity Configuration for a Wallet Provid
           }
         ]
       },
-      "aal_values_supported": [
-        "https://wallet-provider.example.org/LoA/basic",
-        "https://wallet-provider.example.org/LoA/medium",
-        "https://wallet-provider.example.org/LoA/high"
-      ]
     },
     "federation_entity": {
       "organization_name": "IT-Wallet Provider",
