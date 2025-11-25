@@ -660,7 +660,7 @@ Nella seguente tabella sono elencati gli *Error codes* e le descrizioni che sono
    * - ``access_denied``
      - Il Wallet non aveva l'Attestato Elettronico richiesto, l'Utente non ha dato il consenso o il Wallet non è riuscito ad autenticare l'Utente. `OpenID4VP`_
    * - ``invalid_client``
-     - - I metadata di federazione della Relying Party sono stati risolti basandosi sull'Identificatore del Client (utilizzando il prefisso ``openid_federation``), ma non possono essere autorizzati a causa di errori di convalida della trust oppure non è stata riconosciuta come partecipante valido della federazione. `OID-FED`_
+     - - I metadata della Relying Party sono stati risolti basandosi sull'Identificatore del Client (utilizzando il prefisso ``openid_federation`` o ``x509_hash``), ma la Relying Party non può essere autorizzata a causa di errori nella verifica della trust oppure dal fatto che non è stata riconosciuta come entità valida della federazione. `OID-FED`_ e `OpenID4VP`_
        - Il parametro ``client_metadata`` è presente, ma il Wallet riconosce l'identificativo del client e conosce i metadati ad esso associati. `OpenID4VP`_
        - I metadati pre-registrati del Relying Party sono stati trovati in base all'identificativo del client, ma è presente anche il parametro ``client_metadata``. `OpenID4VP`_
    * - ``invalid_transaction_data``  

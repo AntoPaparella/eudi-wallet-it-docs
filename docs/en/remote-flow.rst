@@ -662,7 +662,7 @@ In the following table are listed error codes and descriptions that are supporte
    * - ``access_denied``
      - The Wallet did not have the requested credential, the User did not consent, or the Wallet failed to authenticate the User. `OpenID4VP`_
    * - ``invalid_client``
-     - - The Relying Party’s federation metadata has been resolved based on the Client Identifier (using the ``openid_federation`` prefix), but cannot be authorized due to trust validation failures or is not a valid participant of the federation. `OID-FED`_
+     - - The Relying Party’s metadata has been resolved based on the Client Identifier (using the ``openid_federation`` or ``x509_hash`` prefix), but cannot be authorized due to trust validation failures or is not a valid participant of the federation. `OID-FED`_ and `OpenID4VP`_
        - ``client_metadata`` parameter is present, but the Wallet recognizes Client Identifier and knows metadata associated with it. `OpenID4VP`_
        - Relying Party's pre-registered metadata has been found based on the Client Identifier, but ``client_metadata`` parameter is also present. `OpenID4VP`_
    * - ``invalid_transaction_data``
