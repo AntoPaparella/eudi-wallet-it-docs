@@ -28,9 +28,9 @@ Below is a non-normative example.
     Accept-Language: it-IT, it;q=0.9
 
 
-The Credential Issuer MUST respond with HTTP Status Code 200 and return the Credential Issuer Metadata containing the parameters defined in :ref:`credential-issuer-metadata:Metadata for openid_credential_issuer` within in an unsigned JSON document using the media type *application/json*.
+The Credential Issuer MUST respond with HTTP Status Code 200 and return the Credential Issuer Metadata containing the parameters defined in :ref:`credential-issuer-metadata:Metadata for openid_credential_issuer` using an unsigned JSON document with the media type *application/json*.
 
-The ``authorization_servers`` entries of the Credential Issuer Metadata can be used to obtain the Authorization Server metadata from the Oauth Authorization Server ``/.well-known/oauth-authorization-server`` as defined in Section 3 of :rfc:`8414`. In case of ``authorization_servers`` parameter is omitted, the Credential Issuer's identifier can be used to retrieve the Authorization Server metadata.
+The ``authorization_servers`` entries of the Credential Issuer Metadata can be used to obtain the Authorization Server metadata from the Oauth Authorization Server ``/.well-known/oauth-authorization-server`` as defined in Section 3 of :rfc:`8414`. In case the ``authorization_servers`` parameter is omitted, the Credential Issuer's identifier can be used to retrieve the Authorization Server metadata.
 
 Below is a non-normative example.
 
@@ -39,7 +39,7 @@ Below is a non-normative example.
     GET /.well-known/oauth-authorization-server HTTP/1.1
     Host: oauth-authorization-server.example.com
 
-The Oauth Authorization Server MUST respond with HTTP Status Code 200 and return the Oauth Authorization Server Metadata containing the parameters defined in :ref:`credential-issuer-metadata:Metadata for oauth_authorization_server` within in a JSON document using the media type *application/json*.
+The Oauth Authorization Server MUST respond with HTTP Status Code 200 and return the Oauth Authorization Server Metadata containing the parameters defined in :ref:`credential-issuer-metadata:Metadata for oauth_authorization_server`, using a JSON document with the media type *application/json*.
 
 Credential Issuance Endpoints
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
