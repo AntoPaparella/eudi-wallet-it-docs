@@ -129,14 +129,20 @@
                           12: h'A2BC5E47G78ECD86F34422BD2D3A…'
                       }
                   },                             
-                  "deviceKeyInfo": {                              
-                      "deviceKey": {                                  
-                          1: 2, % kty:EC2 (Eliptic curves with x and y coordinate pairs)           
-                          -1: 1, % crv:p256                     
-                          -2: h'B820963964E53AF064686DD9218303494A…', % x-coordiantes                                        
-                          -3: h'0A6DA0AF437E2943F1836F31C678D89298E9…'% y-ccordiantes                                     
-                      }                            
-                  },                             
+                  "deviceKeyInfo": {
+                      "deviceKey": {
+                          1: 2, % kty:EC2 (Eliptic curves with x and y coordinate pairs)
+                          -1: 1, % crv:p256
+                          -2: h'B820963964E53AF064686DD9218303494A…', % x-coordiantes
+                          -3: h'0A6DA0AF437E2943F1836F31C678D89298E9…'% y-ccordiantes
+                      }
+                  },
+                  "status": {
+                      "status_list": {
+                          "idx": 0,
+                          "uri": "https://issuer.example.org/statuslists/1"
+                      }
+                  },
                   "digestAlgorithm": "SHA-256"    
                   }                       
               >>)                     
