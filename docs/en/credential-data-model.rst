@@ -500,8 +500,8 @@ The following **elementIdentifiers** representing format-encoded metadata attrib
      - [ISO 18013-5#7.2]
 
    * - **issuance_date**
-      - *(tdate or full-date, OPTIONAL)*. Format-encoded data identifier `issuance_date` as defined in Section :ref:`credential-data-model:Format-Agnostic Credential Metadata Attributes`.  This attribute pertains to the administrative issuance date, which is typically different from the technical issuance date expressed by the `MobileSecurityObject` parameters ``signed`` or ``validFrom``.
-      - Section 2.6 of the ARF PID Rulebook v1.3 [`EIDAS-ARF`_].  
+     - *(tdate or full-date, OPTIONAL)*. Format-encoded data identifier `issuance_date` as defined in Section :ref:`credential-data-model:Format-Agnostic Credential Metadata Attributes`.  This attribute pertains to the administrative issuance date, which is typically different from the technical issuance date expressed by the `MobileSecurityObject` parameters ``signed`` or ``validFrom``.
+     - Section 2.6 of the ARF PID Rulebook v1.3 [`EIDAS-ARF`_].  
 
    * - **expiry_date**
      - *(tdate or full-date, OPTIONAL)*. Format-encoded data identifier `expiry_date` as defined in Section :ref:`credential-data-model:Format-Agnostic Credential Metadata Attributes`. It MUST be according to ISO 8601-1 YYYY-MM-DD format.

@@ -500,8 +500,8 @@ I seguenti **elementIdentifiers** che rappresentano attributi metadata format-en
      - [ISO 18013-5#7.2]
 
    * - **issuance_date**
-      - *(tdate o full-date, OPZIONALE)*. Identificativo del dato `issuance_date` codificato nel formato come definito nella Sezione :ref:`credential-data-model:Attributi di Metadati Format-Agnostic dell'Attestato Elettronico`. Questo attributo si riferisce alla data amministrativa di emissione dell'Attestato Elettronico, che è tipicamente diverso dalla data tecnica di emissione espresso dai parametri ``signed`` or ``validFrom`` del `MobileSecurityObject`.
-      - Sezione 2.6 dell'ARF PID Rulebook v1.3 [`EIDAS-ARF`_].
+     - *(tdate o full-date, OPZIONALE)*. Identificativo del dato `issuance_date` codificato nel formato come definito nella Sezione :ref:`credential-data-model:Attributi di Metadati Format-Agnostic dell'Attestato Elettronico`. Questo attributo si riferisce alla data amministrativa di emissione dell'Attestato Elettronico, che è tipicamente diverso dalla data tecnica di emissione espresso dai parametri ``signed`` or ``validFrom`` del `MobileSecurityObject`.
+     - Sezione 2.6 dell'ARF PID Rulebook v1.3 [`EIDAS-ARF`_].
 
    * - **expiry_date**
      - *(tdate o full-date, OPZIONALE)*. Identificativo del dato format-encoded `expiry_date` come definito nella Sezione :ref:`credential-data-model:Attributi di Metadati Format-Agnostic dell'Attestato Elettronico`. DEVE essere conforme al formato ISO 8601-1 YYYY-MM-DD.
