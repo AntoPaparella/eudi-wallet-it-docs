@@ -4,12 +4,12 @@
 PID Data Model
 ==============================
 
-The Person Identification Data (PID) is issued by the PID Provider according to national laws and it MUST be provided in SD-JWT-VC and mdoc-CBOR data format. 
+The Person Identification Data (PID) is issued by the PID Provider according to national laws and it MUST be provided in both SD-JWT VC and mdoc-CBOR data format. 
 
 .. note::
    **Transitional Phase:**
 
-   During the transitional phase before full EUDIW operability,PID will be provided only in SD-JWT-VC format. 
+   During the transitional phase before full EUDIW operability, PID will be provided only in SD-JWT VC format. 
 
 The main scope of the PID is allowing natural persons to be authenticated for access to a service or to a protected resource.
 The PID MUST be provided according to data model requirements defined in  `EU_2024/2977`_ and **Section 2 of the ARF PID Rulebook v1.3** [`EIDAS-ARF`_], the User attributes provided within the Italian PID are the ones listed below:
@@ -31,16 +31,16 @@ In addition to the User attributes listed above, the PID includes also the follo
 
 Some attributes, such as the *taxpayer identification number* and the *identity and data proofing information*, are provided as **domestic extensions** defined by the Italian IT-Wallet specification. It is NOT part of the ARF PID Rulebook (Annex 3.01, PID Rulebook v1.3), but is **permitted under ARF requirement PID_06**, which allows Member States to define additional domestic attributes beyond those specified in Commission Implementing Regulation (CIR) 2024/2977 (`EU_2024/2977`_). In particular, the identity proofing information is REQUIRED for Italian PIDs to ensure:
 
-- Traceability of User authentication method.
-- Level of Assurance compliance of identity proofing during the enrollment process (LoA as defined by eIDAS Regulation).
-- Auditability of identity and User attributes verification processes.
+- The evaluation of User authentication method used.
+- The level of Assurance compliance of identity proofing during the enrollment process, according to the LoA defined by the eIDAS Regulation.
+- The auditability upon the User attributes verification processes.
 
 Attributes that are **domestic extensions** MUST be included in the **domestic namespaces** that are defined in Section :ref:`credential-data-model-pid:PID Data Model in SD-JWT-VC Format` and Section :ref:`credential-data-model-pid:PID Data Model in mdoc-CBOR Format` for SD-JWT-VC and mdoc-CBOR PIDs respectively.
 
 PID Data Model in SD-JWT-VC Format
 -----------------------------------
 
-For the SD-JWT-VC PID defined in this specification, the ``vct`` value MUST be ``urn:eudi:pid:it:1`` in compliance with ARF PID Rulebook v1.3 requirements for domestic PID extensions (requirement **PID_14**, Section 4.2, extending the base type ``urn:eudi:pid:``).
+The SD-JWT-VC PID defined in this specification MUST use the ``vct`` claim value set with ``urn:eudi:pid:it:1``, according to the domestic PID extensions defined in the ARF PID Rulebook v1.3 (see also ARF HLR **PID_14**, Section 4.2, extending the base type ``urn:eudi:pid:``).
 
 .. note::
    **Transitional Phase:**
